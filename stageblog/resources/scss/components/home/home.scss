@@ -1,0 +1,27 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+
+.hours{
+    width: 100%;
+    background: map-get(variables.$baseVars, "grey");
+    padding: 2rem;
+    border-radius: 0.4rem;
+
+    &__progress{
+        &--bar{
+            width: 100%;
+            height: 1rem;
+            appearance: none;
+            border-radius: 2rem;
+            
+            &::-webkit-progress-bar{
+                border-radius: 2rem;
+                background: rgba(map-get(variables.$baseVars, "bluegrey"), 0.4);
+            }
+            &::-webkit-progress-value{
+                border-radius: 2rem;
+                background: map-get(variables.$baseVars, "darkgrey");
+            }
+        }
+    }
+}

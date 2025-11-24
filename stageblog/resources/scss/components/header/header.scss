@@ -1,0 +1,102 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+
+.header{
+    background: map-get(variables.$baseVars, "background");
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 35rem;
+    box-shadow: 10rem 0 10rem 10rem lighten(map-get(variables.$baseVars, "background"), 4%);
+
+    &__movie{
+        background: transparent;
+        box-shadow: none;
+    }
+
+    &__link{
+        text-decoration: none;
+        color: map-get(variables.$baseVars, "color");
+
+        &--title{
+            font-size: 200%;
+        }
+    }
+
+    &__navigation{
+        @include mixins.flexBox;
+        gap: 2rem;
+
+        &--item{
+            text-decoration: none;
+            color: map-get(variables.$baseVars, "color");
+            font-weight: 600;
+
+            &:hover{
+                cursor: pointer;
+                color: map-get(variables.$baseVars, "blue");
+            }
+        }
+
+        &--wrapper{
+            display: flex;
+            flex-direction: column;
+            position: relative;
+
+            &:hover .header__navigation--dropdown{
+                display: flex;
+            }
+        }
+
+        &--avatar{
+            width: 4rem;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+
+        }
+
+        &--dropdown{
+            position: absolute;
+            top: 100%;
+            left: 0;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            gap: 2rem;
+            background: map-get(variables.$baseVars, "black");
+            padding: 2rem;
+            width: 20rem;
+
+            &-item{
+                text-decoration: none;
+                color: map-get(variables.$baseVars, "color");
+
+
+                &:hover{
+                    cursor: pointer;
+                    color: map-get(variables.$baseVars, "blue");
+                }
+            }
+
+            &-signout{
+                background: none;
+                border: none;
+                color: map-get(variables.$baseVars, "error");
+                font-size: 100%;
+                border-top: 0.1rem solid rgba(map-get(variables.$baseVars, "white"), 0.2);
+                width: 100%;
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                padding: 1rem 0.2rem;
+
+
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+
+    }
+}

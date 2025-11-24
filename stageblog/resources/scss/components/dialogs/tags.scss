@@ -1,0 +1,95 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+
+.tags{
+    background: map-get(variables.$baseVars, 'darkgrey');
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    position: fixed;
+    left: 50%;
+    border: none;
+    top: 50%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 60%;
+    overflow-y: scroll;
+
+    &__header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        border-bottom: 0.1rem solid map-get(variables.$baseVars, "bluegrey");
+
+        &--text{
+            color: map-get(variables.$baseVars, "color");
+        }
+        &--close{
+            color: map-get(variables.$baseVars, "grey");
+            background: none;
+            border: none;
+            font-size: 120%;
+        }
+    }
+
+    &__body{
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        gap: 1rem;
+    }
+    &__item{
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        gap: 1rem;
+        &--wrapper{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        &--name{
+            color: map-get(variables.$baseVars, "color");
+            font-weight: 400;
+        }
+        &--description{
+            color: map-get(variables.$baseVars, "grey");
+        }
+        &--button{
+            background: none;
+            border: none;
+            color: map-get(variables.$baseVars, "color");
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+
+        &--info{
+            color: map-get(variables.$baseVars, "grey");
+            padding-left: 5rem;
+            font-size: 85%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            gap: 1rem;
+
+            &-list{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: start;
+                gap: 0.4rem;
+            }
+        }
+    }
+}

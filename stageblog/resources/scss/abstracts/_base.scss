@@ -1,0 +1,15 @@
+@use "variables";
+@use "mixins";
+
+body{
+    min-height: 100vh;
+    font-size: 1.6rem;
+    background: map-get(variables.$baseVars, "background");
+    color: map-get(variables.$baseVars, "color");
+    font-family: map-get(variables.$baseVars, "font");
+}
+
+.main{
+    @include mixins.flexBox;
+    padding: 2rem 35rem;
+}

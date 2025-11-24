@@ -1,0 +1,161 @@
+[
+    {
+        "name": "B1-K1-W1",
+        "description": "Plant werkzaamheden en bewaakt de voortgang",
+        "points": [
+            "Stemt doelen en planning af met opdrachtgever of leidinggevende of belanghebbenden en vraagt dóór totdat deze zaken duidelijk zijn.",
+            "Trekt logische conclusies uit de beschikbare informatie over de benodigde werkzaamheden en eventuele risico’s.",
+            "Stelt realistische doelen, prioriteiten en een realistisch tijdpad op voor de te realiseren software(-onderdelen).",
+            "Bewaakt de gestelde doelen en planning."
+        ],
+        "goal": "Doelen en planning zijn afgestemd met de opdrachtgever/leidinggevende/belanghebbenden."
+    },
+    {
+        "name": "B1-K1-W2",
+        "description": "Ontwerpt software",
+        "points": [
+            "Beargumenteert met steekhoudende argumenten de gemaakte keuzes in het ontwerp.",
+            "Controleert of het ontwerp voldoet aan de gestelde eisen en wensen en doet indien nodig voorstellen om het ontwerp aan te passen.",
+            "Volgt de geldende protocollen en regelgeving omtrent privacy, ethiek en veiligheid van de software nauwgezet op en laat dit in het ontwerpt zien."
+        ],
+        "goal": "Het (deel-)ontwerp sluit aan op de geformuleerde eisen en wensen."
+    },
+    {
+        "name": "B1-K1-W3",
+        "description": "Realiseert (onderdelen van) software",
+        "points": [
+            "Kiest de juiste materialen en middelen (gebruikersinterface, software/softwaretools – editors en compilers) en gebruikt deze effectief.",
+            "Hanteert de code-conventies volgens de voorgeschreven wijze.",
+            "Realiseert software die netjes en goed leesbaar is.",
+            "Realiseert software nauwgezet volgens de eisen uit opdracht en ontwerp.",
+            "Presteert onder (tijds-)druk en/of in een stressvolle omgeving effectief en productief.",
+            "Werkt in het geval van integratie van assets samen met andere betrokkenen en stemt met hen een heldere taakverdeling af."
+        ],
+        "goal": "De software werkt en voldoet aan de opdracht, het ontwerp en de geldende code-conventies."
+    },
+    {
+        "name": "B1-K1-W4",
+        "description": "Test software",
+        "points": [
+            "Voert snel, correct en adequaat de testactiviteiten uit.",
+            "Interpreteert de testresultaten en trekt logische conclusies.",
+            "Legt testresultaten en conclusies nauwkeurig, duidelijk en conform bedrijfs- of beroepsstandaarden vast."
+        ],
+        "goal": "De testactiviteiten zijn correct uitgevoerd en er zijn plausibele conclusies getrokken."
+    },
+    {
+        "name": "B1-K1-W5",
+        "description": "Doet verbetervoorstellen voor de software",
+        "points": [
+            "Analyseert systematisch alle beschikbare informatiebronnen voor de aan te passen software.",
+            "Toont technisch inzicht en abstractievermogen bij het interpreteren en vertalen van wensen, reacties, testresultaten en/of meldingen van opdrachtgever/leidinggevende/belanghebbenden naar realiseerbare verbetervoorstellen.",
+            "Stemt met opdrachtgever/leidinggevende/belanghebbenden duidelijk af welke werkzaamheden benodigd zijn, evenals een haalbare planning."
+        ],
+        "goal": "Voorstellen voor verbetering van de software zijn afgestemd met de opdrachtgever/leidinggevende/belanghebbenden."
+    },
+    {
+        "name": "B1-K2-W1",
+        "description": "Voert overleg",
+        "points": [
+            "Brengt actief noodzakelijke en relevante onderwerpen voor het overleg in.",
+            "Participeert actief en zelfkritisch in het overleg, door het melden van uitdagingen en knelpunten en/of vragen om advies.",
+            "Formuleert afspraken eenduidig.",
+            "Houdt zich aan afspraken/werkwijze voor het voeren van overleg."
+        ],
+        "goal": "De eigen werkzaamheden, resultaten en ideeën zijn gecommuniceerd, feedback is gevraagd en vervolgafspraken zijn helder."
+    },
+    {
+        "name": "B1-K2-W2",
+        "description": "Presenteert het opgeleverde werk",
+        "points": [
+            "Legt de opgeleverde functionaliteiten duidelijk uit en weet vragen over het opgeleverde product of de uitgevoerde werkzaamheden adequaat te beantwoorden.",
+            "Houdt een goed opgebouwd en met argumenten onderbouwd verhaal en controleert of de boodschap is overgekomen.",
+            "Maakt contact met de toehoorders en stemt de stijl van communiceren en eventuele presentatiemiddelen af op de doelgroep."
+        ],
+        "goal": "Betrokkenen zijn goed geïnformeerd over het opgeleverde werk en de uitgevoerde werkzaamheden."
+    },
+    {
+        "name": "B1-K2-W3",
+        "description": "Reflecteert op het werk",
+        "points": [
+            "Stelt zich open voor feedback en vraagt expliciet naar de mening en ideeën van anderen.",
+            "Geeft positieve, constructieve feedback over het werk en/of de inbreng van anderen.",
+            "Toont zich kritisch op het eigen werk."
+        ],
+        "goal": "De eigen prestaties zijn geëvalueerd, alsmede het teamproces en/of de werkwijze."
+    },
+    {
+        "name": "B-H1",
+        "description": "Ik gedraag mij klantgericht, kritisch, creatief en flexibel.",
+        "points": [
+            "Ik richt me in het werk op de wensen en eisen van de klant/opdrachtgever",
+            "Ik houd me daarbij aan de algemene omgangsregels die in het bedrijf gelden",
+            "Ik ben kritisch op aangeleverd werk of de opdracht maar ook op mezelf",
+            "Ik zoek in het werk naar originele, creatieve oplossingen",
+            "Ik stel me flexibel op, bijvoorbeeld door suggesties voor andere werkwijzen te accepteren en mijn eigen voorkeuren los te laten als dat nodig is.",
+            "Ik stel het belang van de klant, het team, de groep en het bedrijf boven mijn eigen belang in de uitvoering van het werk"
+        ],
+        "goal": "In deze stageperiode functioneer ik als (beginnend) werknemer in een. arbeidsorganisatie."
+    },
+    {
+        "name": "B-H2",
+        "description": "Ik werk goed samen in multidisciplinaire teams én communiceer met mensen op alle niveaus.",
+        "points": [
+            "Ik neem mijn verantwoordelijkheid voor mijn aandeel in het (team-)werk en teamfunctioneren",
+            "Ik overleg en stem zaken af met collega’s in het team",
+            "Ik communiceer helder, duidelijk en tijdig met de opdrachtgever en/of het team",
+            "Ik meld tijdig en volgens de bedrijfsregels als ik vrij wil hebben (ook voor dokterbezoek)",
+            "Ik pas mijn manier van communiceren aan aan de bedrijfsafspraken",
+            "Ik ontwikkel en verbeter mijn kennis en gebruik van de Engelse taal"
+        ],
+        "goal": "In deze stageperiode functioneer ik als (beginnend) werknemer in een. arbeidsorganisatie."
+    },
+    {
+        "name": "B-H3",
+        "description": "Ik werk nauwkeurig en toon doorzettingsvermogen en kan onder tijdsdruk werken.",
+        "points": [
+            "Ik werk precies en nauwkeurig en controleer mijn eigen werk",
+            "Ik laat mijn werk zien en beoordelen door collega’s volgens de bedrijfsafspraken",
+            "Ik geef niet snel op en probeer mijn werk af te maken",
+            "Ik voer mijn taken uit en laat geen werk liggen",
+            "Ik pas mij aan naar de planning en doe mijn best om deadlines te halen"
+        ],
+        "goal": "In deze stageperiode functioneer ik als (beginnend) werknemer in een. arbeidsorganisatie."
+    },
+    {
+        "name": "B-H4",
+        "description": "Ik kan goed gegevens interpreteren en ik denk niet in problemen maar in oplossingen.",
+        "points": [
+            "Ik lees en luister aandachtig naar briefingen, werkopdrachten en aanwijzingen",
+            "Ik stel op tijd vragen wanneer ik iets niet begrijp of bevestiging wil hebben",
+            "Ik probeer opdrachten te vertalen en begrijpen in mijn eigen woorden",
+            "Ik controleer aangeleverde materialen op juistheid en neem actie als deze onjuist (lijken te) zijn",
+            "Ik zoek bij onduidelijkheid of problemen eerst zelf naar oplossingen",
+            "Ik denk bedrijfsgericht bij het zoeken van oplossingen"
+        ],
+        "goal": "In deze stageperiode functioneer ik als (beginnend) werknemer in een. arbeidsorganisatie."
+    },
+    {
+        "name": "B-H5",
+        "description": "Ik neem initiatief, adviseer en organiseer (in/over) mijn eigen aandeel in het werk.",
+        "points": [
+            "Ik wacht niet af, maar ga actief op zoek naar werk en hulp",
+            "Ik geef collega’s en anderen advies over mijn aandeel in het werk",
+            "Ik zorg voor een goede organisatie van mijn werk (inclusief documenteren)",
+            "Ik lever een positieve bijdrage aan het bedrijf en het werk"
+        ],
+        "goal": "In deze stageperiode functioneer ik als (beginnend) werknemer in een. arbeidsorganisatie."
+    },
+    {
+        "name": "B-H6",
+        "description": "Ik ben in staat en bereid om voortdurend bij te leren en op de hoogte te blijven van nieuwe ontwikkelingen in en buiten het vak.",
+        "points": [
+            "Ik neem in het bedrijf deel aan kennisontwikkeling (collega’s, sessies, bijeenkomsten)",
+            "Ik hou mezelf op de hoogte van actuele ontwikkelingen in het vakgebied",
+            "Ik heb een lerende houding",
+            "Ik houd mezelf goed op de hoogte van actuele, maar ook oudere technieken in het vak",
+            "Ik toon nieuwsgierigheid en ambitie in het bedrijf"
+        ],
+        "goal": "In deze stageperiode functioneer ik als (beginnend) werknemer in een. arbeidsorganisatie."
+    }
+]
