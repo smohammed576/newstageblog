@@ -2,6 +2,7 @@ import DataContext from "@/hooks/context/DataContext";
 import Navigation from "@/Layouts/Navigation";
 import { usePage } from "@inertiajs/react";
 import { useContext, useEffect, useState } from "react";
+import MovieCastTab from "./Tabs/CastTab";
 
 function MovieScreen(){
     const id = usePage().props.id;
@@ -9,7 +10,8 @@ function MovieScreen(){
     const [film, setFilm] = useState();
     const url = import.meta.env.VITE_APP_URL;
     const [director, setDirector] = useState();
-    const [tab, setTab] = useState('CAST');
+    const [tab, setTab] = useState(0);
+    let tabs = ['CAST', 'CREW', 'DETAILS', 'GENRES', 'RELEASES'];
     useEffect(() => {
         if(film == null){
             (async () => {
@@ -26,7 +28,8 @@ function MovieScreen(){
         <>
             <Navigation props={true}/>
             <figure className="film__backdrop">
-                <div className="film__backdrop--image" style={{backgroundImage: `url(${url}/4PZuqUVwvxPCEMV8LYSAJLuxvcq.jpg)`}}></div>
+                {/* <div className="film__backdrop--image" style={{backgroundImage: `url(${url}/4PZuqUVwvxPCEMV8LYSAJLuxvcq.jpg)`}}></div> */}
+                <div className="film__backdrop--image" style={{backgroundImage: `url(${url}${film.backdrop_path})`}}></div>
             </figure>
             <section className="film">
                 <div className="film__aside">
@@ -54,30 +57,15 @@ function MovieScreen(){
                             </article>
                             <div className="film__tabs">
                                 <span className="film__tabs--list">
-                                    <button className="film__tabs--tab film__tabs--tab-active">CAST</button>
-                                    <button className="film__tabs--tab">CREW</button>
-                                    <button className="film__tabs--tab">DETAILS</button>
-                                    <button className="film__tabs--tab">GENRES</button>
-                                    <button className="film__tabs--tab">RELEASES</button>
+                                    {
+                                        tabs.map((item, index) => 
+                                            <button onClick={() => setTab(index)} key={index} className={`film__tabs--tab ${tab == index && 'film__tabs--tab-active'}`}>{item}</button>
+                                        )
+                                    }
                                 </span>
-                                <div className="film__tabs--cast">
-                                    {
-                                        film.credits.cast.map((item, index) => 
-                                            <a href="" title={item.character} key={index} className="film__tabs--cast-item">
-                                                {item.name}
-                                            </a>
-                                        )
-                                    }
-                                </div>
-                                <div className="film__tabs--cast">
-                                    {
-                                        film.credits.cast.map((item, index) => 
-                                            <a href="" title={item.character} key={index} className="film__tabs--cast-item">
-                                                {item.name}
-                                            </a>
-                                        )
-                                    }
-                                </div>
+                                {
+                                    tab == 0 && <MovieCastTab data={film.credits.cast}/>
+                                }
                             </div>
                         </div>
                         <div className="film__actions">

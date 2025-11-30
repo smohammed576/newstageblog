@@ -1,0 +1,54 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+
+.show{
+    width: 100%;
+    @include mixins.flexBox;
+    // flex-direction: column;
+    padding: 0 35rem;
+    margin-top: 25%;
+
+    &__poster{
+        width: 20rem;
+        border-radius: 0.2rem;
+    }
+    &__heading{
+        display: flex;
+        justify-content: start;
+        align-items: start;
+        gap: 4rem;
+
+
+        &--wrapper{
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: start;
+            gap: 1rem;
+            color: map-get(variables.$baseVars, "greycolor");
+        }
+
+        &--name{
+            font-family: map-get(variables.$baseVars, "boldfont");
+            color: map-get(variables.$baseVars, "color");
+        }
+
+        &--info{
+            color: map-get(variables.$baseVars, "greycolor");
+            text-transform: uppercase;
+            font-size: 90%;
+        }
+
+        
+        &--tagline{
+            text-transform: uppercase;
+            letter-spacing: 0.075rem;
+            font-size: 85%;
+            line-height: 1.25;
+        }
+
+        &--overview{
+            font-family: map-get(variables.$baseVars, "boldfont");
+        }
+    }
+}

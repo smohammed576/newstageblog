@@ -1,3 +1,5 @@
+@use "variables";
+
 @mixin flexBox{
     display: flex;
     justify-content: center;

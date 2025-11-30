@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('poster');
             $table->integer('tmdb');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->integer('rating');
+            $table->integer('rating')->nullable();
             $table->integer('watched');
-            $table->boolean('liked')->default(false)->nullable();
+            $table->boolean('liked')->default(false);
             $table->boolean('rewatched')->default(false);
             $table->timestamps();
         });

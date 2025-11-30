@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Movie extends Model
 {
     protected $fillable = ['title', 'poster', 'tmdb', 'user_id', 'rating', 'watched', 'liked', 'rewatched'];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
 }

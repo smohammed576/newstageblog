@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('tagline');
+            $table->text('intro');
             $table->text('content');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('image');
-            $table->string('type');
+            $table->enum('type', ['Reflectie', 'Other']);
             $table->integer('views');
-            $table->string('tags');
-            $table->boolean('stage')->default(false);
+            $table->json('tags');
+            $table->enum('stage', [1, 2]);
             $table->boolean('published')->default(false);
             $table->timestamps();
         });

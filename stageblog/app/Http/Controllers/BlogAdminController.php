@@ -13,12 +13,34 @@ class BlogAdminController extends Controller
      */
     public function index()
     {
+        $all = Post::latest()->get();
         $posts = Post::latest()->paginate(10);
+        return Inertia::render(
+            'Posts/Posts', [
+                'posts' => $posts,
+                'all' => $all
+            ]
+        );
+    }
+
+    public function stage(int $stage)
+    {
+        $posts = Post::where('stage', $stage)->latest()->paginate(5);
         return Inertia::render(
             'Posts/Posts', [
                 'posts' => $posts
             ]
-        );
+        )->with('status', 'hasFilter');
+    }
+
+    public function filter(string $tag)
+    {
+        $posts = Post::whereJsonContains('tags', $tag)->latest()->paginate(5);
+        return Inertia::render(
+            'Posts/Posts', [
+                'posts' => $posts
+            ]
+        )->with('status', 'hasFilter');
     }
 
     /**
@@ -36,9 +58,8 @@ class BlogAdminController extends Controller
     {
         $data = $request->validate([
             'title' => 'required',
-            'tagline' => 'required',
+            'intro' => 'required',
             'content' => 'required',
-            'user_id' => 'required',
             'image' => 'required',
             'type' => '',
             'tags' => '',
@@ -46,9 +67,9 @@ class BlogAdminController extends Controller
             'stage' => 'required',
             'published' => 'required'
         ]);
-
+        $user = auth()->user();
         $post = new Post($data);
-        $post->save();
+        $user->posts()->create($data);
 
         return redirect(route('posts.show', $post->id));
     }
@@ -58,8 +79,11 @@ class BlogAdminController extends Controller
      */
     public function show(int $id)
     {
-        $post = Post::where('id', $id)->get();
-        return Inertia::render('Posts/Post', ['post' => $post]);
+        $post = Post::with(['user', 'comments.user'])->findOrFail($id);
+        return Inertia::render('Posts/Post', [
+            'post' => $post,
+            'comments' => $post->comments()
+        ]);
     }
 
     /**

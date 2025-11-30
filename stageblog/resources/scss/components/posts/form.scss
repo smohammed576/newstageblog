@@ -56,6 +56,26 @@
                 font-size: 90%;
                 @include mixins.flexBox;
                 gap: 0.4rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+            }
+
+            &-button{
+                background: none;
+                border: none;
+                font-family: inherit;
+                color: map-get(variables.$baseVars, "icongrey");
+                font-size: 80%;
+
+                &:hover{
+                    cursor: pointer;
+                    color: map-get(variables.$baseVars, "blue");
+                }
+                &:focus{
+                    outline: none;
+                }
             }
 
             &-info{

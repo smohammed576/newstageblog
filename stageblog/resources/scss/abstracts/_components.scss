@@ -1,0 +1,101 @@
+@use "variables";
+@use "mixins";
+
+.heading{
+    width: 100%;
+    font-size: 1.3rem;
+    color: map-get(variables.$baseVars, "greycolor");
+    border-bottom: 0.1rem solid map-get(variables.$baseVars, "darkgrey");
+    font-weight: normal;
+    letter-spacing: 0.075rem;
+    padding-bottom: 0.4rem;
+
+    &__link{
+        position: absolute;
+        top: 0.3rem;
+        right: 0;
+        color: map-get(variables.$baseVars, "icongrey");
+        font-size: 1.1rem;
+        text-decoration: none;
+
+        &:hover{
+            color: map-get(variables.$baseVars, "blue");
+        }
+    }
+
+    &__button{
+        position: absolute;
+        top: 0.3rem;
+        right: 0;
+        color: map-get(variables.$baseVars, "icongrey");
+        font-size: 1.1rem;
+        background: none;
+        border: none;
+
+        &:hover{
+            color: map-get(variables.$baseVars, "blue");
+        }
+    }
+}
+
+.type{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: map-get(variables.$baseVars, "lightcolor");
+    padding: 0.4rem 1rem;
+    color: map-get(variables.$baseVars, "color");
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 0.1rem;
+    margin: 1rem;
+}
+
+.pagination{
+    position: relative;
+    width: 100%;
+    border-top: 0.1rem solid map-get(variables.$baseVars, "darkgrey");
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__link{
+        margin-top: 1rem;
+        background: map-get(variables.$baseVars, "greybutton");
+        font-size: 75%;
+        padding: 0.9rem 1.5rem;
+        color: map-get(variables.$baseVars, "greycolor");
+        text-decoration: none;
+        border-radius: 0.4rem;
+        box-shadow: inset 0 0.1rem 0 rgba(map-get(variables.$baseVars, "color"), 0.05);
+
+        &--disabled{
+            opacity: 0;
+        }
+    }
+
+    &__wrapper{
+        @include mixins.flexBox;
+        margin-top: 1rem;
+    }
+
+    &__number{
+        padding: 1rem;
+        text-decoration: none;
+        color: map-get(variables.$baseVars, "greycolor");
+        
+        &:hover{
+            color: map-get(variables.$baseVars, "lightbluecolor");
+            background: map-get(variables.$baseVars, "hovergrey");
+        }
+
+        &--active{
+            color: map-get(variables.$baseVars, "blurcolor");
+
+            &:hover{
+                color: map-get(variables.$baseVars, "blurcolor");
+                background: none;
+            }
+        }
+    }
+}

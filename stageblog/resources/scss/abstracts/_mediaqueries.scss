@@ -1,0 +1,339 @@
+//4K 2560px
+@media screen and (min-width: 160rem) {
+    
+}
+
+//my screen (macbook something air ig)
+@media screen and (min-width: 106.875rem) {
+}
+
+//1500px responsive
+@media screen and (max-width: 93.75rem) { 
+    .homeposts{
+        &__item{
+            &--figure{
+                height: 15rem;
+            }
+        }
+    }
+}
+
+//responsive screen 82rem
+@media screen and (max-width: 82rem) {
+    .header{
+        padding: 2rem 20rem;
+        // background: blue;
+    }
+    .homeposts{
+        &__item{
+            &--figure{
+                height: 15rem;
+            }
+        }
+    }
+    .main{
+        padding: 2rem 20rem;
+    }
+    .post{
+        padding: 0 10rem;
+        &__heading{
+            padding: 4rem 20rem 5rem 20rem;
+        }
+        &__wrapper{
+            margin-top: -3rem;
+        }
+    }
+}
+
+//1000px
+@media screen and (max-width: 62.5rem) {
+    .main{
+        padding: 4rem 10rem;
+    }
+    .header{
+        padding: 2rem 10rem;
+        &__navigation{
+
+            &--dropdown{
+                width: 14rem;
+                left: auto;
+                right: 0;
+            }
+        }
+    }
+    .homeposts{
+        &__item{
+            &--figure{
+                height: 15rem;
+            }
+        }
+    }
+    .post{
+        padding: 0 5rem;
+
+        &__heading{
+            padding: 4rem 10rem 5rem 10rem;
+        }
+    }
+}
+
+//surface pro 7 912px
+// @media screen and (max-width: 57rem) {
+//     .header{
+//         padding: 2rem 10rem;
+
+//         &__navigation{
+
+//             &--dropdown{
+//                 width: 14rem;
+//                 left: auto;
+//                 right: 0;
+//             }
+//         }
+//     }
+//     .post{
+//         padding: 0 5rem;
+
+//         &__heading{
+//             padding: 4rem 10rem 5rem 10rem;
+//         }
+//     }
+// }
+
+//ipad air
+@media screen and (max-width: 52rem){
+    .main__auth{
+        padding: 0 10rem;
+    }
+    .auth{
+        &__figure{
+            display: none;
+        }
+        &__form{
+            width: 100%;
+        }
+    }
+    .homeposts{
+        &__item{
+            &--figure{
+                height: 12rem;
+            }
+        }
+    }
+    .settings{
+        &__favorites{
+            width: 50%;
+            &--item{
+                height: 13rem;
+            }
+        }
+    }
+
+    .favorite__modal{
+        width: 60%;
+
+        &--dropdown{
+            width: 100%;
+        }
+    }
+
+    .post{
+        padding: 0;
+
+        &__wrapper{
+            margin-top: -2rem;
+        }
+    }
+}
+
+//responsive 768px
+@media screen and (max-width: 48rem) {
+    .header{
+        padding: 2rem 4rem;
+    }
+    .main{
+        padding: 4rem;
+    }
+    .post{
+        &__heading{
+            padding: 4rem 4rem 5rem 4rem;
+
+            &--title{
+                font-size: 250%;
+            }
+        }
+
+        &__image{
+            width: 90%;
+        }
+
+        &__markdown{
+            width: 100%;
+        }
+    }
+}
+
+//response 660px
+@media screen and (max-width: 41.25rem){
+    .header{
+        justify-content: center;
+        flex-direction: column;
+        gap: 2rem;
+
+        &__navigation{
+            width: 80%;
+            gap: 0.4rem;
+            justify-content: space-between;
+
+            &--avatar{
+                width: 3rem;
+            }
+        }
+    }
+    .homeactivity{
+        &__list{
+            overflow-x: scroll;
+        }
+        &__item{
+            flex-shrink: 0;
+        }
+    }
+    .homeposts{
+        &__item{
+            font-size: 80%;
+            &--figure{
+                height: 10rem;
+            }
+        }
+        // &__list{
+        //     flex-direction: column;
+        //     gap: 2rem;
+        // }
+        // &__item{
+        //     width: 100%;
+
+        //     &--figure{
+        //         height: 25rem;
+        //     }
+        // }
+    }
+
+    .post{
+        &__heading{
+            padding: 2rem 4rem 4rem 4rem;
+
+            &--title{
+                font-size: 200%;
+            }
+        }
+    }
+}
+
+//528px
+@media screen and (max-width: 33rem) {
+    .homeposts{
+        &__list{
+            flex-direction: column;
+            gap: 4rem;
+        }
+        &__item{
+            width: 100%;
+            font-size: 100%;
+
+            &--figure{
+                height: 25rem;
+            }
+        }
+    }
+}
+
+//big phone so L 480px
+
+@media screen and (max-width: 30rem) {
+    .homeposts{
+        &__item{
+            &--figure{
+                height: 100%;
+            }
+        }
+    }
+    .post{
+        &__heading{
+            &--title{
+                font-size: 150%;
+            }
+        }
+
+        &__markdown{
+
+            &--figure{
+                height: 25rem;
+            }
+        }
+    }
+}
+
+//kinda average phone ig 414px
+@media screen and (max-width: 26rem) {
+    .header{
+        &__link{
+            font-size: 70%;
+        }
+        &__navigation{
+            font-size: 70%;
+
+            &--avatar{
+                width: 2rem;
+            }
+            &--dropdown{
+                width: 6rem;
+                padding: 1rem;
+                font-size: 70%;
+                transform: translate(-25%, 0%);
+            }
+        }
+    }
+    .post{
+        &__heading{
+            padding: 2rem;
+            gap: 1rem;
+
+            &--details{
+                font-size: 80%;
+            }
+
+            &--title{
+                font-size: 120%;
+            }
+            &--wrapper{
+                font-size: 70%;
+            }
+            &--image{
+                width: 2rem;
+            }
+        }
+
+        &__wrapper{
+            margin-top: -1rem;
+        }
+
+        &__markdown{
+            width: 100%;
+            &--text{
+                text-align: center;
+            }
+
+            &--subtitle{
+                text-align: center;
+            }
+
+            &--figure{
+                height: 20rem;
+
+                &-caption{
+                    font-size: 65%;
+                }
+            }
+        }
+    }
+}

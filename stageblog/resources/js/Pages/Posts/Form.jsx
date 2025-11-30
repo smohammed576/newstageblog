@@ -1,15 +1,29 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { usePage } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import tags from "../../../data/tags.json";
-import TagsModal from "@/Components/TagsModal";
+import TagsModal from "@/Components/Modals/TagsModal";
+import ReactMarkdown from "react-markdown";
+import Markdown from "@/Components/Markdown";
 
 function PostForm(){
-    const user = usePage().props.auth.user;
-    const csrf = document.querySelector("meta[name=csrf-token]").getAttribute("content");
-    const [stage, setStage] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [tagsList, setTagsList] = useState([]);
+    const { data, setData, post, processing, error } = useForm({
+         title: '',
+         intro: '',
+         content: '',
+         image: '',
+         type: 'Reflectie',
+         views: 0,
+         tags: [],
+         stage: 1,
+         published: true
+    });
+    const [formatted, setFormatted] = useState(false);
+    const [formatImage, setFormatImage] = useState(false);
+
+    console.log(data);
 
     useEffect(() => {
         if(openModal){
@@ -28,6 +42,11 @@ function PostForm(){
             setTagsList([...tagsList, value]);
         }
     }
+
+    const submit = (event) => {
+        event.preventDefault();
+        post(route('posts.store'));
+    }
     
     return (
         <AuthenticatedLayout>
@@ -35,35 +54,47 @@ function PostForm(){
                 <span className="newpost__header">
                     <p className="newpost__header--text">NEW POST</p>
                 </span>
-                <form action={route('posts.store')} method="post" className="newpost__form">
-                    <input type="hidden" name="_token" value={csrf} />
-                    <input type="hidden" name="user_id" value={user.id} />
-                    <input type="hidden" name="published" value={1} />
-                    <input type="hidden" name="views" value={0} />
+                <form onSubmit={submit} className="newpost__form">
                     <span className="newpost__form--wrapper">
                         <div className="newpost__form--list">
                             <div className="newpost__form--item">
                                 <label htmlFor="" className="newpost__form--item-label">Title</label>
-                                <input type="text" name="title" className="newpost__form--item-input" />
+                                <input type="text" name="title" value={data.title} onChange={(event) => setData('title', event.target.value)} className="newpost__form--item-input" />
                             </div>
                             <div className="newpost__form--item">
                                 <label htmlFor="" className="newpost__form--item-label">Intro</label>
-                                <input type="text" name="tagline" className="newpost__form--item-input" />
+                                <input type="text" name="intro" value={data.intro} onChange={(event) => setData('intro', event.target.value)} className="newpost__form--item-input" />
                             </div>
                             <div className="newpost__form--item">
-                                <label htmlFor="" className="newpost__form--item-label">Image</label>
-                                <input type="text" name="image" className="newpost__form--item-input" />
+                                <label htmlFor="" className="newpost__form--item-label">Image <button type="button" onClick={() => setFormatImage(!formatImage)} className="newpost__form--item-button">Format</button></label>
+                                {
+                                    formatImage ? 
+                                    <article className="markdown">
+                                        <ReactMarkdown components={Markdown}>
+                                            {data.image}
+                                        </ReactMarkdown>
+                                    </article>
+                                    :
+                                    <input type="text" name="image" value={data.image} onChange={(event) => setData('image', event.target.value)} className="newpost__form--item-input" />
+
+                                }
                             </div>
                             <div className="newpost__form--item">
                                 <label htmlFor="" className="newpost__form--item-label">Post type</label>
-                                <select name="type" id="" className="newpost__form--dropdown">
+                                <select name="type" value={data.type} onChange={(event) => setData('type', event.target.value)} id="" className="newpost__form--dropdown">
                                     <option value="Reflectie" className="newpost__form--dropdown-item">Reflectie</option>
-                                    <option value="Andere" className="newpost__form--dropdown-item">Andere</option>
+                                    <option value="Other" className="newpost__form--dropdown-item">Andere</option>
                                 </select>
                             </div>
                             <div className="newpost__form--item">
                                 <label htmlFor="" className="newpost__form--item-label">Tags <button className="newpost__form--item-info" type="button" onClick={() => setOpenModal(!openModal)}><i className="fa-solid fa-info"></i> </button> </label>
-                                <select value={tagsList.length == 0 ? 0 : null} onChange={(event) => selectTag(event.target.value)} name="tags" id="" className="newpost__form--dropdown">
+                                <select value="" 
+                                    onChange={(event) => {
+                                        let item = event.target.value;
+                                        if(item !== "—" && !data.tags.includes(item)){
+                                            setData("tags", [...data.tags, item]);
+                                        }
+                                    }} className="newpost__form--dropdown">
                                     <option value="—" className="newpost__form--dropdown-item">—</option>
                                     {
                                         tags.map((item, index) => 
@@ -72,13 +103,13 @@ function PostForm(){
                                     }
                                 </select>
                                 {
-                                    tagsList.length != 0 ? 
+                                    data.tags != null && data.tags.length != 0 ? 
                                         <ul className="newpost__form--item-tags">
                                             {
-                                                tagsList.map((item, index) => 
+                                                data.tags.map((item, index) => 
                                                     <li key={index} className="newpost__form--item-tag">
                                                         {item}
-                                                        <button onClick={() => setTagsList(tagsList.filter((tag) => tag !== item))} type="button" className="newpost__form--item-remove">
+                                                        <button onClick={() => setData('tags', data.tags.filter((tag) => tag !== item))} type="button" className="newpost__form--item-remove">
                                                             <i className="fa-solid fa-close newpost__form--item-icon"/>
                                                         </button>
                                                     </li>
@@ -87,24 +118,33 @@ function PostForm(){
                                         </ul>
                                     : null
                                 }
-                                <input type="hidden" value={tagsList.join()} name="tags"/>
                             </div>
                         </div>
                         <div className="newpost__form--list">
                             <div className="newpost__form--item newpost__form--description">
-                                <label htmlFor="" className="newpost__form--item-label">Description</label>
-                                <textarea name="content" id="" className="newpost__form--item-textarea"></textarea>
+                                <label htmlFor="" className="newpost__form--item-label">Description <button type="button" onClick={() => setFormatted(!formatted)} className="newpost__form--item-button">Format</button></label>
+                                {
+                                    formatted ?
+                                    <article className="markdown">
+                                        <ReactMarkdown components={Markdown}>
+                                            {data.content}
+                                        </ReactMarkdown>
+                                    </article>
+                                    :
+                                    <textarea rows={20} name="content" id="" value={data.content} onChange={(event) => setData('content', event.target.value)} className="newpost__form--item-textarea"></textarea>
+
+                                }
                             </div>
                         </div>
                     </span>
                     <span className="newpost__form--footer">
                         <span className="newpost__form--footer-wrapper">
-                            <input type="checkbox" name="stage" value={stage ? 1 : 0} onClick={() => setStage(!stage)} className="newpost__form--footer-checkbox" />
-                            <label htmlFor="" className="newpost__form--footer-label">STAGE</label>
+                            <input type="checkbox" name="stage" value={data.stage} onChange={(event) => setData('stage', event.target.checked ? 2 : 1)} className="newpost__form--footer-checkbox" />
+                            <label htmlFor="" className="newpost__form--footer-label">STAGE {data.stage}</label>
                         </span>
                         <span className="newpost__form--footer-buttons">
-                            <button className="newpost__form--footer-button newpost__form--footer-cancel">CANCEL</button>
-                            <button className="newpost__form--footer-button">SAVE</button>
+                            <button disabled={processing} className="newpost__form--footer-button newpost__form--footer-cancel">CANCEL</button>
+                            <button disabled={processing} className="newpost__form--footer-button">SAVE</button>
                         </span>
                     </span>
                 </form>

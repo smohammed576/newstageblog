@@ -11,7 +11,7 @@ $baseVars: (
     "black": black,
     "font": graphik,
     "boldfont": tiempos,
-    "blue": #1F3856,
+    // "blue": #1F3856,
     "error": #F87F81,
     "grey": #AABBCC,
     "darkcolor": #234,
@@ -28,7 +28,16 @@ $baseVars: (
     "greybutton": #283038,
     "cancelgrey": #556677,
     "cancelcolor": #C8D4E0,
-    "inputgrey": #2c3440
+    "inputgrey": #2c3440,
+    "authinput": #cde,
+    "avatarfooter": #303c48,
+    "lightbluecolor": #def,
+    "red": #ec1200,
+    "profileborder": #24303c,
+    "blue": #40BCF4,
+    "lightblue": #add8e6,
+    "lightgrey": #bbcddd,
+    "hovergrey": #303840
 );
 
 // import 'package:flutter/material.dart';

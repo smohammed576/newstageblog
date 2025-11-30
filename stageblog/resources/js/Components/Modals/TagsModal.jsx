@@ -1,5 +1,5 @@
 import { useState } from "react";
-import tags from "../../data/tags.json";
+import tags from "../../../data/tags.json";
 
 function TagsModal({onClose}){
     const [isOpen, setIsOpen] = useState();

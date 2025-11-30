@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Movie;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -16,14 +17,30 @@ class ProfileController extends Controller
 {
 
     public function show(int $id){
-        $profile = User::where('id', $id)->get();
+        $posts = auth()->user()->posts()->get();
+        $favorites = auth()->user()->favorites()->get();
+        // $profile = User::where('id', $id)->get();
+        $profile = User::with(['favorites.user', 'posts.user', 'movies.user', 'shows.user'])->findOrFail($id);
+        // $films = Movie::with('user')->where
+        // $films = Movie::with('user')->
+        $films = Movie::with('user')->where('user_id', $id)->latest()->paginate(4);
         return Inertia::render('Profile/Profile', [
-            'profile' => $profile
+            'profile' => $profile,
+            'movies' => $films
+            // 'posts' => $posts,
+            // 'favorites' => $favorites
         ]);
     }
 
     public function settings() {
-        return Inertia::render('Auth/Settings');
+        $user = auth()->user();
+        $favorites = $user->favorites()->get();
+        $shows = $user->shows()->get();
+        return Inertia::render('Settings/Settings', [
+            'favorites' => $favorites,
+            'shows' => $shows,
+            'status' => session('status')
+        ]);
     }
 
     /**
@@ -40,18 +57,20 @@ class ProfileController extends Controller
     // /**
     //  * Update the user's profile information.
     //  */
-    // public function update(ProfileUpdateRequest $request): RedirectResponse
-    // {
-    //     $request->user()->fill($request->validated());
+    public function update(ProfileUpdateRequest $request): RedirectResponse
+    {
+        $request->user()->fill($request->validated());
 
-    //     if ($request->user()->isDirty('email')) {
-    //         $request->user()->email_verified_at = null;
-    //     }
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }
 
-    //     $request->user()->save();
+        // dd($request->validated());
 
-    //     return Redirect::route('profile.edit');
-    // }
+        $request->user()->save();
+
+        return back()->with('status', 'Your details were saved.');
+    }
 
     // /**
     //  * Delete the user's account.

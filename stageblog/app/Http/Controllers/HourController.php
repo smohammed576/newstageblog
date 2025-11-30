@@ -24,6 +24,7 @@ class HourController extends Controller
 
         Hour::create($request->all());
 
-        return redirect()->route('blog.index');
+        // return redirect()->route('blog.index');
+        return back();
     }
 }

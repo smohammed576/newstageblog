@@ -7,8 +7,8 @@ const DataProvider = ({children}) => {
     const [data, setData] = useState([]);
     const key = import.meta.env.VITE_APP_KEY;
 
-    const searchFilm = async (query) => {
-        const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${key}`);
+    const searchQuery = async (query, type) => {
+        const response = await fetch(`https://api.themoviedb.org/3/search/${type}?query=${query}&api_key=${key}`);
         const results = await response.json();
         console.log(results);
         return results;
@@ -20,8 +20,14 @@ const DataProvider = ({children}) => {
         return result;
     }
 
+    const findShow = async (id) => {
+        const response = await fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${key}&append_to_response=credits,content_ratings`);
+        const result = await response.json();
+        return result;
+    }
+
     return(
-        <DataContext.Provider value={{data, searchFilm, findFilm}}>
+        <DataContext.Provider value={{data, searchQuery, findFilm, findShow}}>
             {children}
         </DataContext.Provider>
     );

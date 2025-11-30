@@ -1,0 +1,313 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+
+.main__post{
+    background: map-get(variables.$baseVars, "color");
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 10rem;
+}
+
+.post{
+    @include mixins.flexBox;
+    flex-direction: column;
+    gap: 4rem;
+    width: 100%;
+    padding: 0 25rem;
+
+    &__heading{
+        background: map-get(variables.$baseVars, "darkgrey");
+        padding: 4rem 35rem 10rem 35rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+        gap: 2rem;
+        width: 100%;
+
+        &--details{
+            font-family: map-get(variables.$baseVars, "boldfont");
+            font-weight: 600;
+            font-size: 95%;
+            color: map-get(variables.$baseVars, "lightgrey");
+        }
+
+        &--title{
+            font-weight: 600;
+            color: map-get(variables.$baseVars, "color");
+            font-size: 280%;
+        }
+
+        &--wrapper{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            width: 100%;
+            gap: 1rem;
+            color: map-get(variables.$baseVars, "lightgrey");
+            font-size: 80%;
+        }
+
+        &--image{
+            width: 2.5rem;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+        }
+
+        &--user{
+            font-weight: 600;
+            text-decoration: none;
+            color: map-get(variables.$baseVars, "lightgrey");
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+        }
+        &--dot{
+            color: map-get(variables.$baseVars, "lightgrey");
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+        }
+        &--date{
+            color: map-get(variables.$baseVars, "lightgrey");
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+        }
+
+    }
+    &__wrapper{
+        @include mixins.flexBox;
+        flex-direction: column;
+        width: 100%;
+        margin-top: -5rem;
+        & > p {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+        }
+    }
+    &__image{
+        width: 100%;
+    }
+    &__caption{
+        color: map-get(variables.$baseVars, "darkgrey");
+        font-size: 90%;
+    }
+    &__markdown{
+        color: map-get(variables.$baseVars, "darkgrey");
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        gap: 0.2rem;
+        width: 80%;
+
+        &--text{
+            width: 80%;
+            font-size: 115%;
+            text-align: start;
+            line-height: 1.1;
+        }
+
+        &--text:has(figure){
+            width: 90%;
+        }
+
+        &--text:has(strong){
+            width: 85%;
+        }
+
+        &--subtitle{
+            font-size: 130%;
+            font-weight: 600;
+            margin-top: 2rem;
+            text-align: start;
+            width: 80%;
+        }
+
+        &--figure{
+            width: 100%;
+            height: 40rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            gap: 0.4rem;
+            margin: 4rem 0;
+
+            &-image{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            &-caption{
+                font-size: 80%;
+            }
+        }
+
+        & p > strong{
+            font-size: 130%;
+            font-weight: 600;
+
+        }
+
+        & hr{
+            display: none;
+        }
+
+        &--link{
+            color: inherit;
+            text-decoration-color: map-get(variables.$baseVars, "lightblue");
+
+            &:hover{
+                color: map-get(variables.$baseVars, "blue");
+            }
+        }
+
+        &--list{
+            width: 80%;
+            font-size: 115%;
+            text-align: start;
+            line-height: 1.1;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        &--item{
+            width: 80%;
+            font-size: 115%;
+            text-align: start;
+            line-height: 1.1;
+            list-style: none;
+        }
+    }
+
+    &__tags{
+        width: 80%;
+        display: inline;
+        gap: 2rem;
+        font-weight: 600;
+
+        &--text{
+            color: map-get(variables.$baseVars, "darkgrey");
+            display: inline;
+            font-size: 90%;
+        }
+        &--item{
+            font-family: map-get(variables.$baseVars, "boldfont");
+            display: inline;
+            font-weight: 600;
+            padding: 0 1rem;
+            font-size: 90%;
+            color: map-get(variables.$baseVars, "lightcolor");
+        }
+    }
+
+    &__comments{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        gap: 2rem;
+        width: 80%;
+        color: map-get(variables.$baseVars, "darkgrey");
+        
+        &--amount{
+            color: map-get(variables.$baseVars, "darkgrey");
+        }
+
+        &--wrapper{
+            @include mixins.flexBox;
+            width: 100%;
+            gap: 2rem;
+            border-bottom: 0.1rem solid rgba(map-get(variables.$baseVars, "background"), 0.2);
+            padding-bottom: 2rem;
+        }
+
+        &--avatar{
+            width: 4rem;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+        }
+
+        &--input{
+            width: 100%;
+            border: 0.1rem solid rgba(map-get(variables.$baseVars, "background"), 0.2);
+            border-radius: 0.4rem;
+            font-size: 100%;
+            font-family: map-get(variables.$baseVars, "font");
+            padding: 1rem;
+
+            &:focus{
+                outline: none;
+            }
+        }
+
+        &--submit{
+            border: none;
+            background: map-get(variables.$baseVars, "grey");
+            font-size: 120%;
+            padding: 0.6rem;
+            border-radius: 0.4rem;
+        }
+
+        &--list{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            gap: 2rem;
+        }
+
+        &--item{
+            display: flex;
+            justify-content: start;
+            align-items: start;
+            gap: 1rem;
+
+            &-image{
+                width: 2.5rem;
+                aspect-ratio: 1/1;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+            &-wrapper{
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+                gap: 1rem;
+            }
+            &-user{
+                font-weight: 600;
+                font-size: 90%;
+                text-decoration: none;
+                color: map-get(variables.$baseVars, "darkgrey");
+
+                &:hover{
+                    cursor: pointer;
+                    color: lighten(map-get(variables.$baseVars, "darkgrey"), 5%);
+                }
+            }
+            &-comment{
+                font-family: map-get(variables.$baseVars, "boldfont");
+            }
+            &-actions{
+                @include mixins.flexBox;
+                gap: 2rem;
+            }
+            &-action{
+                font-size: 80%;
+                @include mixins.flexBox;
+                gap: 1rem;
+            }
+        }
+
+        &--empty{
+            padding: 2rem;
+            @include mixins.flexBox;
+            width: 100%;
+        }
+    }
+}

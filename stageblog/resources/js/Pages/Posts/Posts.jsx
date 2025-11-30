@@ -1,19 +1,83 @@
+import Heading from "@/Components/Heading";
+import Type from "@/Components/Type";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { usePage } from "@inertiajs/react";
+import ReactMarkdown from "react-markdown";
 
 function PostsScreen(){
-    const user = usePage().props.auth;
-    const posts = usePage().props.posts;
-    console.log(posts);
+    const user = usePage().props.auth.user;
+    const posts = usePage().props.posts.data;
+    const links = usePage().props.posts;
+    console.log(usePage().props);
+    const status = usePage().props.status;
+
+    const formatDate = (date) => {
+        return new Date(date).toLocaleDateString(undefined, {day: "numeric", month: "short", year: "numeric"});
+    }
+    
     return (
         <AuthenticatedLayout>
             <section className="posts">
-                <span className="posts__header">
-                    <p className="posts__header--amount">{posts.data.length} {posts.data.length == 1 ? 'POST' : 'POSTS'}</p>
-                </span>
+                <Heading text={`${links.total} ${links.total == 1 ? 'POST' : 'POSTS'}`} link={status != null && route('posts.index')} linkText={status != null && 'RESET'} />
                 <div className="posts__list">
-
+                    {
+                        posts != null && posts.length != 0 ? 
+                            posts.map((item, index) => 
+                                <a href={route("posts.show", item.id)} key={index} className="posts__item">
+                                    <figure className="posts__item--figure">
+                                        <ReactMarkdown>
+                                            {item.image}
+                                        </ReactMarkdown>
+                                        {
+                                            item.type != null && <Type type={item.type}/>
+                                        }
+                                    </figure>
+                                    <article className="posts__item--wrapper">
+                                        <span className="posts__item--details">
+                                            <p className="posts__item--details-stage">Stage {item.stage}</p>
+                                            <p className="posts__item--details-date">· {formatDate(item.created_at)}</p>
+                                        </span>
+                                        <span className="posts__item--text">
+                                            <h3 className="posts__item--text-title">{item.title}</h3>
+                                            <h3 className="posts__item--text-intro">{item.intro}</h3>
+                                        </span>
+                                        <span className="posts__item--user">
+                                            <img src={user.image} alt={user.name} className="posts__item--user-avatar" />
+                                            <p className="posts__item--user-name">{user.name}</p>
+                                        </span>
+                                        <ul className="posts__item--tags">
+                                            {
+                                                item.tags != null && item.tags.length != 0 ? 
+                                                    item.tags.map((item, index) => 
+                                                        <li key={index} className="newpost__form--item-tag">
+                                                            {item}
+                                                        </li>
+                                                    )
+                                                : null
+                                            }
+                                        </ul>
+                                    </article>
+                                </a>
+                            )
+                        : null
+                    }
                 </div>
+                {
+                    links.last_page != 1 ? 
+                        <span className="pagination">
+                            <a href={links.prev_page_url} className={`pagination__link ${links.prev_page_url == null && 'pagination__link--disabled'}`}>Newer</a>
+                            <span className="pagination__wrapper">
+                                {
+                                    links.links.map((item, index) => 
+                                        index != 0 && index != links.links.length - 1 &&
+                                        <a href={item.url} className={`pagination__number ${item.active && 'pagination__number--active'}`}>{item.label}</a>
+                                    )
+                                }
+                            </span>
+                            <a href={links.next_page_url} className={`pagination__link ${links.next_page_url == null && 'pagination__link--disabled'}`}>Older</a>
+                        </span>
+                    : null
+                }
             </section>
         </AuthenticatedLayout>
     );
