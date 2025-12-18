@@ -1,4 +1,6 @@
 import { useForm, usePage } from "@inertiajs/react";
+import GreenButton from "../GreenButton";
+import Checkbox from "../Checkbox";
 
 function MovieModal({ film, onClose }){
     const user = usePage().props.auth.user;
@@ -6,17 +8,19 @@ function MovieModal({ film, onClose }){
     const {data, setData, post, processing} = useForm({
         title: film.title ?? '',
         poster: film.poster_path ?? '',
+        backdrop: film.backdrop_path ?? '',
         tmdb: film.id ?? 0,
         user_id: user.id,
         rating: 0,
-        watched: 1,
         liked: false,
-        rewatched: false
+        rewatched: false,
+        release: film.release_date ?? '',
+        type: 'movie'
     });
 
     const submit = (event) => {
         event.preventDefault();
-        post(route('movies.store'));
+        post(route('diaries.store'));
     }
 
      const changeRating = (index) => {
@@ -44,7 +48,7 @@ function MovieModal({ film, onClose }){
                 <form onSubmit={submit} className="movie__modal--form">
                     <span className="movie__modal--header">
                         <h3 className="movie__modal--header-text">I watched...</h3>
-                        <button formMethod="dialog" className="movie__modal--header-close">
+                        <button type="button" formMethod="dialog" className="movie__modal--header-close">
                             <i className="fa-solid fa-close"/>
                         </button>
                     </span>
@@ -60,11 +64,8 @@ function MovieModal({ film, onClose }){
                                 <h3 className="movie__modal--text-year">{film.release_date !== "" && film.release_date !== null ? film.release_date.substring(0, 4) : null}</h3>
                             </article>
                             <span className="movie__modal--wrapper">
-                                <span className="movie__modal--check">
-                                    <input type="checkbox" className="movie__modal--check-input" value={data.rewatched ? 1 : 0} onChange={(event) => setData('rewatched', event.target.checked)} name="rewatched" />
-                                    <label className="movie__modal--check-label" htmlFor="">I've watched this before</label>
-                                </span>
-                                {
+                                <Checkbox value={data.rewatched ? 1 : 0} onChange={(event) => setData('rewatched', event.target.checked)} label="I've watched this before"/>
+                                {/* {
                                     data.rewatched ? <span className="movie__modal--watched">
                                         <button className="movie__modal--watched-button" type="button" onChange={(event) => data.watched == 2 ? null : setData('watched', data.watched - 1)}>
                                             <i className="fa-solid fa-minus movie__modal--watched-icon"></i>
@@ -74,7 +75,7 @@ function MovieModal({ film, onClose }){
                                             <i className="fa-solid fa-plus movie__modal--watched-icon"/>
                                         </button>
                                     </span> : <input type="hidden" name="watched" value={data.watched} />
-                                }
+                                } */}
                             </span>
                             <span className="movie__modal--rating">
                                 <div className="movie__modal--rating-wrapper">
@@ -99,9 +100,7 @@ function MovieModal({ film, onClose }){
                         </div>
                     </span>
                     <span className="movie__modal--footer">
-                        <button disabled={processing} type="submit" className="movie__modal--submit">
-                            SAVE
-                        </button>
+                        <GreenButton processing={processing} text="SAVE"/>
                     </span>
                 </form>
             </dialog>

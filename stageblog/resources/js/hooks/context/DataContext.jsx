@@ -15,19 +15,25 @@ const DataProvider = ({children}) => {
     }
 
     const findFilm = async (id) => {
-        const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${key}&append_to_response=credits`);
+        const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${key}&append_to_response=credits,images`);
         const result = await response.json();
         return result;
     }
 
     const findShow = async (id) => {
-        const response = await fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${key}&append_to_response=credits,content_ratings`);
+        const response = await fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${key}&append_to_response=credits,content_ratings,images`);
+        const result = await response.json();
+        return result;
+    }
+
+    const findPerson = async (id) => {
+        const response = await fetch(`https://api.themoviedb.org/3/person/${id}?api_key=${key}&append_to_response=credits`);
         const result = await response.json();
         return result;
     }
 
     return(
-        <DataContext.Provider value={{data, searchQuery, findFilm, findShow}}>
+        <DataContext.Provider value={{data, searchQuery, findFilm, findShow, findPerson}}>
             {children}
         </DataContext.Provider>
     );

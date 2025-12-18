@@ -1,0 +1,210 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+
+.diary{
+    width: 100%;
+
+    &__table{
+        width: 100%;
+        border-collapse: collapse;
+    }
+    &__header{
+        width: 100%;
+        background: map-get(variables.$baseVars, "background");
+        border-bottom: 0.1rem solid map-get(variables.$baseVars, "inputgrey");
+        color: map-get(variables.$baseVars, "darkgrey");
+
+        &--wrapper{
+            width: 100%;
+        }
+        &--item{
+            font-size: 70%;
+            font-weight: 400;
+            padding: 0.6rem;
+
+            &-film{
+                padding-left: 1rem;
+                text-align: start;
+            }
+        }
+    }
+
+    &__row{
+        border-bottom: 0.1rem solid map-get(variables.$baseVars, "inputgrey");
+        &--month{
+            padding: 1rem;
+            &-wrapper{
+                flex-shrink: 0;
+                padding: 0.8rem;
+                padding-top: 1rem;
+                padding-left: 0.4rem;
+                height: 5.5rem;
+                font-weight: 400;
+                background: url('/public/images/calendar.png') no-repeat;
+                background-size: contain;
+                text-align: center;
+                @include mixins.flexBox;
+                flex-direction: column;
+                gap: 0.2rem;
+            }
+            &-text{
+                font-size: 95%;
+                font-weight: 400;
+                text-transform: uppercase;
+                color: map-get(variables.$baseVars, "lightbluecolor");
+
+            }
+            &-year{
+                font-size: 70%;
+                color: map-get(variables.$baseVars, "lightgrey");
+            }
+        }
+        &--day{
+            text-align: center;
+            font-size: 150%;
+            &-number{
+                font-weight: 300;
+                color: map-get(variables.$baseVars, "numbercolor");
+            }
+        }
+        &--film{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 2rem;
+            padding: 1rem;
+
+            &-title{
+                font-family: map-get(variables.$baseVars, "boldfont");
+                color: map-get(variables.$baseVars, "color");
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 120%;
+
+                &:hover{
+                    cursor: pointer;
+                    color: map-get(variables.$baseVars, "blue");
+                }
+            }
+        }
+
+        &--release{
+            font-size: 85%;
+            text-align: center;
+            color: map-get(variables.$baseVars, "greycolor");
+        }
+
+        &--rating{
+            &-wrapper{
+                // @include mixins.flexBox;
+                display: flex;
+                position: relative;
+                // width: 6rem;
+                height: 1.3rem;
+                flex-shrink: 0;
+                // background: red;
+                // overflow: hidden;
+                // &:hover{
+                //     // border: 0.2rem solid blue;
+                //     width: 1rem;
+                // }
+            }
+            &-empty{
+                // position: absolute;
+                top: 0;
+                width: 100%;
+                // height: 1rem;
+                height: 100%;
+                // object-fit: cover;
+                flex-shrink: 0;
+                background: url('/public/images/stars_empty.png') no-repeat;
+                background-size: cover;
+                // user-select: none;
+                // &:hover{
+                //     width: 2rem;
+                // }
+                
+            }
+            &-stars{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                // height: 1rem;
+                height: 1.3rem;
+                // object-fit: cover;
+                // flex-grow: 0;
+                @include mixins.flexBox;
+                flex-shrink: 0;
+                background: url('/public/images/stars_green.png') no-repeat;
+                background-size: cover;
+                overflow: hidden;
+                
+                // user-select: none;
+                &:hover{
+                    width: 2rem;
+                    // height: 100%;
+                }
+                
+            }
+            // &-wrapper{
+            //     @include mixins.flexBox;
+            //     font-size: 80%;
+            //     color: map-get(variables.$baseVars, "blurcolor");
+            // }
+        }
+
+        &--like{
+            text-align: center;
+            font-size: 90%;
+            color: map-get(variables.$baseVars, "orange");
+            &-empty{
+                color: map-get(variables.$baseVars, "blurcolor");
+            }
+        }
+
+        &--rewatch{
+            text-align: center;
+            font-size: 90%;
+            color: map-get(variables.$baseVars, "blurcolor");
+        }
+
+        &--edit{
+            background: map-get(variables.$baseVars, "editgrey");
+            text-align: center;
+            font-size: 90%;
+
+            &-icon{
+                @include mixins.icon;
+                background-position: -61.1rem -11rem;
+
+                &:hover{
+                    background-position: -61.1rem -7rem;
+                }
+            }
+        }
+
+        &--you{
+            background: map-get(variables.$baseVars, "editgrey");
+            text-align: center;
+            font-size: 90%;
+
+            &-eye{
+                @include mixins.iconLarger;
+                background-position: -44rem -70rem;
+            }
+            &-watched{
+                @include mixins.iconLarger;
+                background-position: -71rem -70rem;
+            }
+            &-heart{
+                @include mixins.iconLarger;
+                background-position: -38rem -70rem;
+            }
+            &-liked{
+                @include mixins.iconLarger;
+                background-position: -53rem -70rem;
+            }
+        }
+    }
+}

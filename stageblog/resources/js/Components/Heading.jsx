@@ -1,5 +1,4 @@
 const Heading = (props) => {
-    console.log(props);
     return (
         <>
             <h2 className="heading">{props.text}</h2>

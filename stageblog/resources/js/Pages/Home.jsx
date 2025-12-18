@@ -1,21 +1,22 @@
 import Heading from "@/Components/Heading";
 import Type from "@/Components/Type";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { useForm, usePage } from "@inertiajs/react";
+import { Head, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 function Home(){
-    const user = usePage().props.auth.user;
+    const role = usePage().props.auth.role[0];
     const hours = usePage().props.hours;
     const remaining = usePage().props.remaininghours;
-    const movies = usePage().props.movies;
+    const diaries = usePage().props.diaries;
     const posts = usePage().props.posts;
     const url = import.meta.env.VITE_APP_URL;
     const { data, setData, processing, reset, post } = useForm({
         'hours': 0,
         'stage': 2
     });
+    console.log(diaries);
     const [openForm, setOpenForm] = useState(false);
 
     const submit = (event) => {
@@ -26,14 +27,15 @@ function Home(){
     }
     return(
         <AuthenticatedLayout>
+            <Head title="Home"/>
             <section className="homeactivity">
                 <Heading text="RECENTLY WATCHED"/>
                 <ul className="homeactivity__list">
                     {
-                        movies.length != 0 ? 
-                            movies.map((item, index) => 
+                        diaries.length != 0 ? 
+                            diaries.map((item, index) => 
                                 <li key={index} className="homeactivity__item">
-                                    <img src={`${url}${item.poster}`} alt={item.title} className="homeactivity__item--poster" />
+                                    <img src={`${url}${item.movie.poster}`} alt={item.title} className="homeactivity__item--poster" />
                                     <a href={route('movies.show', item.tmdb)} className="homeactivity__item--overlay">
                                         {/* <p className="homeactivity__item--title">{item.title}</p> */}
                                     </a>
@@ -75,7 +77,7 @@ function Home(){
                                 <button type="submit" className="hours__heading--form-submit">ADD</button>
                             </form>
                         : 
-                            <button onClick={() => setOpenForm(true)} className="hours__heading--button">+ ADD HOURS</button>
+                            role.name == 'admin' && <button onClick={() => setOpenForm(true)} className="hours__heading--button">+ ADD HOURS</button>
                     }
                 </span>
                 <span className="hours__progress">
@@ -87,7 +89,7 @@ function Home(){
                 <span className="homeposts__list">
                     {
                         posts.map((item, index) => 
-                            <a key={index} href={route('posts.show', item.id)} className="homeposts__item">
+                            <a key={index} href={route('posts.show', item)} className="homeposts__item">
                                 <figure className="homeposts__item--figure">
                                     {/* <img src={item.image} alt={item.title} className="homeposts__item--figure-image" /> */}
                                     <ReactMarkdown>

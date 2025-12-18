@@ -87,37 +87,45 @@
         gap: 2rem;
         width: 45%;
 
-        &--item{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: start;
-            gap: 0.8rem;
-            width: 100%;
+        // &--item{
+        //     display: flex;
+        //     flex-direction: column;
+        //     justify-content: center;
+        //     align-items: start;
+        //     gap: 0.8rem;
+        //     width: 100%;
 
-            &-label{
-                font-size: 80%;
-            }
+        //     &-label{
+        //         font-size: 80%;
+        //     }
 
-            &-input{
-                width: 100%;
-                border: none;
-                box-shadow: inset 0 -0.2rem 0 map-get(variables.$baseVars, "darkgrey");
-                border-radius: 0.4rem;
-                background: map-get(variables.$baseVars, "inputgrey");
-                font-size: 90%;
-                padding: 0.7rem;
-                color: map-get(variables.$baseVars, "lightcolor");
-                font-family: map-get(variables.$baseVars, "font");
+        //     &-input{
+        //         width: 100%;
+        //         border: none;
+        //         box-shadow: inset 0 -0.2rem 0 map-get(variables.$baseVars, "darkgrey");
+        //         border-radius: 0.4rem;
+        //         background: map-get(variables.$baseVars, "inputgrey");
+        //         font-size: 90%;
+        //         padding: 0.7rem;
+        //         color: map-get(variables.$baseVars, "lightcolor");
+        //         font-family: map-get(variables.$baseVars, "font");
 
-                &:focus{
-                    background: map-get(variables.$baseVars, "color");
-                    color: map-get(variables.$baseVars, "darkcolor");
-                    outline: none;
-                    box-shadow: none;
-                }
-            }
-        }
+        //         &::placeholder{
+        //             color: map-get(variables.$baseVars, "darkgrey");
+        //         }
+
+        //         &:focus{
+        //             background: map-get(variables.$baseVars, "color");
+        //             color: map-get(variables.$baseVars, "darkcolor");
+        //             outline: none;
+        //             box-shadow: none;
+
+        //             &::placeholder{
+        //                 color: map-get(variables.$baseVars, "lightcolor");
+        //             }
+        //         }
+        //     }
+        // }
 
         &--wrapper{
             @include mixins.flexBox;
@@ -166,7 +174,7 @@
             background: map-get(variables.$baseVars, "bluegrey");
             border: 0.1rem solid rgba(map-get(variables.$baseVars, "color"), 0.1);
             width: 25%;
-            height: 16rem;
+            // height: 16rem;
             border-radius: 0.3rem;
             position: relative;
 
@@ -219,6 +227,19 @@
                     cursor: pointer;
                     background: map-get(variables.$baseVars, "orange");
                 color: map-get(variables.$baseVars, "color");
+                }
+            }
+        }
+
+        &--backdrop{
+            width: 20rem;
+
+            &-image{
+                width: 100%;
+                object-fit: cover;
+                
+                &:hover{
+                    cursor: pointer;
                 }
             }
         }

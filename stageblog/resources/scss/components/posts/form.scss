@@ -126,6 +126,7 @@
             &-tags{
                 list-style: none;
                 @include mixins.flexBox;
+                flex-wrap: wrap;
                 gap: 1rem;
             }
             &-tag{

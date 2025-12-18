@@ -1,0 +1,135 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+
+.film__overlay{
+    background: rgba(map-get(variables.$baseVars, "black"), 0.8);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.film__modal{
+    background: map-get(variables.$baseVars, 'darkgrey');
+    @include mixins.flexBox;
+    position: fixed;
+    left: 50%;
+    border: none;
+    top: 50%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    // overflow: hidden;
+
+    &--form{
+        width: 100%;
+        height: 100%;
+    }
+
+    &--header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        border-bottom: 0.1rem solid map-get(variables.$baseVars, "bluegrey");
+
+        &-text{
+            color: map-get(variables.$baseVars, "color");
+        }
+        &-close{
+            color: map-get(variables.$baseVars, "grey");
+            background: none;
+            border: none;
+            font-size: 120%;
+        }
+    }
+
+    &--body{
+        width: 100%;
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &--wrapper{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        height: 100%;
+        width: 70%;
+        overflow: hidden;
+        overflow-y: scroll;
+        padding: 1rem;
+    }
+
+    &--posters{
+        width: 18.5%;
+
+        &-image{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.2rem;
+        }
+    }
+
+
+    &--backdrops{
+        width: 32%;
+
+        &-image{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.2rem;
+        }
+    }
+
+    &--aside{
+        width: 30%;
+        height: 100%;
+        padding: 1rem;
+    }
+
+    &--poster{
+        height: 100%;
+        object-fit: cover;
+        border-radius: 0.2rem;
+    }
+
+    &--backdrop{
+        width: 100%;
+        object-fit: cover;
+        border-radius: 0.2rem;
+    }
+
+    &--footer{
+        background: map-get(variables.$baseVars, "footer");
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 2rem;
+        width: 100%;
+
+        &-text{
+            font-size: 80%;
+            color: map-get(variables.$baseVars, "greycolor");
+        }
+    }
+
+    &--submit{
+        background: map-get(variables.$baseVars, "green");
+        border: none;
+        color: map-get(variables.$baseVars, "color");
+        font-family: inherit;
+        font-weight: 600;
+        padding: 0.6rem 1.2rem;
+        border-radius: 0.3rem;
+    }
+}

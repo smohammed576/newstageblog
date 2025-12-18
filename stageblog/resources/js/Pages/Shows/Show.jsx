@@ -1,8 +1,9 @@
 import DataContext from "@/hooks/context/DataContext";
 import Navigation from "@/Layouts/Navigation";
-import { usePage } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 import { useContext, useEffect, useState } from "react";
 import ShowSeasonsTab from "./Tabs/SeasonsTab";
+import CustomModal from "@/Components/Modals/CustomModal";
 
 function ShowScreen(){
     const user = usePage().props.auth.user;
@@ -12,6 +13,8 @@ function ShowScreen(){
     console.log(usePage().props);
     const url = import.meta.env.VITE_APP_URL;
     const [tab, setTab] = useState(0);
+    const [isOpen, setIsOpen] = useState(false);
+    const [type, setType] = useState('');
     let tabs = ['SEASONS', 'CAST', 'CREW', 'MEDIA', 'SIMILAR SHOWS'];
     
     useEffect(() => {
@@ -25,6 +28,7 @@ function ShowScreen(){
 
     return show != null && (
         <>
+        <Head title={show.name}/>
          <Navigation props={true}/>
             <figure className="film__backdrop">
                 <div className="film__backdrop--image" style={{backgroundImage: `url(${url}${show.backdrop_path})`}}></div>
@@ -67,6 +71,8 @@ function ShowScreen(){
                                 }
                             </div>
                         </div>
+                        <button onClick={() => {setType('posters'); setIsOpen(true)}}>custom poster</button>
+                        <button onClick={() => {setType('backdrops'); setIsOpen(true)}}>custom backdrop</button>
                         <div className="film__actions">b</div>
                     </span>
                 </span>
@@ -160,6 +166,9 @@ function ShowScreen(){
                     </span>
                 </div> */}
             </section>
+            {
+                isOpen && <CustomModal images={show.images} type={type} onClose={() => isOpen(false)}/>
+            }
         </>
     );
 }

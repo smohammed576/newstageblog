@@ -10,7 +10,9 @@ function FavoriteModal({ position, onClick, onClose, type }){
         title: '',
         name: '',
         poster: '',
+        backdrop: '',
         tmdb: 0,
+        release: '',
         position: position
     });
 
@@ -31,7 +33,7 @@ function FavoriteModal({ position, onClick, onClose, type }){
             }
             else{
                 post(route('favorites.store'), {
-                    onFinish: () => reset('title', 'poster', 'tmdb')
+                    onFinish: () => reset('title', 'poster', 'backdrop', 'tmdb', 'release')
                 });
             }
             onClose();
@@ -45,10 +47,13 @@ function FavoriteModal({ position, onClick, onClose, type }){
         }
         else{
             setData('title', result.title);
+            setData('release', result.release_date);
+            setData('backdrop', result.backdrop_path);
         }
         setData('poster', result.poster_path);
         setData('tmdb', result.id);
     }
+    
     return (
         <>
             <div className="favorite__overlay"></div>

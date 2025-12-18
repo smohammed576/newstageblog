@@ -1,3 +1,4 @@
+import GreenButton from "@/Components/GreenButton";
 import { useForm } from "@inertiajs/react";
 
 function LoginScreen(){
@@ -32,7 +33,8 @@ function LoginScreen(){
                         <input type="checkbox" name="remember" checked={data.remember} onChange={(event) => setData('remember', event.target.checked)} className="auth__form--remember-checkbox" />
                         <label htmlFor="" className="auth__form--remember-label">Remember me</label>
                     </span>
-                    <button disabled={processing} className="newpost__form--footer-button">SIGN IN</button>
+                    {/* <button disabled={processing} className="newpost__form--footer-button">SIGN IN</button> */}
+                    <GreenButton text="SIGN IN" processing={processing}/>
                 </form>
             </section>
         </main>

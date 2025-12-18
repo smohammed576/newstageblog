@@ -1,11 +1,11 @@
 import Heading from "@/Components/Heading";
+import Tag from "@/Components/Tag";
 import Type from "@/Components/Type";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { usePage } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 import ReactMarkdown from "react-markdown";
 
 function PostsScreen(){
-    const user = usePage().props.auth.user;
     const posts = usePage().props.posts.data;
     const links = usePage().props.posts;
     console.log(usePage().props);
@@ -17,19 +17,20 @@ function PostsScreen(){
     
     return (
         <AuthenticatedLayout>
+            <Head title="Posts"/>
             <section className="posts">
                 <Heading text={`${links.total} ${links.total == 1 ? 'POST' : 'POSTS'}`} link={status != null && route('posts.index')} linkText={status != null && 'RESET'} />
                 <div className="posts__list">
                     {
                         posts != null && posts.length != 0 ? 
                             posts.map((item, index) => 
-                                <a href={route("posts.show", item.id)} key={index} className="posts__item">
+                                <a href={route("posts.show", item)} key={index} className="posts__item">
                                     <figure className="posts__item--figure">
                                         <ReactMarkdown>
                                             {item.image}
                                         </ReactMarkdown>
                                         {
-                                            item.type != null && <Type type={item.type}/>
+                                            item.type == 'Reflectie' && <Type type={item.type}/>
                                         }
                                     </figure>
                                     <article className="posts__item--wrapper">
@@ -42,16 +43,17 @@ function PostsScreen(){
                                             <h3 className="posts__item--text-intro">{item.intro}</h3>
                                         </span>
                                         <span className="posts__item--user">
-                                            <img src={user.image} alt={user.name} className="posts__item--user-avatar" />
-                                            <p className="posts__item--user-name">{user.name}</p>
+                                            <img src={item.user.image} alt={item.user.name} className="posts__item--user-avatar" />
+                                            <p className="posts__item--user-name">{item.user.name}</p>
                                         </span>
                                         <ul className="posts__item--tags">
                                             {
                                                 item.tags != null && item.tags.length != 0 ? 
                                                     item.tags.map((item, index) => 
-                                                        <li key={index} className="newpost__form--item-tag">
-                                                            {item}
-                                                        </li>
+                                                        <Tag tag={item} key={index}/>
+                                                        // <li key={index} className="newpost__form--item-tag">
+                                                        //     {item}
+                                                        // </li>
                                                     )
                                                 : null
                                             }

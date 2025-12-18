@@ -2,12 +2,18 @@ import { useForm, usePage } from "@inertiajs/react";
 
 function Navigation(props){
     const user = usePage().props.auth.user;
+    const role = usePage().props.auth.role[0];
+    // console.log(role);
     const {post, processing} = useForm();
 
     const submit = (event) => {
         event.preventDefault();
-        post(route('logout'));
+        if(!processing){
+            post(route('logout'));
+        }
     }
+
+    // console.log(user);
 
     return(
         <header className={props.props ? 'header header__movie' : 'header'}>
@@ -27,14 +33,22 @@ function Navigation(props){
                 <div className="header__navigation--wrapper">
                     <img src={user.image} alt={user.name} className="header__navigation--avatar" />
                     <div className="header__navigation--dropdown">
-                        <a href={route('profile.show', user.id)} className="header__navigation--dropdown-item">Account</a>
+                        <a href={route('profile.show', user)} className="header__navigation--dropdown-item">Account</a>
                         <a href={route('profile.settings')} className="header__navigation--dropdown-item">Settings</a>
-                        <a href={route('posts.create')} className="header__navigation--dropdown-item">New post</a>
-                        <a href={route('movies.upload')} className="header__navigation--dropdown-item">Log film</a>
-                        {/* <button className="header__navigation--dropdown-signout">Log out</button> */}
-                        {/* <a href={route("logout")} className="header__navigation--dropdown-signout">Log out</a> */}
+                        {
+                            role.name == 'admin' && <a href={route('images.index')} className="header__navigation--dropdown-item">Images</a>
+                        }
+                        {
+                            role.name == 'admin' && <a href={route('posts.create')} className="header__navigation--dropdown-item">New post</a>
+                        }
+                        {
+                            role.name == 'admin' && <a href={route('diaries.upload')} className="header__navigation--dropdown-item">Log film</a>
+                        }
+                        {
+                            role.name == 'admin' && <a href={route('images.upload')} className="header__navigation--dropdown-item">Upload image</a>
+                        }
                         <form onSubmit={submit} className="header__navigation--dropdown-form">
-                            <button className="header__navigation--dropdown-signout">Log out</button>
+                            <button disabled={processing} className="header__navigation--dropdown-signout">Log out</button>
                         </form>
                     </div>
                 </div>

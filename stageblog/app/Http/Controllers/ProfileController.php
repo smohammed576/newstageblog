@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Diary;
 use App\Models\Movie;
 use App\Models\User;
+use App\Models\Watchlist;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,25 +19,33 @@ use Inertia\Response;
 class ProfileController extends Controller
 {
 
-    public function show(int $id){
-        $posts = auth()->user()->posts()->get();
-        $favorites = auth()->user()->favorites()->get();
-        // $profile = User::where('id', $id)->get();
-        $profile = User::with(['favorites.user', 'posts.user', 'movies.user', 'shows.user'])->findOrFail($id);
-        // $films = Movie::with('user')->where
-        // $films = Movie::with('user')->
-        $films = Movie::with('user')->where('user_id', $id)->latest()->paginate(4);
+    public function show(User $user){
+        $profile = User::with(['favorites.movie', 'posts.user', 'diaries.user', 'shows.user'])->findOrFail($user->id);
+        $films = Diary::with(['user', 'movie'])->where('user_id', $user->id)->latest()->paginate(4);
+        $watchlist = Watchlist::where('user_id', $user->id)->latest()->paginate(5);
+        $movies = Movie::where('user_id', $user->id)->get();
+
+        $diaries = Diary::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        $sorted = $diaries->groupBy(function ($item){
+            return Carbon::parse($item['created_at'])->format('Y-m');
+        })->sortKeysDesc();
+        
+
+        // $sorted = $sorted->sortKeysDesc();
+        $sorted = $sorted->toArray();
+
         return Inertia::render('Profile/Profile', [
             'profile' => $profile,
-            'movies' => $films
-            // 'posts' => $posts,
-            // 'favorites' => $favorites
+            'diaries' => $films,
+            'watchlist' => $watchlist,
+            'diary' => $sorted,
+            'movies' => $movies
         ]);
     }
 
     public function settings() {
         $user = auth()->user();
-        $favorites = $user->favorites()->get();
+        $favorites = $user->favorites()->with('movie')->get();
         $shows = $user->shows()->get();
         return Inertia::render('Settings/Settings', [
             'favorites' => $favorites,

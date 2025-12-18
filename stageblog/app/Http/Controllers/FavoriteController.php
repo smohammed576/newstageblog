@@ -12,22 +12,28 @@ class FavoriteController extends Controller
         $user = auth()->user();
         $data = $request->validate([
             'title' => 'required',
-            'poster' => 'required',
+            'poster' => '',
+            'backdrop' => '',
+            'release' => '',
             'tmdb' => 'required',
             'position' => 'required'
         ]);
-        
+        $checkIfExists = $user->movies()->where('tmdb', $data['tmdb'])->first();
+        if(!$checkIfExists){
+            $user->movies()->create($data);
+        }
+        $movie = $user->movies()->where('tmdb', $data['tmdb'])->first();
         $checkIfExists = $user->favorites()->where('position', $data['position'])->first();
         if($checkIfExists){
             $checkIfExists->update([
                 'title' => $data['title'],
-                'poster' => $data['poster'],
-                'tmdb' => $data['tmdb']
+                'tmdb' => $data['tmdb'],
+                'movie_id' => $movie->id
             ]);
             return back();
         }
         else{
-            $user->favorites()->create($data);
+            $movie->favorites()->create([...$data, 'user_id' => $user->id]);
             return back();
         }
 

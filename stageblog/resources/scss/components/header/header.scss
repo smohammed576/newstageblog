@@ -12,6 +12,7 @@
     &__movie{
         background: transparent;
         box-shadow: none;
+        background-image: linear-gradient(to bottom,#14181c,rgba(20,24,28,.945) 16.56%,rgba(20,24,28,.8) 30.85%,rgba(20,24,28,.608) 43.77%,rgba(20,24,28,.392) 56.23%,rgba(20,24,28,.2) 69.15%,rgba(20,24,28,.055) 83.44%,rgba(20,24,28,0));
     }
 
     &__link{
@@ -64,18 +65,15 @@
             flex-direction: column;
             justify-content: center;
             align-items: start;
-            // gap: 2rem;
             background: map-get(variables.$baseVars, "lightcolor");
-            // padding: 2rem;
             padding: 0.4rem 0;
             width: 300%;
-            // width: 20rem;
             z-index: 100000;
             border-radius: 0.4rem;
 
             &-item{
                 width: 100%;
-                padding: 0.4rem 2rem;
+                padding: 0.4rem 1rem;
                 text-decoration: none;
                 color: map-get(variables.$baseVars, "inputgrey");
                 font-size: 85%;
@@ -102,7 +100,7 @@
                 border: none;
                 width: 100%;
                 text-align: start;
-                padding: 0.4rem 2rem;
+                padding: 0.4rem 1rem;
                 font-family: inherit;
                 font-size: 85%;
                 text-decoration: none;
@@ -114,22 +112,6 @@
                     background: map-get(variables.$baseVars, "icongrey");
                     color: map-get(variables.$baseVars, "color");
                 }
-                // background: none;
-                // border: none;
-                // color: map-get(variables.$baseVars, "inputgrey");
-                // font-size: 100%;
-                // border-top: 0.1rem solid rgba(map-get(variables.$baseVars, "white"), 0.2);
-                // width: 100%;
-                // display: flex;
-                // justify-content: start;
-                // align-items: center;
-                // padding: 1rem 2rem;
-                // font-family: inherit;
-
-
-                // &:hover{
-                //     cursor: pointer;
-                // }
             }
         }
 

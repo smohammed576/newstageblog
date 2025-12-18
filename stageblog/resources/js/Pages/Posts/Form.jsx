@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { useForm, usePage } from "@inertiajs/react";
+import { Head, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import tags from "../../../data/tags.json";
 import TagsModal from "@/Components/Modals/TagsModal";
@@ -7,18 +7,20 @@ import ReactMarkdown from "react-markdown";
 import Markdown from "@/Components/Markdown";
 
 function PostForm(){
+    const stagepost = usePage().props.post;
     const [openModal, setOpenModal] = useState(false);
     const [tagsList, setTagsList] = useState([]);
-    const { data, setData, post, processing, error } = useForm({
-         title: '',
-         intro: '',
-         content: '',
-         image: '',
-         type: 'Reflectie',
-         views: 0,
-         tags: [],
-         stage: 1,
-         published: true
+    console.log(usePage().props);
+    const { data, setData, post, patch, processing, error } = useForm({
+         title: stagepost != null ? stagepost.title : '',
+         intro: stagepost != null ? stagepost.intro :  '',
+         content: stagepost != null ? stagepost.content :  '',
+         image: stagepost != null ? stagepost.image :  '',
+         type: stagepost != null ? stagepost.type :  'Reflectie',
+         views: stagepost != null ? stagepost.views :  0,
+         tags: stagepost != null ? stagepost.tags : [],
+         stage: stagepost != null ? stagepost.stage :  1,
+         published: stagepost != null ? stagepost.published :  true
     });
     const [formatted, setFormatted] = useState(false);
     const [formatImage, setFormatImage] = useState(false);
@@ -45,14 +47,20 @@ function PostForm(){
 
     const submit = (event) => {
         event.preventDefault();
-        post(route('posts.store'));
+        if(stagepost != null){
+            patch(route('posts.update', stagepost.id));
+        }
+        else{
+            post(route('posts.store'));
+        }
     }
     
     return (
         <AuthenticatedLayout>
+            <Head title={stagepost != null ? `Edit ${stagepost.title}` : 'Create a new post'}/>
             <section className="newpost">
                 <span className="newpost__header">
-                    <p className="newpost__header--text">NEW POST</p>
+                    <p className="newpost__header--text">{stagepost != null ? 'EDIT POST' : 'NEW POST'}</p>
                 </span>
                 <form onSubmit={submit} className="newpost__form">
                     <span className="newpost__form--wrapper">
@@ -143,7 +151,7 @@ function PostForm(){
                             <label htmlFor="" className="newpost__form--footer-label">STAGE {data.stage}</label>
                         </span>
                         <span className="newpost__form--footer-buttons">
-                            <button disabled={processing} className="newpost__form--footer-button newpost__form--footer-cancel">CANCEL</button>
+                            <button disabled={processing} type="button" className="newpost__form--footer-button newpost__form--footer-cancel">CANCEL</button>
                             <button disabled={processing} className="newpost__form--footer-button">SAVE</button>
                         </span>
                     </span>

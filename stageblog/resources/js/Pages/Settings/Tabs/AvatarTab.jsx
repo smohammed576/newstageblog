@@ -18,7 +18,7 @@ function SettingsAvatarTab(){
             patch(route('profile.update'));
         }
         else{
-            post(route('images.store'), {
+            post(route('images.store', 'avatars'), {
                 forceFormData: true
             });
         }

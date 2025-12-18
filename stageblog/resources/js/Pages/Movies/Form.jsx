@@ -1,7 +1,7 @@
 import MovieModal from "@/Components/Modals/MovieModal";
 import DataContext from "@/hooks/context/DataContext";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { useForm, usePage } from "@inertiajs/react";
+import { Head, useForm, usePage } from "@inertiajs/react";
 import { useContext, useEffect, useState } from "react";
 
 function MovieForm(){
@@ -34,6 +34,7 @@ function MovieForm(){
 
     return(
         <AuthenticatedLayout>
+            <Head title="Log Film"/>
             <section className="movie">
                 <div className="movie__wrapper">
                     <form action="" className="movie__search" onSubmit={(event) => sendQuery(event)}>

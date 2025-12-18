@@ -5,13 +5,13 @@
     background: map-get(variables.$baseVars, "color");
     min-height: 100vh;
     position: relative;
-    padding-bottom: 10rem;
+    padding-bottom: 4rem;
 }
 
 .post{
     @include mixins.flexBox;
     flex-direction: column;
-    gap: 4rem;
+    gap: 6rem;
     width: 100%;
     padding: 0 25rem;
 
@@ -70,6 +70,16 @@
             color: map-get(variables.$baseVars, "lightgrey");
             text-transform: uppercase;
             letter-spacing: 0.05rem;
+        }
+
+        &--edit{
+            color: map-get(variables.$baseVars, "lightgrey");
+            @include mixins.flexBox;
+            text-decoration: none;
+
+            &:hover{
+                color: map-get(variables.$baseVars, "color");
+            }
         }
 
     }
@@ -182,6 +192,38 @@
         }
     }
 
+    &__links{
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 0.1rem solid rgba(map-get(variables.$baseVars, "darkgrey"), 0.2);
+        padding-top: 1rem;
+        
+        &--item{
+            font-family: map-get(variables.$baseVars, "boldfont");
+            display: inline;
+            font-weight: 600;
+            padding: 0 1rem;
+            font-size: 90%;
+            color: map-get(variables.$baseVars, "lightcolor");
+            text-decoration: none;
+
+            &:hover{
+                color: map-get(variables.$baseVars, "blue");
+                text-decoration: underline map-get(variables.$baseVars, "blue");
+            }
+
+            &-icon{
+                display: inline;
+            }
+
+            &-disabled{
+                opacity: 0;
+            }
+        }
+    }
+
     &__tags{
         width: 80%;
         display: inline;
@@ -200,6 +242,12 @@
             padding: 0 1rem;
             font-size: 90%;
             color: map-get(variables.$baseVars, "lightcolor");
+            text-decoration: none;
+
+            &:hover{
+                color: map-get(variables.$baseVars, "blue");
+                text-decoration: underline map-get(variables.$baseVars, "blue");
+            }
         }
     }
 
@@ -296,6 +344,11 @@
             &-actions{
                 @include mixins.flexBox;
                 gap: 2rem;
+            }
+            &-button{
+                background: none;
+                border: none;
+                font-size: 120%;
             }
             &-action{
                 font-size: 80%;

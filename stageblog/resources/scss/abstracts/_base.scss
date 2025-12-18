@@ -10,8 +10,11 @@ body{
 }
 
 .main{
-    @include mixins.flexBox;
+    display: flex;
     flex-direction: column;
+    justify-content: start;
+    align-items: center;
     gap: 4rem;
     padding: 2rem 35rem;
+    min-height: calc(100vh - 10rem);
 }

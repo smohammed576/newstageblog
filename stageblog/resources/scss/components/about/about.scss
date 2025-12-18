@@ -1,0 +1,23 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+
+.about{
+    @include mixins.flexBox;
+    flex-direction: column;
+    gap: 2rem;
+    color: map-get(variables.$baseVars, "greycolor");
+    width: 50%;
+    padding: 5rem 0;
+    height: 100%;
+
+    &__title{
+        font-weight: 200;
+        font-size: 200%;
+    }
+
+    &__text{
+        text-align: center;
+        line-height: 1.25;
+        font-size: 110%;
+    }
+}

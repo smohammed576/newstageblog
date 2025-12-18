@@ -19,6 +19,7 @@ $baseVars: (
     "darkgrey": #456,
     "blurcolor": #567,
     "icongrey": #678,
+    "numbercolor": #778899,
     "lightcolor": #89a,
     "footer": #334455,
     // "green": #00ac1c,
@@ -36,8 +37,10 @@ $baseVars: (
     "profileborder": #24303c,
     "blue": #40BCF4,
     "lightblue": #add8e6,
-    "lightgrey": #bbcddd,
-    "hovergrey": #303840
+    // "lightgrey": #bbcddd,
+    "lightgrey": #bbccdd,
+    "hovergrey": #303840,
+    "editgrey": #1c242c
 );
 
 // import 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+import BackdropModal from "@/Components/Modals/BackdropModal";
 import FavoriteModal from "@/Components/Modals/FavoriteModal";
 import DataContext from "@/hooks/context/DataContext";
 import { useForm, usePage } from "@inertiajs/react";
@@ -11,6 +12,7 @@ function SettingsProfileTab(){
         name: user.name ?? '',
         first_name: user.first_name ?? '',
         last_name: user.last_name ?? '',
+        backdrop: user.backdrop ?? '',
         email: user.email ?? '',
         location: user.location ?? '',
         website: user.website ?? '',
@@ -27,7 +29,6 @@ function SettingsProfileTab(){
     const [type, setType] = useState('');
 
     useEffect(() => {
-        console.log('bae bae');
         let list = [null, null, null, null];
         favorites.forEach(item => {
             list[item.position] = item;
@@ -61,6 +62,8 @@ function SettingsProfileTab(){
             }, 5000);
         }
     }
+
+    console.log(data);
 
     return (
         <>
@@ -116,12 +119,13 @@ function SettingsProfileTab(){
                                         setOpenModal(true);
                                     }} className={`settings__favorites--item-button ${item == null && 'settings__favorites--item-empty'}`}>
                                         {
-                                            item == null ? '+' : <img src={`${url}${item.poster}`} alt={item.title} className="settings__favorites--item-poster" />
+                                            item == null ? '+' : <img src={`${url}${item.movie.poster}`} alt={item.title} className="settings__favorites--item-poster" />
                                         }
                                     </button>
                                         {
                                             item == null ? null : <button type="button" onClick={(event) => {
                                                 event.preventDefault();
+                                                
                                                 return setFilms(prev => {
                                                     const copy = [...prev];
                                                     copy[selected] = null;
@@ -168,16 +172,30 @@ function SettingsProfileTab(){
                             )
                         }
                     </span>
+                    <br />
+                    <span className="settings__favorites--heading">
+                        <button type="button" className="settings__favorites--heading-button">CUSTOM BACKDROP</button>
+                    </span>
+                    <span className="settings__favorites--backdrop">
+                        <span onClick={() => {setType('backdrop'); setOpenModal(true);}} className="settings__favorites--backdrop-empty">
+                        {
+                            user.backdrop != null ? 
+                            <img src={`${url}${user.backdrop}`} alt="" className="settings__favorites--backdrop-image" />
+                            :
+                            '+'
+                        }
+                        </span>
+                    </span>
                 </aside>
             </span>
         </form>
             {
-                openModal ? <FavoriteModal position={selected} onClick={(id) => getFilm(id)} type={type} onClose={() => setOpenModal(false)}/> : null
+                openModal ? type == 'backdrop' ? <BackdropModal selected={(path) => setData('backdrop', path)} onClose={() => {console.log(data.backdrop); setOpenModal(false)}}/> : <FavoriteModal position={selected} onClick={(id) => getFilm(id)} type={type} onClose={() => setOpenModal(false)}/> : null
             }
             {
                 showPopup && <div className="settings__popup">
                     <span className="settings__popup--message">
-                        {status} View your <a href={route('profile.show', user.id)} className="settings__popup--message-link">profile</a>
+                        {status} View your <a href={route('profile.show', user)} className="settings__popup--message-link">profile</a>
                     </span>
                 </div>
             }

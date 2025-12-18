@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Movie;
+use App\Models\Diary;
 use App\Models\Post;
 use App\Models\Hour;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class BlogController extends Controller
         $totalhours = 800;
         $hours = Hour::where('stage', 2)->sum('hours');
         $remaininghours = max($totalhours - $hours, 0);
-        $movies = Movie::latest()->get();
+        $diaries = Diary::with(['movie', 'user'])->latest()->take(6)->get();
         return Inertia::render('Home', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
@@ -26,7 +26,7 @@ class BlogController extends Controller
             'posts' => $posts,
             'hours' => $hours,
             'remaininghours' => $remaininghours,
-            'movies' => $movies
+            'diaries' => $diaries
         ]);
     }
 }

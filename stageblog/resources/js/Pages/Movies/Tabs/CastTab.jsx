@@ -8,7 +8,7 @@ function MovieCastTab({data}){
             {
                 data.length < 30 || showAll ?
                 data.map((item, index) => 
-                    <a href="" title={item.character} key={index} className="film__tabs--cast-item">
+                    <a href={route('person.show', item.id)} title={item.character} key={index} className="film__tabs--cast-item">
                         {item.name}
                     </a>
                 ) : 
@@ -18,7 +18,7 @@ function MovieCastTab({data}){
                         Show All...
                     </button>
                     :
-                    <a href="" title={data[index].character} key={index} className="film__tabs--cast-item">
+                    <a href={route('person.show', data[index].id)} title={data[index].character} key={index} className="film__tabs--cast-item">
                         {data[index].name}
                     </a>
                 )

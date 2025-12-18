@@ -1,10 +1,29 @@
+@use "variables";
 //4K 2560px
 @media screen and (min-width: 160rem) {
-    
+    // .main__auth{
+    //     // background: red;
+    // }
+    .auth{
+        height: 60rem;
+        font-size: 200%;
+    }
 }
 
 //my screen (macbook something air ig)
 @media screen and (min-width: 106.875rem) {
+}
+
+//1560px responsive
+@media screen and (max-width: 97.5rem) {
+    .film__backdrop{
+        width: 100%;
+        padding: 0;
+
+        &::before{
+            width: 100%;
+        }
+    }
 }
 
 //1500px responsive
@@ -18,17 +37,41 @@
     }
 }
 
+//responsive screen 92rem
+@media screen and (max-width: 92rem) {
+    .posts{
+
+        &__item{
+            font-size: 80%;
+            height: 20rem;
+
+            &--user{
+                &-avatar{
+                    width: 2rem;
+                }
+            }
+        }
+    }
+}
+
 //responsive screen 82rem
-@media screen and (max-width: 82rem) {
+@media screen and (max-width: 83.5rem) {
     .header{
         padding: 2rem 20rem;
-        // background: blue;
     }
     .homeposts{
         &__item{
             &--figure{
                 height: 15rem;
             }
+        }
+    }
+    .auth{
+        &__figure{
+            display: none;
+        }
+        &__form{
+            width: 100%;
         }
     }
     .main{
@@ -43,10 +86,41 @@
             margin-top: -3rem;
         }
     }
+    
+    .film__backdrop{
+        height: 50rem;
+    }
+
+    .profile{
+        &__hasBackdrop{
+            padding-top: 25rem;
+        }
+    }
+}
+
+//1120px
+@media screen and (max-width: 70rem) {
+    .main__auth{
+        padding: 0 30rem;
+    }
+}
+
+//1040px
+@media screen and (max-width: 65rem) {
+    .posts{
+        &__item{
+            &--text{
+                font-size: 120%;
+            }
+        }
+    }
 }
 
 //1000px
 @media screen and (max-width: 62.5rem) {
+    .main__auth{
+        padding: 0 15rem;
+    }
     .main{
         padding: 4rem 10rem;
     }
@@ -75,43 +149,26 @@
             padding: 4rem 10rem 5rem 10rem;
         }
     }
+    .film__backdrop{
+        width: 100%;
+        padding: 0;
+
+        &::before{
+            background-image: linear-gradient(to top,#14181d,#14181d 21.48148148%,rgba(20,24,29,.984) 23.63703704%,rgba(20,24,29,.945) 26.1%,rgba(20,24,29,.882) 28.80740741%,rgba(20,24,29,.804) 31.70740741%,rgba(20,24,29,.71) 34.74074074%,rgba(20,24,29,.608),rgba(20,24,29,.5) 40.97407407%,rgba(20,24,29,.396) 44.05925926%,rgba(20,24,29,.294) 47.04814815%,rgba(20,24,29,.204) 49.88148148%,rgba(20,24,29,.12) 52.5%,rgba(20,24,29,.06) 54.85185185%,rgba(20,24,29,.016) 56.87777778%,rgba(20,24,29,0) 58.51851852%);
+
+        }
+    }
+    .profile{
+        &__hasBackdrop{
+            padding-top: 20rem;
+        }
+    }
 }
-
-//surface pro 7 912px
-// @media screen and (max-width: 57rem) {
-//     .header{
-//         padding: 2rem 10rem;
-
-//         &__navigation{
-
-//             &--dropdown{
-//                 width: 14rem;
-//                 left: auto;
-//                 right: 0;
-//             }
-//         }
-//     }
-//     .post{
-//         padding: 0 5rem;
-
-//         &__heading{
-//             padding: 4rem 10rem 5rem 10rem;
-//         }
-//     }
-// }
 
 //ipad air
 @media screen and (max-width: 52rem){
     .main__auth{
         padding: 0 10rem;
-    }
-    .auth{
-        &__figure{
-            display: none;
-        }
-        &__form{
-            width: 100%;
-        }
     }
     .homeposts{
         &__item{
@@ -120,12 +177,16 @@
             }
         }
     }
+
+    .posts{
+        &__item{
+            font-size: 70%;
+        }
+    }
+    
     .settings{
         &__favorites{
             width: 50%;
-            &--item{
-                height: 13rem;
-            }
         }
     }
 
@@ -173,12 +234,31 @@
     }
 }
 
+//responsive 676px
+@media screen and (max-width: 42.25rem) {
+    .posts{
+        &__item{
+            height: 16rem;
+            font-size: 65%;
+
+            &--wrapper{
+                gap: 1rem;
+            }
+        }
+    }
+}
+
 //response 660px
 @media screen and (max-width: 41.25rem){
     .header{
         justify-content: center;
         flex-direction: column;
         gap: 2rem;
+
+        &__movie{
+            background: map-get(variables.$baseVars, "backdrop");
+            background-image: none;
+        }
 
         &__navigation{
             width: 80%;
@@ -205,17 +285,39 @@
                 height: 10rem;
             }
         }
-        // &__list{
-        //     flex-direction: column;
-        //     gap: 2rem;
-        // }
-        // &__item{
-        //     width: 100%;
+    }
+    .newpost{
 
-        //     &--figure{
-        //         height: 25rem;
-        //     }
-        // }
+        &__form{
+            &--wrapper{
+                flex-direction: column;
+            }
+            &--list{
+                width: 100%;
+            }
+
+        }
+    }
+    .posts{
+        &__list{
+            gap: 4rem;
+        }
+        &__item{
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            gap: 1rem;
+
+            &--figure{
+                width: 100%;
+            }
+
+            &--wrapper{
+                width: 100%;
+                gap: 2rem;
+                font-size: 120%;
+            }
+        }
     }
 
     .post{
@@ -225,6 +327,100 @@
             &--title{
                 font-size: 200%;
             }
+        }
+    }
+    .profile{
+        &__wrapper{
+            flex-direction: column;
+        }
+        &__body{
+            width: 100%;
+        }
+        &__aside{
+            width: 100%;
+        }
+        &__watchlist{
+            height: 15rem;
+        }
+    }
+
+    .settings{
+
+        &__form{
+            &--wrapper{
+                flex-direction: column;
+                gap: 4rem;
+            }
+        }
+
+        &__details{
+            width: 100%;
+        }
+        &__favorites{
+            width: 100%;   
+            height: 100%;
+
+            &--item{
+                height: 100%;
+            }
+        }
+    }
+
+    .film__backdrop{
+        position: relative;
+        height: 35rem;
+    }
+
+    .profile{
+
+        &__hasBackdrop{
+            padding: 0;
+            margin-top: -10rem;
+        }
+    }
+}
+
+//600px
+@media screen and (max-width: 37.5rem) {
+    .profile{
+        &__heading{
+            flex-direction: column;
+            gap: 4rem;
+            position: relative;
+
+            &--info{
+                
+                &-avatar{
+                    width: 8rem;
+                }
+
+                &-wrapper{
+                    height: auto;
+                    gap: 1rem;
+                }
+
+                &-heading{
+                    flex-direction: column;
+                    justify-content: start;
+                    align-items: start;
+                    gap: 1rem;
+                }
+
+                &-bio{
+                    position: absolute;
+                    bottom: 40%;
+                    left: 50%;
+                    transform: translate(-50%, 100%);
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+
+            &--details{
+                width: 70%;
+                justify-content: space-between;
+            }
+
         }
     }
 }
@@ -245,11 +441,23 @@
             }
         }
     }
+    .homeactivity{
+        &__item{
+            &--rating{
+                font-size: 40%;
+            }
+        }
+    }
 }
 
 //big phone so L 480px
-
 @media screen and (max-width: 30rem) {
+    .main__auth{
+        padding: 0;
+    }
+    .auth{
+        background: none;
+    }
     .homeposts{
         &__item{
             &--figure{

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -17,13 +18,17 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+
+    use HasRoles;
     protected $fillable = [
         'name',
+        'slug',
         'email',
         'password',
         'image',
         'first_name',
         'last_name',
+        'backdrop',
         'bio',
         'location',
         'website',
@@ -52,6 +57,12 @@ class User extends Authenticatable
         ];
     }
 
+    protected static function booted(){
+        static::creating(function ($model){
+            $model->slug = \Str::slug($model->name);
+        });
+    }
+
     public function posts(){
         return $this->hasMany(Post::class);
     }
@@ -63,12 +74,22 @@ class User extends Authenticatable
     public function comments(){
         return $this->hasMany(Comment::class);
     }
-    public function movies(){
-        return $this->hasMany(Movie::class);
+    public function diaries(){
+        return $this->hasMany(Diary::class);
     }
 
     public function shows(){
         return $this->hasMany(Show::class);
     }
 
+    public function actions(){
+        return $this->hasMany(Action::class);
+    }
+
+    public function watchlists(){
+        return $this->hasMany(Watchlist::class);
+    }
+    public function movies(){
+        return $this->hasMany(Movie::class);
+    }
 }

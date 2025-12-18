@@ -1,0 +1,55 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+
+.watchlist{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    width: 100%;
+
+    &__body{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        gap: 2rem;
+        width: 70%;
+
+        &--full{
+            width: 100%;
+        }
+    }
+
+    &__aside{
+        width: 24%;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        gap: 2rem;
+
+        &--wrapper{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: start;
+            gap: 1rem;
+        }
+    }
+
+    &__random{
+        width: 100%;
+        border: none;
+        background: map-get(variables.$baseVars, "darkgrey");
+        color: map-get(variables.$baseVars, "grey");
+        padding: 1rem 0.6rem;
+        border-radius: 0.4rem;
+        font-family: inherit;
+
+        &:hover{
+            cursor: pointer;
+            color: map-get(variables.$baseVars, "color");
+        }
+    }
+}
