@@ -67,7 +67,7 @@ Route::middleware('auth')->group(function () {
     
     
     //diaries
-    Route::middleware([Role::class. ':admin'])->group(function(){
+    Route::middleware([Role::class. ':admin,user'])->group(function(){
         Route::get('/diary', [DiaryController::class, 'upload'])->name('diaries.upload');
     });
     Route::post('/diary', [DiaryController::class, 'store'])->name('diaries.store');
@@ -106,9 +106,11 @@ Route::middleware('auth')->group(function () {
     });
 
     //movies
+    Route::get('/profile/{user:slug}/movies', [MovieController::class, 'index'])->name('movies.index');
     Route::get('/movie/{id}', [MovieController::class, 'show'])->name('movies.show');
     Route::post('/movie', [MovieController::class, 'store'])->name('movies.store');
     Route::patch('/movie/{id}', [MovieController::class, 'update'])->name('movies.update');
+    Route::delete('/movie/{id}', [MovieController::class, 'destroy'])->name('movies.destroy');
 
     //shows
     Route::get('/show/{id}', [ShowController::class, 'show'])->name('shows.show');

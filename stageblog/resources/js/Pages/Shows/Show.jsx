@@ -2,11 +2,12 @@ import DataContext from "@/hooks/context/DataContext";
 import Navigation from "@/Layouts/Navigation";
 import { Head, usePage } from "@inertiajs/react";
 import { useContext, useEffect, useState } from "react";
-import ShowSeasonsTab from "./Tabs/SeasonsTab";
 import CustomModal from "@/Components/Modals/CustomModal";
+import MovieCastTab from "../Movies/Tabs/CastTab";
 
 function ShowScreen(){
     const user = usePage().props.auth.user;
+    const role = usePage().props.auth.role;
     const id = usePage().props.id;
     const {findShow} = useContext(DataContext);
     const [show, setShow] = useState(null);
@@ -15,7 +16,8 @@ function ShowScreen(){
     const [tab, setTab] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
     const [type, setType] = useState('');
-    let tabs = ['SEASONS', 'CAST', 'CREW', 'MEDIA', 'SIMILAR SHOWS'];
+    let tabs = ['CAST', 'CREW', 'SEASONS', 'MEDIA', 'SIMILAR SHOWS'];
+    console.log(show);
     
     useEffect(() => {
         if(show == null){
@@ -41,15 +43,17 @@ function ShowScreen(){
                 </aside>
                 <span className="film__body">
                     <span className="film__heading">
-                        <h1 className="film__heading--name">{show.name}</h1>
-                        <h3 className="film__heading--year">{show.first_air_date.substring(0, 4)}</h3>
+                        <h1 className="film__heading--title">{show.name}</h1>
                         <span className="film__heading--wrapper">
-                            <h3 className="film__heading--directed">Created by </h3>
-                            {
-                                show.created_by.map((item, index) => 
-                                    <h3 key={index} className="film__heading--directed-name">{item.name}{index != show.created_by.length - 1 ? ', ' : ''}</h3>
-                                )
-                            }
+                            <p className="film__heading--year">{show.first_air_date.substring(0, 4)}</p>
+                            <p className="film__heading--credits">
+                                <p className="film__heading--directed">Created by </p>
+                                {
+                                    show.created_by.map((item, index) => 
+                                        <p key={index} className="film__heading--directed-name">{item.name}{index != show.created_by.length - 1 ? ', ' : ''}</p>
+                                    )
+                                }
+                            </p>
                         </span>
                     </span>
                     <span className="film__wrapper">
@@ -61,19 +65,39 @@ function ShowScreen(){
                             <div className="film__tabs">
                                 <span className="film__tabs--list">
                                     {
+                                        //working on
+                                        role.name == 'admin' ?
                                         tabs.map((item, index) => 
                                             <button onClick={() => setTab(index)} key={index} className={`film__tabs--tab ${tab == index && 'film__tabs--tab-active'}`}>{item}</button>
                                         )
+                                        :
+                                        <button className={`film__tabs--tab film__tabs--tab-active`}>{tabs[0]}</button>
                                     }
                                 </span>
                                 {
-                                    tab == 0 && <ShowSeasonsTab/>
+                                    // tab == 0 && <ShowSeasonsTab/>
+                                    tab == 0 && <MovieCastTab data={show.credits.cast} />
                                 }
                             </div>
                         </div>
-                        <button onClick={() => {setType('posters'); setIsOpen(true)}}>custom poster</button>
+                        <aside className="film__sidebar">
+                            <div className="film__panel">
+                                <div className="film__actions">
+
+                                </div>
+                                <ul className="film__panel--list">
+                                    <li className="film__panel--item">
+                                        <button onClick={() => {setType('posters'); setIsOpen(true)}} className="film__panel--item-button">Change poster</button>
+                                    </li>
+                                    <li className="film__panel--item">
+                                        <button onClick={() => {setType('backdrops'); setIsOpen(true)}} className="film__panel--item-button">Change backdrop</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </aside>
+                        {/* <button onClick={() => {setType('posters'); setIsOpen(true)}}>custom poster</button>
                         <button onClick={() => {setType('backdrops'); setIsOpen(true)}}>custom backdrop</button>
-                        <div className="film__actions">b</div>
+                        <div className="film__actions">b</div> */}
                     </span>
                 </span>
             {/* <Navigation props={true}/>

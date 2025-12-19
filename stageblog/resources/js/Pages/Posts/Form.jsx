@@ -5,6 +5,10 @@ import tags from "../../../data/tags.json";
 import TagsModal from "@/Components/Modals/TagsModal";
 import ReactMarkdown from "react-markdown";
 import Markdown from "@/Components/Markdown";
+import GreyInput from "@/Components/GreyInput";
+import GreenButton from "@/Components/GreenButton";
+import Checkbox from "@/Components/Checkbox";
+import Heading from "@/Components/Heading";
 
 function PostForm(){
     const stagepost = usePage().props.post;
@@ -23,7 +27,6 @@ function PostForm(){
          published: stagepost != null ? stagepost.published :  true
     });
     const [formatted, setFormatted] = useState(false);
-    const [formatImage, setFormatImage] = useState(false);
 
     console.log(data);
 
@@ -59,34 +62,13 @@ function PostForm(){
         <AuthenticatedLayout>
             <Head title={stagepost != null ? `Edit ${stagepost.title}` : 'Create a new post'}/>
             <section className="newpost">
-                <span className="newpost__header">
-                    <p className="newpost__header--text">{stagepost != null ? 'EDIT POST' : 'NEW POST'}</p>
-                </span>
+                <Heading text={stagepost != null ? 'EDIT POST' : 'NEW POST'}/>
                 <form onSubmit={submit} className="newpost__form">
                     <span className="newpost__form--wrapper">
                         <div className="newpost__form--list">
-                            <div className="newpost__form--item">
-                                <label htmlFor="" className="newpost__form--item-label">Title</label>
-                                <input type="text" name="title" value={data.title} onChange={(event) => setData('title', event.target.value)} className="newpost__form--item-input" />
-                            </div>
-                            <div className="newpost__form--item">
-                                <label htmlFor="" className="newpost__form--item-label">Intro</label>
-                                <input type="text" name="intro" value={data.intro} onChange={(event) => setData('intro', event.target.value)} className="newpost__form--item-input" />
-                            </div>
-                            <div className="newpost__form--item">
-                                <label htmlFor="" className="newpost__form--item-label">Image <button type="button" onClick={() => setFormatImage(!formatImage)} className="newpost__form--item-button">Format</button></label>
-                                {
-                                    formatImage ? 
-                                    <article className="markdown">
-                                        <ReactMarkdown components={Markdown}>
-                                            {data.image}
-                                        </ReactMarkdown>
-                                    </article>
-                                    :
-                                    <input type="text" name="image" value={data.image} onChange={(event) => setData('image', event.target.value)} className="newpost__form--item-input" />
-
-                                }
-                            </div>
+                            <GreyInput label="Title" value={data.title} onChange={(event) => setData('title', event.target.value)}/>
+                            <GreyInput label="Intro" value={data.intro} onChange={(event) => setData('intro', event.target.value)}/>
+                            <GreyInput label="Image" value={data.image} onChange={(event) => setData('image', event.target.value)} format={true}/>
                             <div className="newpost__form--item">
                                 <label htmlFor="" className="newpost__form--item-label">Post type</label>
                                 <select name="type" value={data.type} onChange={(event) => setData('type', event.target.value)} id="" className="newpost__form--dropdown">
@@ -147,12 +129,11 @@ function PostForm(){
                     </span>
                     <span className="newpost__form--footer">
                         <span className="newpost__form--footer-wrapper">
-                            <input type="checkbox" name="stage" value={data.stage} onChange={(event) => setData('stage', event.target.checked ? 2 : 1)} className="newpost__form--footer-checkbox" />
-                            <label htmlFor="" className="newpost__form--footer-label">STAGE {data.stage}</label>
+                            <Checkbox value={data.stage} onChange={(event) => setData('stage', event.target.checked ? 2 : 1)} label={`STAGE ${data.stage}`}/>
                         </span>
                         <span className="newpost__form--footer-buttons">
-                            <button disabled={processing} type="button" className="newpost__form--footer-button newpost__form--footer-cancel">CANCEL</button>
-                            <button disabled={processing} className="newpost__form--footer-button">SAVE</button>
+                            <GreenButton processing={processing} text="CANCEL" isGray={true}/>
+                            <GreenButton processing={processing} text="SAVE"/>
                         </span>
                     </span>
                 </form>

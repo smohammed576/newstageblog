@@ -116,6 +116,7 @@
 
         &--poster{
             width: 100%;
+            aspect-ratio: 2 / 3;
             object-fit: cover;
             border: 0.1rem solid rgba(map-get(variables.$baseVars, "color"), 0.2);
             border-radius: 0.4rem;
@@ -123,7 +124,7 @@
 
         &--overlay{
             width: 100%;
-            height: 94%;
+            aspect-ratio: 2 / 3;
             @include mixins.flexBox;
             color: map-get(variables.$baseVars, "color");
             text-decoration: none;
@@ -132,6 +133,25 @@
             border-radius: 0.4rem;
             opacity: 0;
             transition: 0.2s all;
+            background: rgba(map-get(variables.$baseVars, "black"), 0.6);
+
+            &-wrapper{
+                @include mixins.flexBox;
+                flex-direction: column;
+            }
+            &-text{
+                font-size: 80%;
+            }
+            &-name{
+                font-weight: 600;
+                font-family: map-get(variables.$baseVars, "boldfont");
+                color: map-get(variables.$baseVars, "color");
+                text-decoration: none;
+
+                &:hover{
+                    color: map-get(variables.$baseVars, "blue");
+                }
+            }
         }
 
         &--rating{
@@ -139,12 +159,69 @@
             color: map-get(variables.$baseVars, 'greycolor');
             @include mixins.flexBox;
             gap: 0.4rem;
+            position: relative;
 
             &-stars{
-                @include mixins.flexBox;
-                gap: 0.1rem;
+                background: url('/public/images/sprite.svg') no-repeat;
+                background-position: -29rem -9rem;
+                height: 1.6rem;
+            }
+
+            &-rewatch{
+                background: url('/public/images/sprite.svg') no-repeat;
+                background-position: -55rem -9rem;
+                width: 1.4rem;
+                height: 1.6rem;
+            }
+
+            &-like{
+                background: url('/public/images/sprite.svg') no-repeat;
+                background-position: -39rem -7rem;
+                width: 1.4rem;
+                height: 1.3rem;
             }
         }
+    }
+}
+
+.rating{
+    &__0{
+        width: 0;
+    }
+    &__1{
+        width: 1.3rem;
+        background-position: -35.5rem -9rem;
+    }
+    &__2{
+        width: 1.2rem;
+    }
+    &__3{
+        width: 2.6rem;
+        background-position: -34.2rem -9rem;
+    }
+    &__4{
+        width: 2.5rem;
+    }
+    &__5{
+        width: 3.9rem;
+        background-position: -32.9rem -9rem;
+    }
+    &__6{
+        width: 3.8rem;
+    }
+    &__7{
+        width: 5.2rem;
+        background-position: -31.6rem -9rem;
+    }
+    &__8{
+        width: 5.1rem;
+    }
+    &__9{
+        width: 6.5rem;
+        background-position: -30.3rem -9rem;
+    }
+    &__10{
+        width: 6.4rem;
     }
 }
 
@@ -176,12 +253,6 @@
             @include mixins.flexBox;
             width: 100%;
             height: 20rem;
-
-            // &-image{
-            //     width: 100%;
-            //     height: 100%;
-            //     object-fit: cover;
-            // }
 
             & p, img{
                 width: 100%;

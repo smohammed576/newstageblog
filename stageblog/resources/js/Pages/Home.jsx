@@ -37,25 +37,21 @@ function Home(){
                                 <li key={index} className="homeactivity__item">
                                     <img src={`${url}${item.movie.poster}`} alt={item.title} className="homeactivity__item--poster" />
                                     <a href={route('movies.show', item.tmdb)} className="homeactivity__item--overlay">
-                                        {/* <p className="homeactivity__item--title">{item.title}</p> */}
+                                        <article className="homeactivity__item--overlay-wrapper">
+                                            <p className="homeactivity__item--overlay-text">Watched by</p>
+                                            <a href={route('profile.show', item.user)} className="homeactivity__item--overlay-name">{item.user.name}</a>
+                                        </article>
                                     </a>
                                     <span className="homeactivity__item--rating">
                                         {
                                             item.rating != null && item.rating != 0 ? 
                                             <>
-                                            <span className="homeactivity__item--rating-stars">
+                                            <span className={`homeactivity__item--rating-stars rating__${item.rating}`}></span>
                                                 {
-                                                    Array.from({length: item.rating / 2}, (_, i) => <i key={i} className="fa-solid fa-star homeactivity__item--rating-star"/> )
+                                                    item.rewatched == 1 && <span className={`homeactivity__item--rating-rewatch`}></span>
                                                 }
                                                 {
-                                                    Number.isInteger(item.rating / 2) ? null : <i className="fa-solid fa-star-half homeactivity__item--rating-star"/>
-                                                }
-                                            </span>
-                                                {
-                                                    item.rewatched == 1 && <i className="fa-solid fa-rotate homeactivity__item--rating-star"/>
-                                                }
-                                                {
-                                                    item.liked == 1 && <i className="fa-solid fa-heart homeactivity__item--rating-star"/>
+                                                    item.liked == 1 && <span className={`homeactivity__item--rating-like`}></span>
                                                 }
                                             </>
                                             : null
@@ -91,7 +87,6 @@ function Home(){
                         posts.map((item, index) => 
                             <a key={index} href={route('posts.show', item)} className="homeposts__item">
                                 <figure className="homeposts__item--figure">
-                                    {/* <img src={item.image} alt={item.title} className="homeposts__item--figure-image" /> */}
                                     <ReactMarkdown>
                                         {item.image}
                                     </ReactMarkdown>

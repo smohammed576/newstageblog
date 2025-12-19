@@ -12,9 +12,6 @@ function Navigation(props){
             post(route('logout'));
         }
     }
-
-    // console.log(user);
-
     return(
         <header className={props.props ? 'header header__movie' : 'header'}>
             <a href="/" className="header__link">
@@ -42,7 +39,7 @@ function Navigation(props){
                             role.name == 'admin' && <a href={route('posts.create')} className="header__navigation--dropdown-item">New post</a>
                         }
                         {
-                            role.name == 'admin' && <a href={route('diaries.upload')} className="header__navigation--dropdown-item">Log film</a>
+                            role.name == 'admin' || role.name == 'user' ? <a href={route('diaries.upload')} className="header__navigation--dropdown-item">Log film</a> : null
                         }
                         {
                             role.name == 'admin' && <a href={route('images.upload')} className="header__navigation--dropdown-item">Upload image</a>

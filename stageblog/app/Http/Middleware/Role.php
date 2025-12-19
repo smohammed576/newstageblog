@@ -8,10 +8,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Role
 {
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next, ...$role): Response
     {
         // dd($role);
-        if(auth()->check() && $request->user()->hasRole($role)){
+        // request->user()->hasRole($role)){
+        //     return $next($request);
+        // }
+        if(auth()->check() && $request->user()->hasAnyRole($role)){
             return $next($request);
         }
         return redirect('/');

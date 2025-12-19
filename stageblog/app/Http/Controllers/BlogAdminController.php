@@ -111,9 +111,12 @@ class BlogAdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+
+        return redirect(route('blog.index'));
     }
 
     protected function validateData(Request $request){

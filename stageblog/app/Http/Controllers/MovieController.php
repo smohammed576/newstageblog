@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movie;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class MovieController extends Controller
 {
-    public function index(){
-
+    public function index(User $user){
+        $profile = User::find($user->id);
+        $movies = Movie::where('user_id', $user->id)->orderBy('release', 'desc')->paginate(66);
+        return Inertia::render('Movies/Movies', [
+            'profile' => $profile,
+            'movies' => $movies
+        ]);
     }
 
     public function store(Request $request){
@@ -59,6 +66,12 @@ class MovieController extends Controller
         
         return back()->with('status', 'Movie was updated');
 
+    }
+
+    public function destroy(int $id){
+        $movie = Movie::find($id);
+        $movie->delete();
+        return back()->with('status', 'Movie was removed');
     }
 
     protected function validateData(Request $request){

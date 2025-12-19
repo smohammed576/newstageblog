@@ -1,3 +1,5 @@
+import GreenButton from "@/Components/GreenButton";
+import InputWithShadow from "@/Components/Input";
 import BackdropModal from "@/Components/Modals/BackdropModal";
 import FavoriteModal from "@/Components/Modals/FavoriteModal";
 import DataContext from "@/hooks/context/DataContext";
@@ -71,39 +73,18 @@ function SettingsProfileTab(){
             <h3 className="settings__form--text">Profile</h3>
             <span className="settings__form--wrapper">
                 <div className="settings__details">
-                    <div className="settings__details--item">
-                        <label htmlFor="" className="settings__details--item-label">Username</label>
-                        <input type="text" value={data.name} name="name" onChange={(event) => setData('name', event.target.value)} className="settings__details--item-input" />
-                    </div>
+                    <InputWithShadow label="Username" value={data.name} onChange={(event) => setData('name', event.target.value)}/>
                     <span className="settings__details--wrapper">
-                        <div className="settings__details--item">
-                        <label htmlFor="" className="settings__details--item-label">Given name</label>
-                        <input type="text" value={data.first_name} name="first_name" onChange={(event) => setData('first_name', event.target.value)} className="settings__details--item-input" />
-                    </div>
-                    <div className="settings__details--item">
-                        <label htmlFor="" className="settings__details--item-label">Family name</label>
-                        <input type="text" value={data.last_name} name="last_name" onChange={(event) => setData('last_name', event.target.value)} className="settings__details--item-input" />
-                    </div>
+                        <InputWithShadow label="Given name" value={data.first_name} onChange={(event) => setData('first_name', event.target.value)}/>
+                        <InputWithShadow label="Family name" value={data.last_name} onChange={(event) => setData('last_name', event.target.value)}/>
                     </span>
-                    <div className="settings__details--item">
-                        <label htmlFor="" className="settings__details--item-label">Email address</label>
-                        <input type="text" value={data.email} name="email" onChange={(event) => setData('email', event.target.value)} className="settings__details--item-input" />
-                    </div>
+                    <InputWithShadow label="Email address" value={data.email} onChange={(event) => setData('email', event.target.value)}/>
                     <span className="settings__details--wrapper">
-                        <div className="settings__details--item">
-                            <label htmlFor="" className="settings__details--item-label">Location</label>
-                            <input type="text" value={data.location} name="location" onChange={(event) => setData('location', event.target.value)} className="settings__details--item-input" />
-                        </div>
-                        <div className="settings__details--item">
-                            <label htmlFor="" className="settings__details--item-label">Website</label>
-                            <input type="text" value={data.website} name="website" onChange={(event) => setData('website', event.target.value)} className="settings__details--item-input" />
-                        </div>
+                        <InputWithShadow label="Location" value={data.location} onChange={(event) => setData('location', event.target.value)}/>
+                        <InputWithShadow label="Website" value={data.website} onChange={(event) => setData('website', event.target.value)}/>
                     </span>
-                    <div className="settings__details--item">
-                        <label htmlFor="" className="settings__details--item-label">Bio</label>
-                        <textarea name="bio" id="" value={data.bio} onChange={(event) => setData('bio', event.target.value)} className="settings__details--item-input settings__details--item-textarea"></textarea>
-                    </div>
-                    <button disabled={processing} className="newpost__form--footer-button">SAVE CHANGES</button>
+                        <InputWithShadow label="Bio" value={data.bio} onChange={(event) => setData('bio', event.target.value)}/>
+                    <GreenButton processing={processing} text="SAVE CHANGES"/>
                 </div>
                 <aside className="settings__favorites">
                     <span className="settings__favorites--heading">

@@ -1,0 +1,313 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+
+.movie{
+    @include mixins.flexBox;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+
+    &__wrapper{
+        @include mixins.flexBox;
+        width: 100%;
+    }
+
+    &__search{
+        @include mixins.flexBox;
+        width: 100%;
+
+        &--input{
+            border: none;
+            background: lighten(map-get(variables.$baseVars, "background"), 10%);
+            font-size: 100%;
+            color: map-get(variables.$baseVars, "color");
+            padding: 0.8rem 1rem;
+            border-radius: 0.4rem;
+            width: 100%;
+
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+
+    &__results{
+        @include mixins.flexBox;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 2rem;
+    }
+
+    &__result{
+        width: 15%;
+        height: 22rem;
+        background: none;
+        border: none;
+
+        &:focus{
+            outline: 0.1rem solid rgba(map-get(variables.$baseVars, "color"), 0.2);
+        }
+
+        &:hover{
+            cursor: pointer;
+        }
+
+        &--image{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        &--empty{
+            border: 0.1rem solid map-get(variables.$baseVars, "color");
+            width: 100%;
+            height: 100%;
+            @include mixins.flexBox;
+            color: map-get(variables.$baseVars, "color");
+        }
+    }
+
+    &__overlay{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: rgba(map-get(variables.$baseVars, "background"), 0.8);
+        top: 0;
+        @include mixins.flexBox;
+        backdrop-filter: blur(1rem);
+    }
+
+    &__modal{
+        background: map-get(variables.$baseVars, 'darkgrey');
+        @include mixins.flexBox;
+        position: fixed;
+        left: 50%;
+        border: none;
+        top: 50%;
+        right: 50%;
+        bottom: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+
+        &--form{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        &--header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 0.1rem solid map-get(variables.$baseVars, "bluegrey");
+
+            &-text{
+                color: map-get(variables.$baseVars, "color");
+            }
+            &-close{
+                color: map-get(variables.$baseVars, "grey");
+                background: none;
+                border: none;
+                font-size: 120%;
+            }
+        }
+
+        &--body{
+            padding: 4rem;
+            width: 100%;
+            display: flex;
+            justify-content: start;
+            align-items: start;
+            gap: 4rem;
+
+            &-wrapper{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: start;
+                gap: 3rem;
+            }
+        }
+
+        &--poster{
+            width: 14rem;
+            height: 21rem;
+
+            &-image{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        &--text{
+            display: flex;
+            justify-content: start;
+            align-items: end;
+            line-height: 1.2;
+            gap: 0.8rem;
+
+            &-title{
+                color: map-get(variables.$baseVars, "color");
+                font-family: map-get(variables.$baseVars, "boldfont");
+            }
+            &-year{
+                color: map-get(variables.$baseVars, "grey");
+                font-weight: 200;
+            }
+        }
+
+        &--wrapper{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        &--check{
+            @include mixins.flexBox;
+            gap: 1rem;
+
+            &-input{
+                appearance: none;
+                background: map-get(variables.$baseVars, "grey");
+                width: 2rem;
+                aspect-ratio: 1/1;
+                border-radius: 0.2rem;
+
+                &:checked{
+                    background: map-get(variables.$baseVars, "bluegrey");
+                }
+
+                &:hover{
+                    cursor: pointer;
+                    background: map-get(variables.$baseVars, "color");
+                }
+            }
+
+            &-label{
+                color: map-get(variables.$baseVars, "labelcolor");
+                font-size: 90%;
+            }
+        }
+
+        &--watched{
+            @include mixins.flexBox;
+            gap: 1rem;
+
+            &-button{
+                background: none;
+                border: none;
+                color: map-get(variables.$baseVars, "grey");
+            }
+
+            &-input{
+                background: none;
+                border: none;
+                width: 40%;
+                text-align: center;
+                font-size: 100%;
+                color: map-get(variables.$baseVars, "color");
+                font-family: inherit;
+            }
+        }
+
+        &--rating{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 4rem;
+
+            &-wrapper{
+                @include mixins.flexBox;
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            &-header{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+            }
+
+            &-rate{
+                font-size: 80%;
+                color: map-get(variables.$baseVars, "grey");
+            }
+
+            &-stars{
+                position: relative;
+                background: url('/public/images/sprite.svg') no-repeat;
+                background-position: -35rem -28rem;
+                width: 13rem;
+                height: 2.6rem;
+
+                &:hover .movie__modal--rating-hover{
+                    display: block;
+                    width: 11.7rem;
+                }
+            }
+            &-selected{
+                position: absolute;
+                top: 0;
+                background: url('/public/images/sprite.svg') no-repeat;
+                background-position: -35rem -31rem;
+                height: 2.6rem;
+                width: 0;
+            }
+
+            &-input{
+                position: absolute;
+                height: 100%;
+                opacity: 0;
+            }
+            &-label{
+                color: map-get(variables.$baseVars, "color");
+                font-size: 80%;
+            }
+            &-icon{
+                color: map-get(variables.$baseVars, "bluegrey");
+                font-size: 200%;
+            }
+            &-heart{
+                color: map-get(variables.$baseVars, "orange");
+                font-size: 200%;
+            }
+
+            &-liked{
+                position: relative;
+                @include mixins.flexBox;
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            &-checkbox{
+                appearance: none;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+
+        &--footer{
+            background: map-get(variables.$baseVars, "footer");
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        &--submit{
+            background: map-get(variables.$baseVars, "green");
+            border: none;
+            color: map-get(variables.$baseVars, "color");
+            font-family: inherit;
+            font-weight: 600;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.3rem;
+        }
+    }
+}

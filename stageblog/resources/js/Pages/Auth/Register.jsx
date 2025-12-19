@@ -1,3 +1,5 @@
+import GreenButton from "@/Components/GreenButton";
+import InputWithShadow from "@/Components/Input";
 import { useForm } from "@inertiajs/react";
 
 function RegisterScreen(){
@@ -22,29 +24,14 @@ function RegisterScreen(){
                 <figure className="auth__figure"></figure>
                 <form onSubmit={submit} className="auth__form">
                     <h2 className="auth__form--text">JOIN STAGEBLOG</h2>
-                    <div className="auth__form--item">
-                        <label htmlFor="" className="auth__form--item-label">Email address</label>
-                        <input type="email" name="email" value={data.email} onChange={(event) => setData('email', event.target.value)} className="auth__form--item-input" />
-                    </div>
+                    <InputWithShadow label="Email address" type={'email'} value={data.email} onChange={(event) => setData('email', event.target.value)} whiteInput={true}/>
                     <span className="auth__form--wrapper">
-                        <div className="auth__form--item">
-                            <label htmlFor="" className="auth__form--item-label">Username</label>
-                            <input type="text" name="name" value={data.name} onChange={(event) => setData('name', event.target.value)} className="auth__form--item-input" />
-                        </div>
-                        <div className="auth__form--item">
-                            <label htmlFor="" className="auth__form--item-label">Image</label>
-                            <input type="text" name="image" value={data.image} onChange={(event) => setData('image', event.target.value)} className="auth__form--item-input" />
-                        </div>
+                    <InputWithShadow label="Username" value={data.name} onChange={(event) => setData('name', event.target.value)} whiteInput={true}/>
+                    <InputWithShadow label="Image" value={data.image} onChange={(event) => setData('image', event.target.value)} whiteInput={true}/>
                     </span>
-                    <div className="auth__form--item">
-                        <label htmlFor="" className="auth__form--item-label">Password</label>
-                        <input type="password" name="password" value={data.password} onChange={(event) => setData('password', event.target.value)} className="auth__form--item-input" />
-                    </div>
-                    <div className="auth__form--item">
-                        <label htmlFor="" className="auth__form--item-label">Confirm password</label>
-                        <input type="password" name="password_confirmation" value={data.password_confirmation} onChange={(event) => setData('password_confirmation', event.target.value)} className="auth__form--item-input" />
-                    </div>
-                    <button disabled={processing} className="newpost__form--footer-button">SIGN UP</button>
+                    <InputWithShadow label="Password" type={'password'} value={data.password} onChange={(event) => setData('password', event.target.value)} whiteInput={true}/>
+                    <InputWithShadow label="Confirm password" type={'password'} value={data.password_confirmation} onChange={(event) => setData('password_confirmation', event.target.value)} whiteInput={true}/>
+                    <GreenButton processing={processing} text="SIGN UP"/>
                 </form>
             </section>
         </main>

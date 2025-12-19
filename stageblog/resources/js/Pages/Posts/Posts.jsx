@@ -1,4 +1,5 @@
 import Heading from "@/Components/Heading";
+import Pagination from "@/Components/Pagination";
 import Tag from "@/Components/Tag";
 import Type from "@/Components/Type";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
@@ -12,7 +13,7 @@ function PostsScreen(){
     const status = usePage().props.status;
 
     const formatDate = (date) => {
-        return new Date(date).toLocaleDateString(undefined, {day: "numeric", month: "short", year: "numeric"});
+        return new Date(date).toLocaleDateString('en-US', {day: "numeric", month: "short", year: "numeric"});
     }
     
     return (
@@ -51,9 +52,6 @@ function PostsScreen(){
                                                 item.tags != null && item.tags.length != 0 ? 
                                                     item.tags.map((item, index) => 
                                                         <Tag tag={item} key={index}/>
-                                                        // <li key={index} className="newpost__form--item-tag">
-                                                        //     {item}
-                                                        // </li>
                                                     )
                                                 : null
                                             }
@@ -66,18 +64,7 @@ function PostsScreen(){
                 </div>
                 {
                     links.last_page != 1 ? 
-                        <span className="pagination">
-                            <a href={links.prev_page_url} className={`pagination__link ${links.prev_page_url == null && 'pagination__link--disabled'}`}>Newer</a>
-                            <span className="pagination__wrapper">
-                                {
-                                    links.links.map((item, index) => 
-                                        index != 0 && index != links.links.length - 1 &&
-                                        <a href={item.url} className={`pagination__number ${item.active && 'pagination__number--active'}`}>{item.label}</a>
-                                    )
-                                }
-                            </span>
-                            <a href={links.next_page_url} className={`pagination__link ${links.next_page_url == null && 'pagination__link--disabled'}`}>Older</a>
-                        </span>
+                        <Pagination data={links}/>
                     : null
                 }
             </section>

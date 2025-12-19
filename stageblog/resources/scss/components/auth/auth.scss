@@ -34,37 +34,6 @@
             color: map-get(variables.$baseVars, "greycolor");
         }
 
-        &--item{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: start;
-            gap: 0.6rem;
-            width: 100%;
-
-            &-label{
-                font-size: 80%;
-            }
-
-            &-input{
-                width: 100%;
-                border: none;
-                background: map-get(variables.$baseVars, "authinput");
-                color: map-get(variables.$baseVars, "blurcolor");
-                border-radius: 0.4rem;
-                font-size: 100%;
-                padding: 0.6rem;
-                box-shadow: inset 0 -0.1rem 0 map-get(variables.$baseVars, "color");
-                font-family: inherit;
-
-                &:focus{
-                    outline: none;
-                    background: map-get(variables.$baseVars, "color");
-                    color: map-get(variables.$baseVars, "inputgrey");
-                }
-            }
-        }
-
         &--wrapper{
             @include mixins.flexBox;
             gap: 2rem
@@ -74,21 +43,27 @@
             @include mixins.flexBox;
             gap: 0.8rem;
 
-            &-checkbox{
-                appearance: none;
-                width: 1.8rem;
-                aspect-ratio: 1/1;
-                border-radius: 0.2rem;
-                background: map-get(variables.$baseVars, "authinput");
-                box-shadow: inset 0 -0.1rem 0 map-get(variables.$baseVars, "color");
-            }
-
-            &-label{
+            & label{
                 font-size: 90%;
                 color: map-get(variables.$baseVars, "greycolor");
                 text-shadow: 0 -0.1rem 0 rgba(map-get(variables.$baseVars, "black"), 0.2);
-                
             }
+
+            // &-checkbox{
+            //     appearance: none;
+            //     width: 1.8rem;
+            //     aspect-ratio: 1/1;
+            //     border-radius: 0.2rem;
+            //     background: map-get(variables.$baseVars, "authinput");
+            //     box-shadow: inset 0 -0.1rem 0 map-get(variables.$baseVars, "color");
+            // }
+
+            // &-label{
+            //     font-size: 90%;
+            //     color: map-get(variables.$baseVars, "greycolor");
+            //     text-shadow: 0 -0.1rem 0 rgba(map-get(variables.$baseVars, "black"), 0.2);
+                
+            // }
         }
     }
 }

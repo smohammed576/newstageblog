@@ -11,7 +11,7 @@ function PostScreen(){
     const comments = usePage().props.post.comments;
     const next = usePage().props.next;
     const prev = usePage().props.prev;
-    const { data, setData, post, processing, reset } = useForm({
+    const { data, setData, post, delete: destroy, processing, reset } = useForm({
         comment: '',
         like: null
     });
@@ -31,9 +31,15 @@ function PostScreen(){
 
     const submit = (event) => {
         event.preventDefault();
-        post(route('comments.store', stagepost), {
-            onFinish: () => reset('comment')
-        });
+        console.log(event.target.id);
+        if(event.target.id === 'delete'){
+            destroy(route('posts.destroy', stagepost.id));
+        }
+        else{
+            post(route('comments.store', stagepost), {
+                onFinish: () => reset('comment')
+            });
+        }
     }
 
     const action = (event, comment, value) => {
@@ -55,12 +61,17 @@ function PostScreen(){
                             {stagepost.title.slice(0, -1)}: {stagepost.intro}
                         </h1>
                         <span className="post__heading--wrapper">
-                            <img src={stagepost.user.image} alt="" className="post__heading--image" />
+                            <img src={stagepost.user.image} alt={stagepost.user.name} className="post__heading--image" />
                             <a href={route('profile.show', stagepost.user)} className="post__heading--user">{stagepost.user.name}</a>
                             <p className="post__heading--dot">·</p>
                             <p className="post__heading--date">{formatDate(stagepost.created_at)}</p>
                             {
                                 user.id == stagepost.user_id && <a href={route('posts.edit', stagepost)} className="post__heading--edit"><i className="fa-solid fa-pen post__heading--edit-icon"/></a>
+                            }
+                            {
+                                user.id == stagepost.user_id && <form onSubmit={submit} id="delete" className="post__heading--form">
+                                    <button className="post__heading--edit"><i className="fa-solid fa-trash post__heading--edit-icon"/></button>
+                                </form> 
                             }
                         </span>
                     </div>
@@ -127,8 +138,8 @@ function PostScreen(){
                         }
                     </div>
                     <span className="post__links">
-                            <a href={next != null && route('posts.show', next)} className={`post__links--item ${next == null && 'post__links--item-disabled'}`}> <i className="fa-solid fa-arrow-left post__links--item-icon"/> {next != null && next.title.slice(0, -1)}</a>
-                            <a href={prev != null && route('posts.show', prev)} className={`post__links--item ${prev == null && 'post__links--item-disabled'}`}>{prev != null && prev.title.slice(0, -1)} <i className="fa-solid fa-arrow-right post__links--item-icon"/> </a>
+                            <a href={next != null ? route('posts.show', next) : null} className={`post__links--item ${next == null && 'post__links--item-disabled'}`}> <i className="fa-solid fa-arrow-left post__links--item-icon"/> {next != null && next.title.slice(0, -1)}</a>
+                            <a href={prev != null ? route('posts.show', prev) : null} className={`post__links--item ${prev == null && 'post__links--item-disabled'}`}>{prev != null && prev.title.slice(0, -1)} <i className="fa-solid fa-arrow-right post__links--item-icon"/> </a>
                     </span>
                 </section>
             </main>

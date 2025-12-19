@@ -77,6 +77,16 @@ function MovieScreen(){
                 }
             }
         }
+        else if(event.nativeEvent.submitter.id == 'watch'){
+            if(movie == null){
+                post(route('movies.store'));
+            }
+            else{
+                if(diaries.length == 0){
+                    destroy(route('movies.destroy', movie.id));
+                }
+            }
+        }
     }
 
     useEffect(() => {
@@ -88,49 +98,14 @@ function MovieScreen(){
             }
             else{
                 console.log("here yk an dnow");
-                post(route('movies.store'));
+                post(route('movies.store'), {
+                    onFinish: () => reset('liked')
+                });
             }
             setIsReady(false);
         }
     }, [isReady]);
 
-    // const starsWidth = () => {
-    //     let number = 7.2;
-    //     let space = 1.8;
-    //     if(data.rating == 0){
-    //         return number * data.rating;
-    //     }
-    //     else if(data.rating == 1){
-    //         return number * data.rating;
-    //     }
-    //     else if(data.rating == 2){
-    //         return number * data.rating;
-    //     }
-    //     else if(data.rating == 3){
-    //         return (number * data.rating) + space;
-    //     }
-    //     else if(data.rating == 4){
-    //         return (number * data.rating) + space;
-    //     }
-    //     else if(data.rating == 5){
-    //         return (number * data.rating) + (space * 2);
-    //     }
-    //     else if(data.rating == 6){
-    //         return (number * data.rating) + (space * 2);
-    //     }
-    //     else if(data.rating == 7){
-    //         return (number * data.rating) + (space * 3);
-    //     }
-    //     else if(data.rating == 8){
-    //         return (number * data.rating) + (space * 3);
-    //     }
-    //     else if(data.rating == 9){
-    //         return (number * data.rating) + (space * 4);
-    //     }
-    //     else if(data.rating == 10){
-    //         return (number * data.rating) + (space * 4);
-    //     }
-    // }
     
     return film ? (
         <>
@@ -212,20 +187,10 @@ function MovieScreen(){
                                     role.name == 'admin' && <div className="film__rating">
                                     <form action="" className="film__rating--form">
                                         <label htmlFor="" className="film__rating--label">{diaries.length != 0 && diaries[diaries.length - 1].rating != null ? 'Rated' : 'Rate'}</label>
-                                        <div className="film__rating--wrapper">
-                                            <input type="range" className="film__rating--range" min={0} step={1} max={10} value={data.rating} onChange={(event) => setData('rating', event.target.value)} />
-                                            <div className="film__rating--slider" role="slider" aria-valuemin={0} aria-valuemax={10} aria-valuenow={data.rating}>
-                                                <span className="film__rating--empty"></span>
-                                                <span style={{ width: `${(data.rating) * 18}px`, height: 40 + 'px' }} className="film__rating--hover"></span>
-                                            </div>
-                                            {/* <input type="range" className="film__rating--range" min={0} step={1} max={10} value={data.rating} onMouseEnter={(event) => console.log(event.target)} onChange={(event) => setData('rating', event.target.valueAsNumber)} />
-                                            <img src="/images/stars_grey.svg" alt="" className="film__rating--empty" />
-                                            <img src="/images/stars_blue.svg" alt="" className="film__rating--hover-stars" />
-                                            <span style={{width: starsWidth() + '%'}} className="film__rating--hover">
-                                            </span> */}
+                                        <div className="film__rating--stars">
+                                            <div style={{width: data.rating * 18 + 'px'}} className="film__rating--stars-selected"></div>
+                                            <input type="range" min={0} max={10} step={1} value={data.rating} onChange={(event) => setData('rating', event.target.value)} className="film__rating--stars-input" />
                                         </div>
-                                        {/* style={{width: data.rating * 10 + '%'}} */}
-
                                     </form>
                                 </div>
                                 }
@@ -237,8 +202,6 @@ function MovieScreen(){
                                         <button onClick={() => {setType('backdrops'); setIsOpen(true)}} className="film__panel--item-button">Change backdrop</button>
                                     </li>
                                 </ul>
-                                {/* <button onClick={() => {setType('posters'); setIsOpen(true)}}>custom poster</button>
-                                <button onClick={() => {setType('backdrops'); setIsOpen(true)}}>custom backdrop</button> */}
                                 
                             </div>
                         </aside>

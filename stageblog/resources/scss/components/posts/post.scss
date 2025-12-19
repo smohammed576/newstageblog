@@ -76,10 +76,16 @@
             color: map-get(variables.$baseVars, "lightgrey");
             @include mixins.flexBox;
             text-decoration: none;
+            background: none;
+            border: none;
 
             &:hover{
                 color: map-get(variables.$baseVars, "color");
             }
+        }
+
+        &--form{
+            @include mixins.flexBox;
         }
 
     }

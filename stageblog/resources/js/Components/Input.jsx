@@ -1,8 +1,8 @@
-const InputWithShadow = ({label, value, onChange}) => {
+const InputWithShadow = ({label, placeholder, whiteInput, type, value, onChange}) => {
     return (
         <div className="shadowinput">
             <label htmlFor="" className="shadowinput__label">{label}</label>
-            <input type="text" value={value} onChange={(event) => onChange(event)} className="shadowinput__input" />
+            <input placeholder={placeholder} type={type != null ? type : 'text'} value={value} onChange={onChange} className={`shadowinput__input ${whiteInput && 'shadowinput__input--white'}`} />
         </div>
     );
 }

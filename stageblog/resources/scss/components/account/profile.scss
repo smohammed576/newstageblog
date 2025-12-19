@@ -140,6 +140,11 @@
             &-text{
                 font-size: 70%;
                 color: map-get(variables.$baseVars, "icongrey");
+                text-decoration: none;
+
+                &:hover{
+                    color: map-get(variables.$baseVars, "blue");
+                }
             }
         }
     }
@@ -205,6 +210,11 @@
             border-radius: 0.4rem;
             position: relative;
             height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            gap: 0.4rem;
 
             &:hover &-overlay{
                 cursor: pointer;

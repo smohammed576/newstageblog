@@ -65,17 +65,6 @@ function MovieModal({ film, onClose }){
                             </article>
                             <span className="movie__modal--wrapper">
                                 <Checkbox value={data.rewatched ? 1 : 0} onChange={(event) => setData('rewatched', event.target.checked)} label="I've watched this before"/>
-                                {/* {
-                                    data.rewatched ? <span className="movie__modal--watched">
-                                        <button className="movie__modal--watched-button" type="button" onChange={(event) => data.watched == 2 ? null : setData('watched', data.watched - 1)}>
-                                            <i className="fa-solid fa-minus movie__modal--watched-icon"></i>
-                                        </button>
-                                        <input className="movie__modal--watched-input" type="number" name="watched" value={data.watched} onChange={(event) => setData('watched', event.target.valueAsNumber)}/>
-                                        <button className="movie__modal--watched-button" type="button" onChange={() => setData('watched', data.watched + 1)}>
-                                            <i className="fa-solid fa-plus movie__modal--watched-icon"/>
-                                        </button>
-                                    </span> : <input type="hidden" name="watched" value={data.watched} />
-                                } */}
                             </span>
                             <span className="movie__modal--rating">
                                 <div className="movie__modal--rating-wrapper">
@@ -84,11 +73,8 @@ function MovieModal({ film, onClose }){
                                         <p className="movie__modal--rating-rate">{data.rating / 2} out of 5</p>
                                     </span>
                                     <span className="movie__modal--rating-stars">
-                                        {
-                                            Array.from({length: 5}, (_, index) => <button onClick={() => changeRating(index)} type="button" key={index} className="movie__modal--rating-button">
-                                                <i className={`fa-solid fa-star movie__modal--rating-${data.rating == 0 ? 'empty' : (data.rating / 2) >= index + 1 && Number.isInteger(data.rating / 2) ? 'star' : 'empty'}`}></i>
-                                            </button>  )
-                                        }
+                                        <div className="movie__modal--rating-selected" style={{width: data.rating * 13 + 'px'}}></div>
+                                        <input type="range" value={data.rating} min={0} max={10} step={1} onChange={(event) => setData('rating', event.target.value)} className="movie__modal--rating-input" />
                                     </span>
                                 </div>
                                 <label htmlFor="" className="movie__modal--rating-liked">

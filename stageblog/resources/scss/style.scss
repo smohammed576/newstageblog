@@ -6,6 +6,7 @@
 
 @use "components/home/home.scss";
 
+@use "components/movies/movie.scss";
 @use "components/movies/movies.scss";
 
 @use "components/diary/diary.scss";
@@ -20,7 +21,7 @@
 @use "components/posts/posts.scss";
 @use "components/posts/post.scss";
 
-@use "components/dialogs/movie.scss";
+@use "components/dialogs/movie_modal.scss";
 @use "components/dialogs/tags.scss";
 @use "components/dialogs/favorite.scss";
 @use "components/dialogs/film_modal.scss";

@@ -42,7 +42,7 @@ class RolesNPermissionsSeeder extends Seeder
         // $user->givePermissionTo(['view_posts', 'create_comments', 'create_actions', 'edit_actions']);
         // $public->givePermissionTo(['view_posts', 'create_actions', 'edit_actions']);
 
-        $user = User::find(3);
+        $user = User::find(4);
         $user->assignRole('user');
     }
 }

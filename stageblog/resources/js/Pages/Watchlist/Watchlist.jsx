@@ -1,4 +1,6 @@
 import Heading from "@/Components/Heading";
+import InputWithShadow from "@/Components/Input";
+import Poster from "@/Components/Poster";
 import DataContext from "@/hooks/context/DataContext";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm, usePage } from "@inertiajs/react";
@@ -65,9 +67,7 @@ function Watchlist(){
                     <div className="person__credits">
                         {
                             watchlist.map((item, index) => 
-                                <a href={route('movies.show', item.tmdb)} className="person__credit" key={index}>
-                                    <img src={`${url}${item.poster}`} title={item.title} alt={item.name} className="person__credit--poster" />
-                                </a>
+                                <Poster key={index} url={`${url}${item.poster}`} alt={item.title} route={route('movies.show', item.tmdb)} width={18 + '%'}/>
                             )
                         }
                     </div>
@@ -82,7 +82,7 @@ function Watchlist(){
                             <Heading text="ADD A FILM"/>
                             <form onSubmit={(event) => sendQuery(event)} className="favorite__modal--form">
                                 <div className="favorite__modal--search">
-                                    <input type="text" placeholder="Search films..." value={value} onChange={(event) => setValue(event.target.value)} className="settings__details--item-input" />
+                                    <InputWithShadow placeholder="Search films..." value={value} onChange={(event) => setValue(event.target.value)}/>
                                     {
                                         films.length != 0 ? 
                                             <ul className="favorite__modal--dropdown">

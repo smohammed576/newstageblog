@@ -22,7 +22,7 @@ function ProfileScreen(){
     let watchlistItems = [...watchlist.data].reverse();
     const diary = usePage().props.diary;
     const ref = useRef(null);
-    console.log(profile);
+    console.log(usePage().props);
     useEffect(() => {
       let list = [null, null, null, null];
       favorites.forEach(item => {
@@ -80,7 +80,7 @@ function ProfileScreen(){
                       {
                         profile.website && <a href={profile.website} target="_blank" className="profile__heading--info-link">
                           <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.07599 6.8L10.77 4.002L0 0L3.85001 11.2L6.539 8.4L11.539 13.6L13.077 12L8.07599 6.8Z" fill="currentColor"/>
+                            <path fillRule="evenodd" clipRule="evenodd" d="M8.07599 6.8L10.77 4.002L0 0L3.85001 11.2L6.539 8.4L11.539 13.6L13.077 12L8.07599 6.8Z" fill="currentColor"/>
                           </svg>
                           
                           <p className="profile__heading--info-website">{new URL(profile.website).hostname.replace('www.', '')}</p>
@@ -97,7 +97,7 @@ function ProfileScreen(){
                 </article>
                 <article className="profile__heading--details-item">
                   <h3 className="profile__heading--details-amount">{movies.length}</h3>
-                  <p className="profile__heading--details-text">MOVIES</p>
+                  <a href={route('movies.index', profile)} className="profile__heading--details-text">MOVIES</a>
                 </article>
                 <article className="profile__heading--details-item">
                   <h3 className="profile__heading--details-amount">{diaries.length}</h3>
@@ -146,8 +146,24 @@ function ProfileScreen(){
                     {
                       diaries.slice(0, 4).map((item, index) => 
                         <li className="profile__favorites--item" key={index}>
-                          <img src={`${url}${item.movie.poster}`} alt={item.title} className="profile__favorites--item-image" />
-                          <a href={route('movies.show', item.tmdb)} className="profile__favorites--item-overlay"></a>
+                          {/* <img src={`${url}${item.movie.poster}`} alt={item.title} className="profile__favorites--item-image" />
+                          <a href={route('movies.show', item.tmdb)} className="profile__favorites--item-overlay"></a> */}
+                          <Poster url={`${url}${item.movie.poster}`} alt={item.title} route={route('movies.show', item.tmdb)}/>
+                          <span className="homeactivity__item--rating">
+                                {
+                                    item.rating != null && item.rating != 0 ? 
+                                    <>
+                                    <span className={`homeactivity__item--rating-stars rating__${item.rating}`}></span>
+                                        {
+                                            item.rewatched == 1 && <span className={`homeactivity__item--rating-rewatch`}></span>
+                                        }
+                                        {
+                                            item.liked == 1 && <span className={`homeactivity__item--rating-like`}></span>
+                                        }
+                                    </>
+                                    : null
+                                }
+                            </span>
                         </li>
                       )
                     }

@@ -1,3 +1,4 @@
+import GreenButton from "@/Components/GreenButton";
 import { useForm, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 
@@ -46,7 +47,7 @@ function SettingsAvatarTab(){
                 </figure>
                 <span className="settings__avatar--footer">
                     <div className="settings__avatar--footer-empty"></div>
-                    <button type="submit" className="newpost__form--footer-button">SELECT NEW AVATAR</button>
+                    <GreenButton text="SELECT NEW AVATAR"/>
                     <button className="settings__avatar--footer-remove">Remove</button>
                 </span>
             </div>
