@@ -18,7 +18,7 @@ function PostScreen(){
     const [comment, setComment] = useState();
 
     const formatDate = (date) => {
-        return new Date(date).toLocaleDateString(undefined, {day: "numeric", month: "short", year: "numeric"});
+        return new Date(date).toLocaleDateString('en-UK', {day: "numeric", month: "short", year: "numeric"});
     }
 
     useEffect(() => {
@@ -94,38 +94,41 @@ function PostScreen(){
                             : null
                         }
                     </div>
-                    <div className="post__comments">
-                        <h3 className="post__comments--amount">{comments.length} {comments.length == 1 ? 'Comment' : 'Comments'}</h3>
-                        <form onSubmit={submit} className="post__comments--wrapper">
-                            <img src={user.image} alt="" className="post__comments--avatar" />
-                            <input type="text" value={data.comment} onChange={(event) => setData('comment', event.target.value)} className="post__comments--input" />
-                            <button disabled={processing} className="post__comments--submit">
-                                <i className="fa-solid fa-paper-plane post__comments--submit-icon"></i>
+                    <div className="comments">
+                        <h3 className="comments__amount">{comments.length} {comments.length == 1 ? 'Comment' : 'Comments'}</h3>
+                        <form onSubmit={submit} className="comments__wrapper">
+                            <img src={user.image} alt="" className="comments__avatar" />
+                            <input type="text" value={data.comment} onChange={(event) => setData('comment', event.target.value)} className="comments__input" />
+                            <button disabled={processing} className="comments__submit">
+                                <i className="fa-solid fa-paper-plane comments__submit--icon"></i>
                             </button>
                         </form>
                         {
                             comments != null && comments.length != 0 ? 
-                                <ul className="post__comments--list">
+                                <ul className="comments__list">
                                     {
                                         comments.map((item, index) => 
                                             {
-                                                return <li key={index} className="post__comments--item">
-                                                    <img src={item.user.image} alt={item.user.name} className="post__comments--item-image" />
-                                                    <div className="post__comments--item-wrapper">
-                                                        <a href={route('profile.show', item.user)} className="post__comments--item-user">{item.user.name}</a>
-                                                        <p className="post__comments--item-comment">{item.comment}</p>
-                                                        <form className="post__comments--item-actions">
-                                                            <article className="post__comments--item-action">
-                                                                <button onClick={(event) => action(event, item, 1)} className="post__comments--item-button">
-                                                                    <i className={`fa-${item.actions.find((like) => like.user_id == user.id && like.like == 1) ? 'solid' : 'regular'} fa-thumbs-up post__comments--item-icon`} />
+                                                return <li key={index} className="comments__item">
+                                                    <img src={item.user.image} alt={item.user.name} className="comments__item--image" />
+                                                    <div className="comments__item--wrapper">
+                                                        <span className="comments__item--header">
+                                                            <a href={route('profile.show', item.user)} className="comments__item--header-user">{item.user.name}</a>
+                                                            <p className="comments__item--header-date">{formatDate(item.created_at)}</p>
+                                                        </span>
+                                                        <p className="comments__item--comment">{item.comment}</p>
+                                                        <form className="comments__item--actions">
+                                                            <article className="comments__item--action">
+                                                                <button onClick={(event) => action(event, item, 1)} className="comments__item--button">
+                                                                    <i className={`fa-${item.actions.find((like) => like.user_id == user.id && like.like == 1) ? 'solid' : 'regular'} fa-thumbs-up comments__item--icon`} />
                                                                 </button>
-                                                                <p className="post__comments--item-amount">{item.actions.length != 0 ? item.actions.filter((like) => like.like == 1).length : 0}</p>
+                                                                <p className="comments__item--amount">{item.actions.length != 0 ? item.actions.filter((like) => like.like == 1).length : 0}</p>
                                                             </article>
-                                                            <article className="post__comments--item-action">
-                                                                <button onClick={(event) => action(event, item, 0)} className="post__comments--item-button">
-                                                                    <i className={`fa-${item.actions.find((like) => like.user_id == user.id && like.like == 0) ? 'solid' : 'regular'} fa-thumbs-down post__comments--item-icon`} />
+                                                            <article className="comments__item--action">
+                                                                <button onClick={(event) => action(event, item, 0)} className="comments__item--button">
+                                                                    <i className={`fa-${item.actions.find((like) => like.user_id == user.id && like.like == 0) ? 'solid' : 'regular'} fa-thumbs-down comments__item--icon`} />
                                                                 </button>
-                                                                <p className="post__comments--item-amount">{item.actions.length != 0 ? item.actions.filter((like) => like.like == 0).length : 0}</p>
+                                                                <p className="comments__item-amount">{item.actions.length != 0 ? item.actions.filter((like) => like.like == 0).length : 0}</p>
                                                             </article>
                                                         </form>
                                                     </div>
@@ -134,7 +137,7 @@ function PostScreen(){
                                         )
                                     }
                                 </ul> 
-                            : <span className="post__comments--empty">There are no comments yet</span>
+                            : <span className="comments__empty">There are no comments yet</span>
                         }
                     </div>
                     <span className="post__links">

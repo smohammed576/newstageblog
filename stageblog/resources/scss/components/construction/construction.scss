@@ -1,0 +1,35 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+
+.construction{
+    @include mixins.flexBox;
+    flex-direction: column;
+    gap: 4rem;
+    padding-top: 40rem;
+
+    &__wrapper{
+        @include mixins.flexBox;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    &__quote{
+        font-size: 250%;
+        font-family: map-get(variables.$baseVars, "boldfont");
+    }
+
+    &__text{
+        color: map-get(variables.$baseVars, "greycolor");
+        font-weight: 400;
+    }
+
+    &__link{
+        color: map-get(variables.$baseVars, "icongrey");
+        text-decoration: none;
+        font-size: 85%;
+
+        &:hover{
+            color: map-get(variables.$baseVars, "lightcolor");
+        }
+    }
+}

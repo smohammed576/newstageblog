@@ -1,0 +1,53 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+
+.activities{
+    width: 100%;
+    @include mixins.flexBox;
+    flex-direction: column;
+
+    &__list{
+        width: 100%;
+        @include mixins.flexBox;
+        flex-direction: column;
+    }
+
+    &__item{
+        background: map-get(variables.$baseVars, "activitygrey");
+        width: 100%;
+        padding: 1rem;
+        font-size: 75%;
+        color: map-get(variables.$baseVars, "icongrey");
+        border-top: 0.1rem solid map-get(variables.$baseVars, "bordercolor");
+
+        &--user{
+            color: map-get(variables.$baseVars, "lightcolor");
+            font-weight: 700;
+            text-decoration: none;
+
+            &:hover{
+                color: map-get(variables.$baseVars, "lightgrey");
+            }
+        }
+        &--link{
+            color: map-get(variables.$baseVars, "color");
+            text-decoration: none;
+            &:hover{
+                color: map-get(variables.$baseVars, "grey");
+            }
+        }
+        &--watchlist{
+            color: map-get(variables.$baseVars, "lightcolor");
+            text-decoration: none;
+
+            &:hover{
+                color: map-get(variables.$baseVars, "lightgrey");
+            }
+        }
+
+        &--rating{
+            display: inline-block;
+            margin-left: 0.4rem;
+        }
+    }
+}

@@ -20,6 +20,7 @@
 @use "components/posts/form.scss";
 @use "components/posts/posts.scss";
 @use "components/posts/post.scss";
+@use "components/posts/comments.scss";
 
 @use "components/dialogs/movie_modal.scss";
 @use "components/dialogs/tags.scss";
@@ -35,6 +36,11 @@
 @use "components/images/images.scss";
 
 @use "components/auth/auth.scss";
+
+@use "components/construction/construction.scss";
+
+@use "components/activities/activities.scss";
+@use "components/activities/activity.scss";
 
 @use "abstracts/markdown";
 @use "abstracts/components";

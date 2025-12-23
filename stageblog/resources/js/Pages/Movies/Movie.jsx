@@ -5,8 +5,10 @@ import { useContext, useEffect, useState } from "react";
 import MovieCastTab from "./Tabs/CastTab";
 import Footer from "@/Layouts/Footer";
 import CustomModal from "@/Components/Modals/CustomModal";
+import Backdrop from "@/Components/Backdrop";
 
 function MovieScreen(){
+    const user = usePage().props.auth.user;
     const id = usePage().props.id;
     const role = usePage().props.auth.role[0];
     const {findFilm} = useContext(DataContext);
@@ -20,7 +22,6 @@ function MovieScreen(){
     const [isOpen, setIsOpen] = useState(false);
     const [type, setType] = useState('');
     const movie = usePage().props.movie;
-    console.log(movie);
     let tabs = ['CAST', 'CREW', 'DETAILS', 'GENRES', 'RELEASES'];
     const { data, setData, processing, reset, post, patch, delete: destroy } = useForm({
         title: '',
@@ -28,10 +29,11 @@ function MovieScreen(){
         backdrop: movie != null ? movie.backdrop : '',
         release: '',
         tmdb: id,
-        liked: 0,
+        liked: movie != null ? movie.liked : 0,
         type: 'movie',
         rating: movie != null ? movie.rating ?? 0 : 0
     });
+    console.log(data.liked);
     useEffect(() => {
         if(film == null){
             (async () => {
@@ -49,43 +51,48 @@ function MovieScreen(){
 
     const submit = (event) => {
         event.preventDefault();
-        console.log(event.nativeEvent.submitter);
-        if(event.nativeEvent.submitter.id == 'watchlist'){
-            if(watchlist == null){
-                post(route('watchlist.store'));
-            }
-            else{
-                console.log('this');
-                destroy(route('watchlist.destroy', watchlist.id));
-            }
-        }
-        else if(event.nativeEvent.submitter.id == 'like'){
-            console.log('atleuvhfoilfn');
-            if(movie == null){
-                setData('liked', 1);
-                setIsReady(true);
-            }
-            else{
-                if(movie.liked == 1){
-                    console.log("here righttt");
-                    patch(route('movies.update', movie.id));
+        console.log(event.nativeEvent);
+        if(event.nativeEvent.submitter != null && event.nativeEvent.submitter != undefined){
+            if(event.nativeEvent.submitter.id == 'watchlist'){
+                if(watchlist == null){
+                    post(route('watchlist.store'));
                 }
                 else{
-                    console.log("main thing");
+                    destroy(route('watchlist.destroy', watchlist.id));
+                }
+            }
+            else if(event.nativeEvent.submitter.id == 'like'){
+                if(movie == null){
                     setData('liked', 1);
                     setIsReady(true);
                 }
-            }
-        }
-        else if(event.nativeEvent.submitter.id == 'watch'){
-            if(movie == null){
-                post(route('movies.store'));
-            }
-            else{
-                if(diaries.length == 0){
-                    destroy(route('movies.destroy', movie.id));
+                else{
+                    if(movie.liked == 1){
+                        // patch(route('movies.update', movie.id));
+                        setData('liked', 0);
+                        setIsReady(true);
+                    }
+                    else{
+                        setData('liked', 1);
+                        setIsReady(true);
+                    }
                 }
             }
+            else if(event.nativeEvent.submitter.id == 'watch'){
+                if(movie == null){
+                    post(route('movies.store'));
+                }
+                else{
+                    if(diaries.length == 0){
+                        console.log('here iggsiohg e');
+                        destroy(route('movies.destroy', movie.id));
+                    }
+                }
+            }
+        }
+        else if(event.target.id == 'rating'){
+            console.log(event.target.value);
+            patch(route('movies.update', movie.id));
         }
     }
 
@@ -106,22 +113,24 @@ function MovieScreen(){
         }
     }, [isReady]);
 
+    console.log(data.rating);
     
     return film ? (
         <>
             <Head title={film.title}/>
             <Navigation props={true}/>
-            <figure className="film__backdrop">
-                {/* <div className="film__backdrop--image" style={{backgroundImage: `url(${url}/4PZuqUVwvxPCEMV8LYSAJLuxvcq.jpg)`}}></div> */}
-                <div className="film__backdrop--image" style={{backgroundImage: `url(${url}${movie != null ? movie.backdrop : film.backdrop_path})`}}></div>
-            </figure>
+            {
+                film.backdrop_path != null && <Backdrop url={`${url}${movie != null ? movie.backdrop : film.backdrop_path}`}/>
+            }
             <section className="film">
                 <aside className="film__aside">
-                    <figure className="film__aside--figure">
-                        <img src={`${url}${movie != null ? movie.poster : film.poster_path}`} alt={film.title} className="film__aside--figure-poster" />
-                    </figure>
+                    {
+                        film.poster_path != null &&
+                        <figure className="film__aside--figure">
+                            <img src={`${url}${movie != null ? movie.poster : film.poster_path}`} alt={film.title} className="film__aside--figure-poster" />
+                        </figure>
+                    }
                     <span className="film__aside--stats">
-
                     </span>
                 </aside>
                 <div className="film__body">
@@ -129,10 +138,12 @@ function MovieScreen(){
                         <h1 className="film__heading--title">{film.title}</h1>
                         <span className="film__heading--wrapper">
                             <p className="film__heading--year">{film.release_date.substring(0, 4)}</p>
-                            <p className="film__heading--credits">
-                                <p className="film__heading--directed">Directed by </p>
-                                <p className="film__heading--directed-name">{director.name}</p>
-                            </p>
+                            {
+                                director != null && <span className="film__heading--credits">
+                                    <p className="film__heading--directed">Directed by </p>
+                                    <p className="film__heading--directed-name">{director.name}</p>
+                                </span>
+                            }
                         </span>
                     </span>
                     <span className="film__wrapper">
@@ -185,22 +196,35 @@ function MovieScreen(){
                                 {
                                     //working on
                                     role.name == 'admin' && <div className="film__rating">
-                                    <form action="" className="film__rating--form">
-                                        <label htmlFor="" className="film__rating--label">{diaries.length != 0 && diaries[diaries.length - 1].rating != null ? 'Rated' : 'Rate'}</label>
+                                    <form onSubmit={submit} className="film__rating--form">
+                                        {/* <label htmlFor="" className="film__rating--label">{diaries.length != 0 && diaries[diaries.length - 1].rating != null ? movie != null && movie.rating != null ? 'Rated' : 'Rate' : 'Rate'}</label> */}
+                                        <label htmlFor="" className="film__rating--label">{movie != null && movie.rating != null && movie.rating != 0 ? 'Rated' : 'Rate'}</label>
                                         <div className="film__rating--stars">
                                             <div style={{width: data.rating * 18 + 'px'}} className="film__rating--stars-selected"></div>
-                                            <input type="range" min={0} max={10} step={1} value={data.rating} onChange={(event) => setData('rating', event.target.value)} className="film__rating--stars-input" />
+                                            <input id="rating" type="range" min={0} max={10} step={1} value={data.rating} onClick={submit} onChange={(event) => setData('rating', event.target.value)} className="film__rating--stars-input" />
                                         </div>
                                     </form>
                                 </div>
                                 }
                                 <ul className="film__panel--list">
-                                    <li className="film__panel--item">
-                                        <button onClick={() => {setType('posters'); setIsOpen(true)}} className="film__panel--item-button">Change poster</button>
-                                    </li>
-                                    <li className="film__panel--item">
-                                        <button onClick={() => {setType('backdrops'); setIsOpen(true)}} className="film__panel--item-button">Change backdrop</button>
-                                    </li>
+                                    {
+                                        film.images.posters.length > 0 &&
+                                        <li className="film__panel--item">
+                                            <button onClick={() => {setType('posters'); setIsOpen(true)}} className="film__panel--item-button">Change poster</button>
+                                        </li>
+                                    }
+                                    {
+                                        film.images.backdrops.length > 0 &&
+                                        <li className="film__panel--item">
+                                            <button onClick={() => {setType('backdrops'); setIsOpen(true)}} className="film__panel--item-button">Change backdrop</button>
+                                        </li>
+                                    }
+                                    {
+                                        movie != null || watchlist != null &&
+                                        <li className="film__panel--item">
+                                            <a href={route('activities.show', [user, film.id])} className="film__panel--item-link">Show your activity</a>
+                                        </li>
+                                    }
                                 </ul>
                                 
                             </div>

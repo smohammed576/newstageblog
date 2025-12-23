@@ -31,6 +31,10 @@ const DataProvider = ({children}) => {
         const result = await response.json();
         return result;
     }
+    
+    // const constructionBackdrop = async () => {
+    //     const response = await fetch
+    // }
 
     return(
         <DataContext.Provider value={{data, searchQuery, findFilm, findShow, findPerson}}>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ActivityType;
 use App\Models\Post;
+use App\Services\ActivityService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -59,6 +61,7 @@ class BlogAdminController extends Controller
         $data = $this->validateData($request);
         $user = auth()->user();
         $post = $user->posts()->create($data);
+        ActivityService::log(ActivityType::CREATED_POST, $post, null, [], false);
 
         mail('34916@ma-web.nl', 'New post', $post->title);
 
@@ -70,13 +73,16 @@ class BlogAdminController extends Controller
      */
     public function show(Post $post)
     {
-        $ids = [2];
+        $ids = [3, 4];
         if(auth()->check() && in_array(auth()->id(), $ids)){
             $post->increment('views');
         }
         $prev = Post::where('id', $post->id - 1)->first();
         $post = Post::with(['user', 'comments.user', 'comments.actions'])->findOrFail($post->id);
         $next = Post::where('id', $post->id + 1)->first();
+        if(auth()->id() != 1){
+            ActivityService::log(ActivityType::VIEWED_POST, $post);
+        }
         return Inertia::render('Posts/Post', [
             'post' => $post,
             'comments' => $post->comments(),

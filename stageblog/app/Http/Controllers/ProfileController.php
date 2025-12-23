@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ActivityType;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Diary;
 use App\Models\Movie;
 use App\Models\User;
 use App\Models\Watchlist;
+use App\Services\ActivityService;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -33,6 +35,10 @@ class ProfileController extends Controller
 
         // $sorted = $sorted->sortKeysDesc();
         $sorted = $sorted->toArray();
+        
+        if(auth()->id() != 1){
+            ActivityService::log(ActivityType::VIEWED_PROFILE, $user);
+        }
 
         return Inertia::render('Profile/Profile', [
             'profile' => $profile,

@@ -1,0 +1,64 @@
+@use "../../abstracts/variables";
+@use "../../abstracts/mixins";
+
+.activity{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    
+    &__body{
+        width: 75%;
+        @include mixins.flexBox;
+        flex-direction: column;
+        gap: 2rem;
+
+        &--wrapper{
+            @include mixins.flexBox;
+            flex-direction: column;
+            width: 100%;
+        }
+    }
+    &__header{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        gap: 0.4rem;
+        width: 100%;
+
+        &--text{
+            text-transform: uppercase;
+            color: map-get(variables.$baseVars, "greycolor");
+            font-size: 85%;
+            letter-spacing: 0.1rem;
+        }
+        
+        &--wrapper{
+            display: inline;
+        }
+        &--link{
+            display: inline;
+            font-weight: 800;
+            color: map-get(variables.$baseVars, "color");
+            font-size: 150%;
+            font-family: map-get(variables.$baseVars, "boldfont");
+            text-decoration: none;
+            
+            &:hover{
+                color: map-get(variables.$baseVars, "blue");
+            }
+        }
+        &--release{
+            display: inline;
+            color: map-get(variables.$baseVars, "greycolor");
+            margin-left: 0.4rem;
+            font-weight: 200;
+            font-size: 120%;
+        }
+    }
+    &__aside{
+        width: 22%;
+        @include mixins.flexBox;
+    }
+}

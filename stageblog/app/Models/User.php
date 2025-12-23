@@ -92,4 +92,7 @@ class User extends Authenticatable
     public function movies(){
         return $this->hasMany(Movie::class);
     }
+    public function activities(){
+        return $this->hasMany(Activity::class);
+    }
 }

@@ -7,6 +7,7 @@ body{
     background: map-get(variables.$baseVars, "background");
     color: map-get(variables.$baseVars, "color");
     font-family: map-get(variables.$baseVars, "font");
+    margin: 0 !important;
 }
 
 .main{
@@ -16,5 +17,5 @@ body{
     align-items: center;
     gap: 4rem;
     padding: 2rem 35rem;
-    min-height: calc(100vh - 10rem);
+    min-height: calc(100vh - 10rem - 7rem);
 }

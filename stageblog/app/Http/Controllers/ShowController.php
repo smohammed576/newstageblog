@@ -10,9 +10,10 @@ class ShowController extends Controller
 {
 
     public function show(int $id){
-        return Inertia::render('Shows/Show', [
-            'id' => $id
-        ]);
+        // return Inertia::render('Shows/Show', [
+        //     'id' => $id
+        // ]);
+        return redirect()->route('maintenance.construction');
     }
     public function store(Request $request){
         $user = auth()->user();

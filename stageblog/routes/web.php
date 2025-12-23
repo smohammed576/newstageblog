@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ActionController;
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DiaryController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HourController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProfileController;
@@ -64,7 +66,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/{user:slug}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/settings', [ProfileController::class, 'settings'])->name('profile.settings');
-    
     
     //diaries
     Route::middleware([Role::class. ':admin,user'])->group(function(){
@@ -133,6 +134,13 @@ Route::middleware('auth')->group(function () {
     
     //person
     Route::get('/person/{id}', [PersonController::class, 'show'])->name('person.show');
+
+    //coming soon
+    Route::get('/coming-soon', [MaintenanceController::class, 'construction'])->name('maintenance.construction');
+
+    //activities
+    Route::get('/profile/{user:slug}/activity', [ActivityController::class, 'index'])->name('activities.index');
+    Route::get('/profile/{user:slug}/film/{tmdb}/activity', [ActivityController::class, 'show'])->name('activities.show');
 
 
 

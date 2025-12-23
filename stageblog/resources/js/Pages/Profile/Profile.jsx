@@ -1,3 +1,4 @@
+import Backdrop from "@/Components/Backdrop";
 import ApplicationLogo from "@/Components/default/ApplicationLogo";
 import DropdownItem from "@/Components/DropdownItem";
 import Heading from "@/Components/Heading";
@@ -43,11 +44,7 @@ function ProfileScreen(){
         {/* <AuthenticatedLayout header={profile.backdrop != null && true}> */}
         <Navigation props={profile.backdrop != null ? true : false}/>
       {
-        profile.backdrop != null &&
-        <figure className="film__backdrop">
-            {/* <div className="film__backdrop--image" style={{backgroundImage: `url(${url}/4PZuqUVwvxPCEMV8LYSAJLuxvcq.jpg)`}}></div> */}
-            <div className="film__backdrop--image" style={{backgroundImage: `url(${url}${profile.backdrop})`}}></div>
-        </figure>
+        profile.backdrop != null && <Backdrop url={`${url}${profile.backdrop}`} />
       }
       <main className="main">
 

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ActivityType;
 use App\Models\Movie;
 use App\Models\User;
+use App\Models\Watchlist;
+use App\Services\ActivityService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -29,9 +32,14 @@ class MovieController extends Controller
         }
         $checkInWatchlist = $user->watchlists()->where('tmdb', $data['tmdb'])->first();
         if($checkInWatchlist){
+            $activity = $user->activities()->where('model_type', Watchlist::class)->where('model_id', $checkInWatchlist->id)->where('type', 'added_watchlist')->first();
+            if($activity){
+                $activity->delete();
+            }
             $checkInWatchlist->delete();
         }
-        $user->movies()->create($data);
+        $movie = $user->movies()->create($data);
+        ActivityService::log(ActivityType::ADDED_FILM, $movie, null, ['tmdb' => $movie['tmdb']], false);
 
         return back();
     }
@@ -41,6 +49,9 @@ class MovieController extends Controller
         $movie = $user->movies()->where('tmdb', $id)->first();
         $diaries = $user->diaries()->where('tmdb', $id)->get();
         $watchlist = $user->watchlists()->where('tmdb', $id)->first();
+        if($user->id != 1){
+            ActivityService::log(ActivityType::VIEWED_FILM, $user, null, ['tmdb' => $id]);
+        }
         return Inertia::render(
             'Movies/Movie', [
                 'id' => $id,
@@ -57,10 +68,16 @@ class MovieController extends Controller
         $movie = $user->movies()->find($id);
         
         $movie->update($data);
-        if($movie->wasChanged('poster')){
-            $checkInFavorite = $user->favorites()->where('tmdb', $data['tmdb'])->first();
-            if($checkInFavorite){
-                $checkInFavorite->update(['poster' => $movie->poster]);
+        if($movie->wasChanged('liked')){
+            $user->activities()->where('model_type', Movie::class)->where('model_id', $id)->where('type', 'liked_film')->delete();
+            if($movie->liked){
+                ActivityService::log(ActivityType::LIKED_FILM, $movie, null, ['tmdb' => $movie->tmdb], false);
+            }
+        }
+        if($movie->wasChanged('rating')){
+            if($movie->rating){
+                $user->activities()->where('model_type', Movie::class)->where('model_id', $id)->where('type', 'rated_film')->delete();
+                ActivityService::log(ActivityType::RATED_FILM, $movie, null, ['rated' => $movie->rating, 'tmdb' => $movie->tmdb], false);
             }
         }
         
@@ -69,8 +86,10 @@ class MovieController extends Controller
     }
 
     public function destroy(int $id){
+        $user = auth()->user();
         $movie = Movie::find($id);
         $movie->delete();
+        $user->activities()->where('model_type', Movie::class)->where('model_id', $id)->delete();
         return back()->with('status', 'Movie was removed');
     }
 

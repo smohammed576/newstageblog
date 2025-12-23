@@ -4,6 +4,7 @@ import { Head, usePage } from "@inertiajs/react";
 import { useContext, useEffect, useState } from "react";
 import CustomModal from "@/Components/Modals/CustomModal";
 import MovieCastTab from "../Movies/Tabs/CastTab";
+import Backdrop from "@/Components/Backdrop";
 
 function ShowScreen(){
     const user = usePage().props.auth.user;
@@ -32,9 +33,9 @@ function ShowScreen(){
         <>
         <Head title={show.name}/>
          <Navigation props={true}/>
-            <figure className="film__backdrop">
-                <div className="film__backdrop--image" style={{backgroundImage: `url(${url}${show.backdrop_path})`}}></div>
-            </figure>
+         {
+            show.backdrop_path != null && <Backdrop url={`${url}${show.backdrop_path}`}/>
+         }
             <section className="film">
                 <aside className="film__aside">
                     <figure className="film__aside--figure">

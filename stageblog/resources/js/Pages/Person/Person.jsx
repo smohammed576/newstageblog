@@ -1,3 +1,4 @@
+import Poster from "@/Components/Poster";
 import DataContext from "@/hooks/context/DataContext";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, usePage } from "@inertiajs/react";
@@ -30,9 +31,7 @@ function Person(){
                     <div className="person__credits">
                         {
                             person.credits.cast.map((item, index) => 
-                                <a href={route('movies.show', item.id)} className="person__credit" key={index}>
-                                    <img src={`${url}${item.poster_path}`} title={item.title} alt={item.name} className="person__credit--poster" />
-                                </a>
+                                <Poster key={index} url={item.poster_path != null ? `${url}${item.poster_path}` : item.poster_path} alt={item.title} route={route('movies.show', item.id)} width="18%"/>
                             )
                         }
                     </div>

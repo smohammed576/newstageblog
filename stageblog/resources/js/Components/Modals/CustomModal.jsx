@@ -9,8 +9,8 @@ function CustomModal({images, type, onClose}){
     const url = import.meta.env.VITE_APP_URL;
     const { data, setData, processing, reset, patch } = useForm({
         title: movie != null ? movie.title : '',
-        backdrop: movie != null ? movie.backdrop : images.backdrops[0].file_path,
-        poster: movie != null ? movie.poster : images.posters[0].file_path,
+        backdrop: movie != null ? movie.backdrop : images.backdrops[0]?.file_path,
+        poster: movie != null ? movie.poster : images.posters[0]?.file_path,
         tmdb: id
     });
     

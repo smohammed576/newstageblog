@@ -3,7 +3,6 @@ import { useForm, usePage } from "@inertiajs/react";
 function Navigation(props){
     const user = usePage().props.auth.user;
     const role = usePage().props.auth.role[0];
-    // console.log(role);
     const {post, processing} = useForm();
 
     const submit = (event) => {
@@ -34,6 +33,9 @@ function Navigation(props){
                         <a href={route('profile.settings')} className="header__navigation--dropdown-item">Settings</a>
                         {
                             role.name == 'admin' && <a href={route('images.index')} className="header__navigation--dropdown-item">Images</a>
+                        }
+                        {
+                            role.name == 'admin' && <a href={route('activities.index', user)} className="header__navigation--dropdown-item">Activity</a>
                         }
                         {
                             role.name == 'admin' && <a href={route('posts.create')} className="header__navigation--dropdown-item">New post</a>
