@@ -24,17 +24,11 @@ function Watchlist(){
     const sendQuery = async (event) => {
         event.preventDefault();
         const response = await searchQuery(value, 'movie');
-        console.log(response);
         setFilms(response.results);
     }
     
-    console.log(usePage().props);
-
-    console.log(watchlist);
-
     const randomFilm = () => {
         const random = Math.floor(Math.random() * watchlist.length);
-        console.log(watchlist[random]);
         window.location.href = route('movies.show', watchlist[random].tmdb);
     }
 

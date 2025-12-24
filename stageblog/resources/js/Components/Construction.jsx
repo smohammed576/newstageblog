@@ -1,7 +1,7 @@
 const ConstructionBanner = () => {
     return (
-        <span className="construction">
-            <p className="construction__text">Under construction</p>
+        <span className="construction__banner">
+            <p className="construction__banner--text">This page is still under construction.</p>
         </span>
     );
 }

@@ -7,18 +7,15 @@ import MovieCastTab from "../Movies/Tabs/CastTab";
 import Backdrop from "@/Components/Backdrop";
 
 function ShowScreen(){
-    const user = usePage().props.auth.user;
     const role = usePage().props.auth.role;
     const id = usePage().props.id;
     const {findShow} = useContext(DataContext);
     const [show, setShow] = useState(null);
-    console.log(usePage().props);
     const url = import.meta.env.VITE_APP_URL;
     const [tab, setTab] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
     const [type, setType] = useState('');
     let tabs = ['CAST', 'CREW', 'SEASONS', 'MEDIA', 'SIMILAR SHOWS'];
-    console.log(show);
     
     useEffect(() => {
         if(show == null){

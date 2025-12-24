@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Diary extends Model
 {
-    protected $fillable = ['title', 'tmdb', 'user_id', 'movie_id', 'rating', 'liked', 'rewatched', 'type', 'release'];
+    protected $fillable = ['title', 'tmdb', 'user_id', 'movie_id', 'rating', 'liked', 'rewatched', 'type', 'release', 'watched_at'];
 
     public function user(){
         return $this->belongsTo(User::class);

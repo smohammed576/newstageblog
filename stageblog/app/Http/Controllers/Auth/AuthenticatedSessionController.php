@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\ActivityType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
+use App\Services\ActivityService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +35,13 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        $user = auth()->user();
+
+        $email = User::find(1)->email;
+
+        ActivityService::log(ActivityType::LOGGED_IN, $user);
+        mail($email, 'Logged in', $user->name);
 
         return redirect()->intended(route('blog.index', absolute: false));
     }

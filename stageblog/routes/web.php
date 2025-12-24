@@ -96,7 +96,7 @@ Route::middleware('auth')->group(function () {
 
     //favorites
     Route::post('/favorite', [FavoriteController::class, 'store'])->name('favorites.store');
-    Route::delete('/favorite', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+    Route::delete('/favorite/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 
     //about
     Route::get('/about', [AboutController::class, 'index'])->name('about.index');
@@ -116,7 +116,7 @@ Route::middleware('auth')->group(function () {
     //shows
     Route::get('/show/{id}', [ShowController::class, 'show'])->name('shows.show');
     Route::post('/show', [ShowController::class, 'store'])->name('shows.store');
-    Route::delete('/show', [ShowController::class, 'destroy'])->name('shows.destroy');
+    Route::delete('/show/{id}', [ShowController::class, 'destroy'])->name('shows.destroy');
 
 
     //images

@@ -31,7 +31,6 @@ function PostScreen(){
 
     const submit = (event) => {
         event.preventDefault();
-        console.log(event.target.id);
         if(event.target.id === 'delete'){
             destroy(route('posts.destroy', stagepost.id));
         }

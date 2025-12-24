@@ -1,6 +1,6 @@
-const Poster = ({url, alt, route, width}) => {
+const Poster = ({url, alt, route, width, onClick}) => {
     return (
-         <div style={{width: width}} className="poster">
+         <div onClick={onClick} style={{width: width}} className="poster">
             {
                 url != null ?
                 <img src={url} alt={alt} className="poster__image" />

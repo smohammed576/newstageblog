@@ -16,7 +16,7 @@
 
 //1560px responsive
 @media screen and (max-width: 97.5rem) {
-    .film__backdrop{
+    .backdrop{
         width: 100%;
         padding: 0;
 
@@ -28,6 +28,9 @@
 
 //1500px responsive
 @media screen and (max-width: 93.75rem) { 
+    .film{
+        padding: 0 25rem;
+    }
     .homeposts{
         &__item{
             &--figure{
@@ -40,7 +43,6 @@
 //responsive screen 92rem
 @media screen and (max-width: 92rem) {
     .posts{
-
         &__item{
             font-size: 80%;
             height: 20rem;
@@ -52,12 +54,20 @@
             }
         }
     }
+    .movie{
+        &__modal{
+            width: 70%;
+        }
+    }
 }
 
 //responsive screen 82rem
 @media screen and (max-width: 83.5rem) {
     .header{
         padding: 2rem 20rem;
+    }
+    .construction__banner{
+        padding: 1rem 20rem;
     }
     .homeposts{
         &__item{
@@ -87,7 +97,7 @@
         }
     }
     
-    .film__backdrop{
+    .backdrop{
         height: 50rem;
     }
 
@@ -95,6 +105,10 @@
         &__hasBackdrop{
             padding-top: 25rem;
         }
+    }
+
+    .film{
+        padding: 0 15rem;
     }
 }
 
@@ -135,6 +149,9 @@
             }
         }
     }
+    .construction__banner{
+        padding: 1rem 10rem;
+    }
     .homeposts{
         &__item{
             &--figure{
@@ -149,21 +166,30 @@
             padding: 4rem 10rem 5rem 10rem;
         }
     }
+    .backdrop{
+        width: 100%;
+        padding: 0;
+
+        &::before{
+            background-image: linear-gradient(to top,#14181d,#14181d 21.48148148%,rgba(20,24,29,.984) 23.63703704%,rgba(20,24,29,.945) 26.1%,rgba(20,24,29,.882) 28.80740741%,rgba(20,24,29,.804) 31.70740741%,rgba(20,24,29,.71) 34.74074074%,rgba(20,24,29,.608),rgba(20,24,29,.5) 40.97407407%,rgba(20,24,29,.396) 44.05925926%,rgba(20,24,29,.294) 47.04814815%,rgba(20,24,29,.204) 49.88148148%,rgba(20,24,29,.12) 52.5%,rgba(20,24,29,.06) 54.85185185%,rgba(20,24,29,.016) 56.87777778%,rgba(20,24,29,0) 58.51851852%);
+        }
+    }
     .film{
         padding: 0 2rem;
-        &__backdrop{
-            width: 100%;
-            padding: 0;
-
-            &::before{
-                background-image: linear-gradient(to top,#14181d,#14181d 21.48148148%,rgba(20,24,29,.984) 23.63703704%,rgba(20,24,29,.945) 26.1%,rgba(20,24,29,.882) 28.80740741%,rgba(20,24,29,.804) 31.70740741%,rgba(20,24,29,.71) 34.74074074%,rgba(20,24,29,.608),rgba(20,24,29,.5) 40.97407407%,rgba(20,24,29,.396) 44.05925926%,rgba(20,24,29,.294) 47.04814815%,rgba(20,24,29,.204) 49.88148148%,rgba(20,24,29,.12) 52.5%,rgba(20,24,29,.06) 54.85185185%,rgba(20,24,29,.016) 56.87777778%,rgba(20,24,29,0) 58.51851852%);
-
-            }
-        }
     }
     .profile{
         &__hasBackdrop{
             padding-top: 20rem;
+        }
+    }
+    .movie{
+        &__modal{
+            width: 80%;
+
+            &--wrapper{
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
         }
     }
 }
@@ -208,12 +234,28 @@
             margin-top: -2rem;
         }
     }
+    .film{
+        flex-direction: row-reverse;
+        &__wrapper{
+            flex-direction: column;
+            gap: 1rem;
+        }
+        &__details{
+            width: 100%;
+        }
+        &__sidebar{
+            width: 100%;
+        }
+    }
 }
 
 //responsive 768px
 @media screen and (max-width: 48rem) {
     .header{
         padding: 2rem 4rem;
+    }
+    .construction__banner{
+        padding: 1rem 4rem;
     }
     .main{
         padding: 4rem;
@@ -272,6 +314,9 @@
                 width: 3rem;
             }
         }
+    }
+    .construction__banner{
+        top: 12rem;
     }
     .homeactivity{
         &__list{
@@ -369,7 +414,7 @@
         }
     }
 
-    .film__backdrop{
+    .backdrop{
         position: relative;
         height: 35rem;
     }
@@ -379,6 +424,16 @@
         &__hasBackdrop{
             padding: 0;
             margin-top: -10rem;
+        }
+    }
+
+    .film{
+        margin-top: -10rem;
+
+        &__heading{
+            &--title{
+                font-size: 150%;
+            }
         }
     }
 }
@@ -426,6 +481,15 @@
 
         }
     }
+    .movie{
+        &__modal{
+            width: 90%;
+
+            &--body{
+                flex-direction: column;
+            }
+        }
+    }
 }
 
 //528px
@@ -449,6 +513,31 @@
             &--rating{
                 font-size: 40%;
             }
+        }
+    }
+    .film{
+        padding: 1rem;
+        &__heading{
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: start;
+            &--wrapper{
+                font-size: 80%;
+                display: flex;
+                align-items: start;
+                gap: 0;
+            }
+            &--year{
+                margin: 0;
+                margin-right: 1rem;
+            }
+        }
+        &__body{
+            width: 55%;
+        }
+        &__aside{
+            width: auto;
         }
     }
 }
@@ -503,6 +592,9 @@
                 transform: translate(-25%, 0%);
             }
         }
+    }
+    .construction__banner{
+        top: 10rem;
     }
     .post{
         &__heading{

@@ -1,9 +1,12 @@
 import { useForm, usePage } from "@inertiajs/react";
 import GreenButton from "../GreenButton";
 import Checkbox from "../Checkbox";
+import { useEffect, useState } from "react";
+import Poster from "../Poster";
 
 function MovieModal({ film, onClose }){
     const user = usePage().props.auth.user;
+    const movies = usePage().props.movies;
     const url = import.meta.env.VITE_APP_URL;
     const {data, setData, post, processing} = useForm({
         title: film.title ?? '',
@@ -15,30 +18,41 @@ function MovieModal({ film, onClose }){
         liked: false,
         rewatched: false,
         release: film.release_date ?? '',
-        type: 'movie'
+        type: 'movie',
+        watched_at: new Date()
     });
+    const [diary, setDiary] = useState(true);
+    const diaries = usePage().props.diaries;
+
+    useEffect(() => {
+        if(movies.length != 0){
+            movies.find((item) => {
+                if(item.tmdb == film.id){
+                    setData('poster', item.poster);
+                    setData('rating', item.rating ?? 0);
+                    setData('liked', item.liked);
+                    if(diaries.length != 0){
+                        if(diaries.find((diary) => diary.tmdb == film.id)){
+                            setData('rewatched', true);
+                        }
+                    }
+                }
+            });
+        }
+    }, []);
 
     const submit = (event) => {
         event.preventDefault();
-        post(route('diaries.store'));
+        if(diary){
+            post(route('diaries.store'));
+        }
+        else{
+            post(route('movies.store'));
+        }
     }
 
-     const changeRating = (index) => {
-        if(index == 0){
-            setData('rating', data.rating == 1 ? 2 : 1);
-        }
-        else if(index == 1){
-            setData('rating', data.rating == 3 ? 4 : 3);
-        }
-        else if(index == 2){
-            setData('rating', data.rating == 5 ? 6 : 5);
-        }
-        else if(index == 3){
-            setData('rating', data.rating == 7 ? 8 : 7);
-        }
-        else if(index == 4){
-            setData('rating', data.rating == 9 ? 10 : 9);
-        }
+    const formatDate = (date) => {
+        return new Date(date).toLocaleDateString('en-UK', {day: "2-digit", month: "short", year: "numeric"});
     }
 
     return (
@@ -48,24 +62,37 @@ function MovieModal({ film, onClose }){
                 <form onSubmit={submit} className="movie__modal--form">
                     <span className="movie__modal--header">
                         <h3 className="movie__modal--header-text">I watched...</h3>
-                        <button type="button" formMethod="dialog" className="movie__modal--header-close">
+                        <button onClick={onClose} type="button" formMethod="dialog" className="movie__modal--header-close">
                             <i className="fa-solid fa-close"/>
                         </button>
                     </span>
                     <span className="movie__modal--body">
-                        <a href={route("movies.show", film.id)} className="movie__modal--link">
-                            <figure className="movie__modal--poster">
-                                <img src={`${url}${film.poster_path}`} alt={film.title} className="movie__modal--poster-image" />
-                            </figure>
-                        </a>
+                        <div className="movie__modal--link">
+                            <Poster url={film.poster_path != null ? `${url}${film.poster_path}` : null} alt={film.title} route={route("movies.show", film.id)}/>
+                        </div>
                         <div className="movie__modal--body-wrapper">
                             <article className="movie__modal--text">
                                 <h2 className="movie__modal--text-title">{film.title}</h2>
                                 <h3 className="movie__modal--text-year">{film.release_date !== "" && film.release_date !== null ? film.release_date.substring(0, 4) : null}</h3>
                             </article>
-                            <span className="movie__modal--wrapper">
-                                <Checkbox value={data.rewatched ? 1 : 0} onChange={(event) => setData('rewatched', event.target.checked)} label="I've watched this before"/>
-                            </span>
+                            {
+                                diary ? 
+                                <span className="movie__modal--wrapper">
+                                    <span className="movie__modal--date">
+                                        <Checkbox value={diary} onChange={(event) => setDiary(event.target.checked)} label="Watched on"/>
+                                        <label className="movie__modal--date-label">
+                                            <button type="button" className="movie__modal--date-button">{formatDate(data.watched_at)}</button>
+                                            <input type="date" max={new Date().toISOString().split('T')[0]} onChange={(event) => setData('watched_at', event.target.valueAsDate)} onClick={(event) => event.currentTarget.showPicker()} className="movie__modal--date-input"/>
+                                        </label>
+                                        
+                                    </span>
+                                    <Checkbox value={data.rewatched ? 1 : 0} onChange={(event) => setData('rewatched', event.target.checked)} label="I've watched this before"/>
+                                </span>
+                                : 
+                                <span className="movie__modal--wrapper">
+                                    <Checkbox value={diary} onChange={(event) => setDiary(event.target.checked)} label="Add to your diary?"/>
+                                </span>
+                            }
                             <span className="movie__modal--rating">
                                 <div className="movie__modal--rating-wrapper">
                                     <span className="movie__modal--rating-header">
@@ -79,7 +106,7 @@ function MovieModal({ film, onClose }){
                                 </div>
                                 <label htmlFor="" className="movie__modal--rating-liked">
                                     <label htmlFor="" className="movie__modal--rating-label">Like</label>
-                                    <i className={`fa-solid fa-heart movie__modal--rating-${data.liked ? 'heart' : 'icon'}`}/>
+                                    <span className={data.liked ? 'movie__modal--rating-active' : 'movie__modal--rating-heart'}></span>
                                     <input className="movie__modal--rating-checkbox" type="checkbox" name="liked" onChange={(event) => setData('liked', event.target.checked)} value={data.liked ? 1 : 0} />
                                 </label>
                             </span>

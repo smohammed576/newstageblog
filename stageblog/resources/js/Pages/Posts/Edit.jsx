@@ -24,7 +24,6 @@ function PostForm(){
     const [formatted, setFormatted] = useState(false);
     const [formatImage, setFormatImage] = useState(false);
 
-    console.log(data);
 
     useEffect(() => {
         if(openModal){
@@ -37,9 +36,7 @@ function PostForm(){
     }, [openModal]);
 
     const selectTag = (value) => {
-        console.log(value);
         if(!tagsList.includes(value)){
-            console.log("this again");
             setTagsList([...tagsList, value]);
         }
     }

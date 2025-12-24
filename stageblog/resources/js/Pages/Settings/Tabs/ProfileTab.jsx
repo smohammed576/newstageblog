@@ -10,7 +10,8 @@ function SettingsProfileTab(){
     const user = usePage().props.auth.user;
     const favorites = usePage().props.favorites;
     const shows = usePage().props.shows;
-    const {data, setData, processing, patch} = useForm({
+    const {data, setData, processing, patch, delete: destroy} = useForm({
+        id: 0,
         name: user.name ?? '',
         first_name: user.first_name ?? '',
         last_name: user.last_name ?? '',
@@ -41,7 +42,7 @@ function SettingsProfileTab(){
             seriesList[item.position] = item;
         });
         setSeries(seriesList);
-    }, []);
+    }, [favorites]);
 
 
     const getFilm = async (id) => {
@@ -54,9 +55,19 @@ function SettingsProfileTab(){
         setOpenModal(false);
     }
 
-    const submit = (event) => {
+    const submit = (event, id) => {
         event.preventDefault();
-        patch(route('profile.update'));
+        if(id != null){
+            if(event.target.id == 'film'){
+                destroy(route('favorites.destroy', {id: id}));
+            }
+            else{
+                destroy(route('shows.destroy', {id: id}));
+            }
+        }
+        else{
+            patch(route('profile.update'));
+        }
         if(status != null){
             setShowPopup(true);
             setTimeout(() => {
@@ -65,7 +76,15 @@ function SettingsProfileTab(){
         }
     }
 
-    console.log(data);
+    useEffect(() => {
+        if(openModal){
+            document.querySelector('body').style.overflow = "hidden";
+            
+        }
+        else{
+            document.querySelector('body').style.overflow = "auto";
+        }
+    }, [openModal]);
 
     return (
         <>
@@ -104,14 +123,15 @@ function SettingsProfileTab(){
                                         }
                                     </button>
                                         {
-                                            item == null ? null : <button type="button" onClick={(event) => {
+                                            item == null ? null : <button type="submit" id="film" onClick={(event) => {
                                                 event.preventDefault();
+                                                submit(event, item.id);
                                                 
-                                                return setFilms(prev => {
-                                                    const copy = [...prev];
-                                                    copy[selected] = null;
-                                                    return copy;
-                                                });
+                                                // return setFilms(prev => {
+                                                //     const copy = [...prev];
+                                                //     copy[selected] = null;
+                                                //     return copy;
+                                                // });
                                             }} className="settings__favorites--item-remove">
                                                 <i className="fa-solid fa-close settings__favorites--item-icon"/>
                                             </button>
@@ -138,13 +158,14 @@ function SettingsProfileTab(){
                                         }
                                     </button>
                                         {
-                                            item == null ? null : <button type="button" onClick={(event) => {
+                                            item == null ? null : <button type="submit" id="tv" onClick={(event) => {
                                                 event.preventDefault();
-                                                return setSeries(prev => {
-                                                    const copy = [...prev];
-                                                    copy[selected] = null;
-                                                    return copy;
-                                                });
+                                                submit(event, item.id);
+                                                // return setSeries(prev => {
+                                                //     const copy = [...prev];
+                                                //     copy[selected] = null;
+                                                //     return copy;
+                                                // });
                                             }} className="settings__favorites--item-remove">
                                                 <i className="fa-solid fa-close settings__favorites--item-icon"/>
                                             </button>
@@ -171,7 +192,7 @@ function SettingsProfileTab(){
             </span>
         </form>
             {
-                openModal ? type == 'backdrop' ? <BackdropModal selected={(path) => setData('backdrop', path)} onClose={() => {console.log(data.backdrop); setOpenModal(false)}}/> : <FavoriteModal position={selected} onClick={(id) => getFilm(id)} type={type} onClose={() => setOpenModal(false)}/> : null
+                openModal ? type == 'backdrop' ? <BackdropModal selected={(path) => setData('backdrop', path)} onClose={() => setOpenModal(false)}/> : <FavoriteModal position={selected} onClick={(id) => getFilm(id)} type={type} onClose={() => setOpenModal(false)}/> : null
             }
             {
                 showPopup && <div className="settings__popup">

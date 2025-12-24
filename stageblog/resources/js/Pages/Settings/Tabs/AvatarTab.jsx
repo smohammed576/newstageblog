@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 function SettingsAvatarTab(){
     const user = usePage().props.auth.user;
     const path = usePage().props.status;
-    console.log(usePage());
     const { data, setData, processing, reset, post, patch } = useForm({
         image: path != null ? `storage/${path}` : '',
         name: user.name,
@@ -31,8 +30,6 @@ function SettingsAvatarTab(){
             setDisable(true);
         }
     }, [path]);
-
-    console.log(data);
 
     return (
         <form onSubmit={submit} encType={path != null ? "" : "multipart/form-data"} className="settings__form">

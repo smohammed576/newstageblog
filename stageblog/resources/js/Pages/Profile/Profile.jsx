@@ -23,7 +23,6 @@ function ProfileScreen(){
     let watchlistItems = [...watchlist.data].reverse();
     const diary = usePage().props.diary;
     const ref = useRef(null);
-    console.log(usePage().props);
     useEffect(() => {
       let list = [null, null, null, null];
       favorites.forEach(item => {
@@ -41,7 +40,6 @@ function ProfileScreen(){
 
     return (
       <>
-        {/* <AuthenticatedLayout header={profile.backdrop != null && true}> */}
         <Navigation props={profile.backdrop != null ? true : false}/>
       {
         profile.backdrop != null && <Backdrop url={`${url}${profile.backdrop}`} />
@@ -97,7 +95,7 @@ function ProfileScreen(){
                   <a href={route('movies.index', profile)} className="profile__heading--details-text">MOVIES</a>
                 </article>
                 <article className="profile__heading--details-item">
-                  <h3 className="profile__heading--details-amount">{diaries.length}</h3>
+                  <h3 className="profile__heading--details-amount">{usePage().props.diaries.total}</h3>
                   <p className="profile__heading--details-text">THIS YEAR</p>
                 </article>
               </span>
@@ -143,8 +141,6 @@ function ProfileScreen(){
                     {
                       diaries.slice(0, 4).map((item, index) => 
                         <li className="profile__favorites--item" key={index}>
-                          {/* <img src={`${url}${item.movie.poster}`} alt={item.title} className="profile__favorites--item-image" />
-                          <a href={route('movies.show', item.tmdb)} className="profile__favorites--item-overlay"></a> */}
                           <Poster url={`${url}${item.movie.poster}`} alt={item.title} route={route('movies.show', item.tmdb)}/>
                           <span className="homeactivity__item--rating">
                                 {
@@ -201,7 +197,7 @@ function ProfileScreen(){
                               {
                                 entries.flat().map((item, i) => 
                                   <React.Fragment key={i}>
-                                    <dt className="profile__diary--entries-day">{new Date(item.created_at).toLocaleDateString('nl', {day: 'numeric'})}</dt>
+                                    <dt className="profile__diary--entries-day">{new Date(item.watched_at).toLocaleDateString('nl', {day: 'numeric'})}</dt>
                                     <dd className="profile__diary--entries-title">
                                       <a href={route('movies.show', item.tmdb)} className="profile__diary--entries-link">{item.title}</a>
                                     </dd>
@@ -219,7 +215,6 @@ function ProfileScreen(){
             </span>
         </section>
       </main>
-      {/* </AuthenticatedLayout> */}
       </>
     );
 }

@@ -19,13 +19,11 @@ function FavoriteModal({ position, onClick, onClose, type }){
     const sendQuery = async (event) => {
         event.preventDefault();
         const response = await searchQuery(value, type);
-        console.log(response);
         setFilms(response.results);
     }
 
     useEffect(() => {
         if(data.poster != '' && data.tmdb != 0){
-            console.log(data);
             if(type == 'tv'){
                 post(route('shows.store'), {
                     onFinish: () => reset('name', 'poster', 'tmdb')

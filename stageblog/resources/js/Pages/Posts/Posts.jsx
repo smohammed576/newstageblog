@@ -9,7 +9,6 @@ import ReactMarkdown from "react-markdown";
 function PostsScreen(){
     const posts = usePage().props.posts.data;
     const links = usePage().props.posts;
-    console.log(usePage().props);
     const status = usePage().props.status;
 
     const formatDate = (date) => {

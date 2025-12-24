@@ -1,21 +1,20 @@
-import FavoriteModal from "@/Components/Modals/FavoriteModal";
-import DataContext from "@/hooks/context/DataContext";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm, usePage } from "@inertiajs/react";
 import { useContext, useState } from "react";
 import SettingsProfileTab from "./Tabs/ProfileTab";
 import SettingsAuthTab from "./Tabs/AuthTab";
 import SettingsAvatarTab from "./Tabs/AvatarTab";
+import ConstructionBanner from "@/Components/Construction";
 
 function SettingsScreen(){
-    const user = usePage().props.auth.user;
     const [tab, setTab] = useState(0);
     let tabs = ['PROFILE', 'AUTH', 'AVATAR'];
 
     return (
         <AuthenticatedLayout>
             <Head title="Account Settings"/>
-            <section className="settings">
+            <ConstructionBanner/>
+            <section style={{marginTop: '2rem'}} className="settings">
                 <span className="settings__heading">
                     <h2 className="settings__heading--text">Account Settings</h2>
                 </span>
@@ -39,3 +38,9 @@ function SettingsScreen(){
 }
 
 export default SettingsScreen;
+
+
+//delete settings shit
+//change favs
+//stageblog last week
+//just do iit whatevergreougroiheogr

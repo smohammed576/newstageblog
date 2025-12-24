@@ -5,7 +5,6 @@ import { Head, usePage } from "@inertiajs/react";
 
 function ImagesScreen(){
     const images = usePage().props.files;
-    console.log(images);
 
     return(
         <AuthenticatedLayout>

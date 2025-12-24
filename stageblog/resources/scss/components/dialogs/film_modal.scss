@@ -93,11 +93,12 @@
     &--aside{
         width: 30%;
         height: 100%;
-        padding: 1rem;
+        padding: 2rem;
     }
 
     &--poster{
-        height: 100%;
+        width: 100%;
+        aspect-ratio: 2/3;
         object-fit: cover;
         border-radius: 0.2rem;
     }

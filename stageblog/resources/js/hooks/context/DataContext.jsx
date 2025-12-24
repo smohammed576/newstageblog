@@ -10,7 +10,6 @@ const DataProvider = ({children}) => {
     const searchQuery = async (query, type) => {
         const response = await fetch(`https://api.themoviedb.org/3/search/${type}?query=${query}&api_key=${key}`);
         const results = await response.json();
-        console.log(results);
         return results;
     }
 
@@ -31,10 +30,6 @@ const DataProvider = ({children}) => {
         const result = await response.json();
         return result;
     }
-    
-    // const constructionBackdrop = async () => {
-    //     const response = await fetch
-    // }
 
     return(
         <DataContext.Provider value={{data, searchQuery, findFilm, findShow, findPerson}}>

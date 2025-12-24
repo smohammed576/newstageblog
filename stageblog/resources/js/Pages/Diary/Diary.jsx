@@ -1,15 +1,24 @@
 import Heading from "@/Components/Heading";
+import Pagination from "@/Components/Pagination";
 import Poster from "@/Components/Poster";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, usePage } from "@inertiajs/react";
+import { Head, useForm, usePage } from "@inertiajs/react";
 
 function DiaryScreen(){
     const user = usePage().props.auth.user;
     const profile = usePage().props.profile;
     const diaries = usePage().props.diaries;
     const url = import.meta.env.VITE_APP_URL;
-    console.log(diaries);
+    const links = usePage().props.links;
     let headers = ['MONTH', 'DAY', 'FILM', 'RELEASED', 'RATING', 'LIKE', 'REWATCH', 'EDIT'];
+    const { data, setData, processing, delete: destroy } = useForm({
+        id: 0
+    });
+
+    const submit = (event, id) => {
+        event.preventDefault();
+        destroy(route('diaries.destroy', id));
+    }
 
     return (
         <AuthenticatedLayout>
@@ -34,14 +43,14 @@ function DiaryScreen(){
                                         <td className="diary__row--month">
                                             {
                                                 index == 0 && <article className="diary__row--month-wrapper">
-                                                    <h3 className="diary__row--month-text">{new Date(item.created_at).toLocaleString('en-US', {month: 'short'})}</h3>
-                                                    <p className="diary__row--month-year">{new Date(item.created_at).toLocaleString('nl', {year: 'numeric'})}</p>
+                                                    <h3 className="diary__row--month-text">{new Date(item.watched_at).toLocaleString('en-US', {month: 'short'})}</h3>
+                                                    <p className="diary__row--month-year">{new Date(item.watched_at).toLocaleString('nl', {year: 'numeric'})}</p>
                                                 </article>
                                             }
                                         </td>
                                         <td className="diary__row--day">
                                             <h3 className="diary__row--day-number">
-                                                {new Date(item.created_at).toLocaleString('nl', {day: 'numeric'})}
+                                                {new Date(item.watched_at).toLocaleString('nl', {day: 'numeric'})}
                                             </h3>
                                         </td>
                                         <td className="diary__row--film">
@@ -74,7 +83,10 @@ function DiaryScreen(){
                                         </td>
                                         {
                                             user.id == profile.id ? <td className="diary__row--edit">
-                                                <span className="diary__row--edit-icon"></span>
+                                                <form onSubmit={(event) => submit(event, item.id)} className="diary__row--edit-form">
+                                                    <span className="diary__row--edit-pen"></span>
+                                                    <button className="diary__row--edit-trash"></button>
+                                                </form>
                                             </td> : <td className="diary__row--you">
                                                 <span className={`diary__row--you-${'eye'}`}></span>
                                                 <span className={`diary__row--you-${'heart'}`}></span>
@@ -86,6 +98,9 @@ function DiaryScreen(){
                         }
                     </tbody>
                 </table>
+                {
+                    links != null && <Pagination data={links}/>
+                }
             </section>
         </AuthenticatedLayout>
     );

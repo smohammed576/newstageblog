@@ -14,7 +14,6 @@ function PostForm(){
     const stagepost = usePage().props.post;
     const [openModal, setOpenModal] = useState(false);
     const [tagsList, setTagsList] = useState([]);
-    console.log(usePage().props);
     const { data, setData, post, patch, processing, error } = useForm({
          title: stagepost != null ? stagepost.title : '',
          intro: stagepost != null ? stagepost.intro :  '',
@@ -28,7 +27,6 @@ function PostForm(){
     });
     const [formatted, setFormatted] = useState(false);
 
-    console.log(data);
 
     useEffect(() => {
         if(openModal){
@@ -41,9 +39,7 @@ function PostForm(){
     }, [openModal]);
 
     const selectTag = (value) => {
-        console.log(value);
         if(!tagsList.includes(value)){
-            console.log("this again");
             setTagsList([...tagsList, value]);
         }
     }

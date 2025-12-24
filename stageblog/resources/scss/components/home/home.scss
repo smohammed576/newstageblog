@@ -81,6 +81,11 @@
             &::-webkit-progress-value{
                 border-radius: 2rem;
                 background: map-get(variables.$baseVars, "lightgrey");
+                transition: 0.4s all;
+
+                &:hover{
+                    background: map-get(variables.$baseVars, "lightbluecolor");
+                }
             }
         }
     }
@@ -183,47 +188,6 @@
         }
     }
 }
-
-// .rating{
-//     &__0{
-//         width: 0;
-//     }
-//     &__1{
-//         width: 1.3rem;
-//         background-position: -35.5rem -9rem;
-//     }
-//     &__2{
-//         width: 1.2rem;
-//     }
-//     &__3{
-//         width: 2.6rem;
-//         background-position: -34.2rem -9rem;
-//     }
-//     &__4{
-//         width: 2.5rem;
-//     }
-//     &__5{
-//         width: 3.9rem;
-//         background-position: -32.9rem -9rem;
-//     }
-//     &__6{
-//         width: 3.8rem;
-//     }
-//     &__7{
-//         width: 5.2rem;
-//         background-position: -31.6rem -9rem;
-//     }
-//     &__8{
-//         width: 5.1rem;
-//     }
-//     &__9{
-//         width: 6.5rem;
-//         background-position: -30.3rem -9rem;
-//     }
-//     &__10{
-//         width: 6.4rem;
-//     }
-// }
 
 .homeposts{
     position: relative;

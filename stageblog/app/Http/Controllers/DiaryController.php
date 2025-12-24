@@ -17,23 +17,31 @@ class DiaryController extends Controller
     public function index(User $user){
         $profile = User::with('diaries.user')->find($user->id);
 
-        $diaries = Diary::with('movie')->where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        $diaries = Diary::with('movie')->where('user_id', $user->id)->orderBy('watched_at', 'desc')->paginate(50);
         $sorted = $diaries->groupBy(function ($item){
-            return Carbon::parse($item['created_at'])->format('Y-m');
+            return Carbon::parse($item['watched_at'])->format('Y-m');
         })->sortKeysDesc();
         
         $sorted = $sorted->toArray();
         if(auth()->id() != 1){
             ActivityService::log(ActivityType::VIEWED_DIARY, $user);
         }
-        return Inertia::render('Diary/Diary', [
-            'profile' => $profile,
-            'diaries' => $sorted
-        ]);
+        return redirect()->route('maintenance.construction');
+        // return Inertia::render('Diary/Diary', [
+        //     'profile' => $profile,
+        //     'diaries' => $sorted,
+        //     'links' => $diaries
+        // ]);
     }
 
     public function upload(){
-        return Inertia::render('Movies/Form');
+        $user = auth()->user();
+        $movies = $user->movies()->get();
+        $diaries = Diary::where('user_id', $user->id)->get();
+        return Inertia::render('Movies/Form', [
+            'movies' => $movies,
+            'diaries' => $diaries
+        ]);
     }
 
     public function store(Request $request){
@@ -41,8 +49,8 @@ class DiaryController extends Controller
         $data = $this->validateData($request);
         $checkIfExists = $user->movies()->where('tmdb', $data['tmdb'])->first();
         if(!$checkIfExists){
-            ActivityService::log(ActivityType::ADDED_FILM, $checkIfExists, null, ['tmdb' => $data['tmdb']], false);
             $user->movies()->create($data);
+            // ActivityService::log(ActivityType::ADDED_FILM, $checkIfExists, null, ['tmdb' => $data['tmdb']], false);
         }
         $checkInWatchlist = $user->watchlists()->where('tmdb', $data['tmdb'])->first();
         if($checkInWatchlist){
@@ -76,7 +84,7 @@ class DiaryController extends Controller
 
     public function destroy(int $id){
         $user = auth()->user();
-        $user->diaries()->where('tmdb', $id)->delete();
+        $user->diaries()->find($id)->delete();
         $activity = $user->activities()->where('model_type', Diary::class)->where('model_id', $id)->where('type', 'watched_film')->first();
         if($activity){
             $activity->delete();
@@ -96,8 +104,13 @@ class DiaryController extends Controller
             'liked' => '',
             'rewatched' => '',
             'type' => '',
-            'release' => ''
+            'release' => '',
+            'watched_at' => ''
         ]);
+
+        if(!empty($data['watched_at'])){
+            $data['watched_at'] = Carbon::parse($data['watched_at']);
+        }
         return $data;
     }
 }

@@ -174,16 +174,26 @@
             text-align: center;
             font-size: 90%;
 
-            &-icon{
+            &-pen{
                 @include mixins.icon;
                 background-position: -61.1rem -11rem;
+                margin-right: 0.4rem;
 
                 &:hover{
                     background-position: -61.1rem -7rem;
                 }
             }
-        }
+            &-trash{
+                @include mixins.icon;
+                background-position: -73.8rem -30rem;
+                border: none;
 
+                &:hover{
+                    background-position: -73.8rem -28rem;
+                }
+            }
+        }
+        
         &--you{
             background: map-get(variables.$baseVars, "editgrey");
             text-align: center;

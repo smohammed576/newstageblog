@@ -68,7 +68,7 @@
             background: map-get(variables.$baseVars, "lightcolor");
             padding: 0.4rem 0;
             width: 300%;
-            z-index: 100000;
+            z-index: 10000000;
             border-radius: 0.4rem;
 
             &-item{

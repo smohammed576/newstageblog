@@ -16,7 +16,6 @@ function Home(){
         'hours': 0,
         'stage': 2
     });
-    console.log(diaries);
     const [openForm, setOpenForm] = useState(false);
 
     const submit = (event) => {

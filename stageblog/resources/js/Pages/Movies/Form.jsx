@@ -1,4 +1,6 @@
+import Heading from "@/Components/Heading";
 import MovieModal from "@/Components/Modals/MovieModal";
+import Poster from "@/Components/Poster";
 import DataContext from "@/hooks/context/DataContext";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm, usePage } from "@inertiajs/react";
@@ -43,6 +45,34 @@ function MovieForm(){
                 </div>
                 {
                     films.length == 0 ? null : <div className="movie__results">
+                        <Heading text={`SHOWING MATCHES FOR "${value.toUpperCase()}"`}/>
+                        <ul className="movie__results--list">
+                            {
+                                films.map((item, index) => 
+                                    <li className="movie__results--item" key={index}>
+                                        <figure className="movie__results--item-figure">
+                                            <Poster url={item.poster_path != null ? `${url}${item.poster_path}` : null} alt={item.title} onClick={() => selectFilm(item.id)}/>
+                                        </figure>
+                                        <div className="movie__results--item-wrapper">
+                                            <span className="movie__results--item-header">
+                                                <button onClick={() => selectFilm(item.id)} className="movie__results--item-title">{item.title}</button>
+                                                <p className="movie__results--item-year">{item.release_date != null && item.release_date.substring(0, 4)}</p>
+                                            </span>
+                                            <article className="movie__results--item-text">
+                                                {
+                                                    item.title != item.original_title && <p className="movie__results--item-original">Original title: {item.original_title}</p>
+                                                }
+                                                <article className="movie__results--item-overview">{item.overview}</article>
+                                            </article>
+                                        </div>
+                                    </li>
+                                )
+                            }
+                        </ul>
+                    </div>
+                }
+                {/* {
+                    films.length == 0 ? null : <div className="movie__results">
                         {
                             films.map((item, index) => 
                                 <button className="movie__result" key={index} onClick={() => selectFilm(item.id)}>
@@ -58,7 +88,7 @@ function MovieForm(){
                             )
                         }
                     </div>
-                }
+                } */}
             </section>
         {
             film !== null ? 

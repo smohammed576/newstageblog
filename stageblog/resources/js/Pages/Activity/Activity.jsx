@@ -1,3 +1,4 @@
+import ConstructionBanner from "@/Components/Construction";
 import Heading from "@/Components/Heading";
 import Poster from "@/Components/Poster";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
@@ -8,7 +9,6 @@ function ActivityScreen(){
     const tmdb = usePage().props.tmdb;
     const profile = usePage().props.profile;
     const activities = usePage().props.activities;
-    console.log(activities);
     const url = import.meta.env.VITE_APP_URL;
 
     const formatDate = (date) => {
@@ -17,7 +17,8 @@ function ActivityScreen(){
     return(
         <AuthenticatedLayout>
             <Head title="Activity"/>
-            <section className="activity">
+            <ConstructionBanner/>
+            <section style={{marginTop: '2rem'}} className="activity">
                 <div className="activity__body">
                     <div className="activity__header">
                         <p className="activity__header--text">{user.id == profile.id ? 'YOUR' : `${profile.name}'s`} ACTIVITY FOR</p>

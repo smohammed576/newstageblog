@@ -33,7 +33,6 @@ function MovieScreen(){
         type: 'movie',
         rating: movie != null ? movie.rating ?? 0 : 0
     });
-    console.log(data.liked);
     useEffect(() => {
         if(film == null){
             (async () => {
@@ -51,7 +50,6 @@ function MovieScreen(){
 
     const submit = (event) => {
         event.preventDefault();
-        console.log(event.nativeEvent);
         if(event.nativeEvent.submitter != null && event.nativeEvent.submitter != undefined){
             if(event.nativeEvent.submitter.id == 'watchlist'){
                 if(watchlist == null){
@@ -84,14 +82,12 @@ function MovieScreen(){
                 }
                 else{
                     if(diaries.length == 0){
-                        console.log('here iggsiohg e');
                         destroy(route('movies.destroy', movie.id));
                     }
                 }
             }
         }
         else if(event.target.id == 'rating'){
-            console.log(event.target.value);
             patch(route('movies.update', movie.id));
         }
     }
@@ -104,7 +100,6 @@ function MovieScreen(){
                 });
             }
             else{
-                console.log("here yk an dnow");
                 post(route('movies.store'), {
                     onFinish: () => reset('liked')
                 });
@@ -113,7 +108,16 @@ function MovieScreen(){
         }
     }, [isReady]);
 
-    console.log(data.rating);
+
+    useEffect(() => {
+        if(isOpen){
+            document.querySelector('body').style.overflow = "hidden";
+            
+        }
+        else{
+            document.querySelector('body').style.overflow = "auto";
+        }
+    }, [isOpen]);
     
     return film ? (
         <>
@@ -220,10 +224,10 @@ function MovieScreen(){
                                         </li>
                                     }
                                     {
-                                        movie != null || watchlist != null &&
+                                        movie != null || diaries.length != 0 || watchlist != null ?
                                         <li className="film__panel--item">
                                             <a href={route('activities.show', [user, film.id])} className="film__panel--item-link">Show your activity</a>
-                                        </li>
+                                        </li> : null
                                     }
                                 </ul>
                                 
@@ -233,7 +237,7 @@ function MovieScreen(){
                 </div>
             </section>
             {
-                isOpen && <CustomModal images={film.images} type={type} onClose={() => isOpen(false)}/>
+                isOpen && <CustomModal images={film.images} type={type} onClose={() => setIsOpen(false)}/>
             }
             <Footer/>
         </>

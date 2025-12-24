@@ -9,7 +9,6 @@ function MoviesScreen(){
     const profile = usePage().props.profile;
     const movies = usePage().props.movies;
     const url = import.meta.env.VITE_APP_URL;
-    console.log(movies);
     return(
         <AuthenticatedLayout>
             <Head title={`${profile.name}'s movies`}/>

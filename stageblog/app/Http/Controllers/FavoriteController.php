@@ -33,7 +33,7 @@ class FavoriteController extends Controller
                 'tmdb' => $data['tmdb'],
                 'movie_id' => $movie->id
             ]);
-            ActivityService::log(ActivityType::CHANGED_FAVORITE, $favorite);
+            ActivityService::log(ActivityType::CHANGED_FAVORITE, $checkIfExists);
             return back();
         }
         else{

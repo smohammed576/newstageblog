@@ -27,9 +27,9 @@ class ProfileController extends Controller
         $watchlist = Watchlist::where('user_id', $user->id)->latest()->paginate(5);
         $movies = Movie::where('user_id', $user->id)->get();
 
-        $diaries = Diary::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        $diaries = Diary::where('user_id', $user->id)->orderBy('watched_at', 'desc')->take(10)->get();
         $sorted = $diaries->groupBy(function ($item){
-            return Carbon::parse($item['created_at'])->format('Y-m');
+            return Carbon::parse($item['watched_at'])->format('Y-m');
         })->sortKeysDesc();
         
 

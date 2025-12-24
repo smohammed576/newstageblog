@@ -6,7 +6,6 @@ function ActivitiesScreen(){
     const user = usePage().props.auth.user;
     const profile = usePage().props.profile;
     const activities = usePage().props.activities;
-    console.log(activities);
 
     const formatDate = (date) => {
         return new Date(date).toLocaleDateString('en-US', {weekday: "long", day: "numeric", month: "short", year: "numeric"});

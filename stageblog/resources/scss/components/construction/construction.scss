@@ -7,6 +7,17 @@
     gap: 4rem;
     padding-top: 40rem;
 
+    &__banner{
+        background: map-get(variables.$baseVars, "orange");
+        position: absolute;
+        top: 7rem;
+        width: 100%;
+        padding: 1rem 35rem;
+        font-size: 90%;
+        font-weight: 700;
+        z-index: 100000;
+    }
+
     &__wrapper{
         @include mixins.flexBox;
         flex-direction: column;

@@ -2,10 +2,8 @@ import { useForm, usePage } from "@inertiajs/react";
 import GreenButton from "../GreenButton";
 
 function CustomModal({images, type, onClose}){
-    console.log(usePage().props);
     const movie = usePage().props.movie;
     const id = usePage().props.id;
-    console.log(images);
     const url = import.meta.env.VITE_APP_URL;
     const { data, setData, processing, reset, patch } = useForm({
         title: movie != null ? movie.title : '',
@@ -23,11 +21,11 @@ function CustomModal({images, type, onClose}){
     return (
         <>
             <div className="overlay"></div>
-            <dialog closedby="closerequest" open className="film__modal">
+            <dialog closedby="closerequest" onClose={onClose} open className="film__modal">
                 <form onSubmit={submit} className="film__modal--form">
                     <span className="film__modal--header">
                         <h3 className="film__modal--header-text">Select your preferred {type.slice(0, -1)}</h3>
-                        <button formMethod="dialog" type="button" className="film__modal--header-close" onClick={onClose}>
+                        <button onClick={onClose} formMethod="dialog" type="button" className="film__modal--header-close">
                             <i className="fa-solid fa-close film__modal--header-icon"/>
                         </button>
                     </span>
@@ -53,7 +51,7 @@ function CustomModal({images, type, onClose}){
                     </div>
                     <span className="film__modal--footer">
                         {
-                            movie == null && <p className="film__modal--footer-text">You can't watched this movie yet</p>
+                            movie == null && <p className="film__modal--footer-text">You haven't watched this movie yet</p>
                         }
                         <GreenButton processing={movie != null ? processing : true} text="SAVE CHANGES"/>
                     </span>
