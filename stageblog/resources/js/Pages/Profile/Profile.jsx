@@ -23,6 +23,7 @@ function ProfileScreen(){
     let watchlistItems = [...watchlist.data].reverse();
     const diary = usePage().props.diary;
     const ref = useRef(null);
+    const appUrl = usePage().props.app_url;
     useEffect(() => {
       let list = [null, null, null, null];
       favorites.forEach(item => {
@@ -32,7 +33,7 @@ function ProfileScreen(){
     }, []);
 
     const copyLink = () => {
-      navigator.clipboard.writeText(`localhost/profile/${profile.slug}`);
+      navigator.clipboard.writeText(`${appUrl}/profile/${profile.slug}`);
       if(ref.current){
         ref.current.blur();
       }

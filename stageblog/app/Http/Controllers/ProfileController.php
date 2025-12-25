@@ -33,7 +33,6 @@ class ProfileController extends Controller
         })->sortKeysDesc();
         
 
-        // $sorted = $sorted->sortKeysDesc();
         $sorted = $sorted->toArray();
         
         if(auth()->id() != 1){
@@ -41,6 +40,7 @@ class ProfileController extends Controller
         }
 
         return Inertia::render('Profile/Profile', [
+            'app_url' => env('APP_URL'),
             'profile' => $profile,
             'diaries' => $films,
             'watchlist' => $watchlist,

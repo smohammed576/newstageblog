@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\ActivityType;
 use App\Models\Post;
+use App\Models\User;
 use App\Services\ActivityService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -63,7 +64,10 @@ class BlogAdminController extends Controller
         $post = $user->posts()->create($data);
         ActivityService::log(ActivityType::CREATED_POST, $post, null, [], false);
 
-        mail('34916@ma-web.nl', 'New post', $post->title);
+        $users = User::pluck('email');
+        foreach($users as $email){
+            mail($email, 'New post', $post->title);
+        };
 
         return redirect(route('posts.show', $post));
     }

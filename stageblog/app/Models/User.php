@@ -57,10 +57,35 @@ class User extends Authenticatable
         ];
     }
 
+    // protected static function booted(){
+    //     static::creating(function ($model){
+    //         $model->slug = \Str::slug($model->name);
+    //     });
+    // }
+
     protected static function booted(){
         static::creating(function ($model){
-            $model->slug = \Str::slug($model->name);
+            $model->slug = self::createSlug($model->name);
+
         });
+        static::updating(function ($model){
+            if($model->isDirty('name')){
+                $model->slug = self::createSlug($model->name, $model->id);
+            }
+        });
+    }
+
+    protected static function createSlug($name, $id = null){
+        $create = \Str::slug($name);
+        $slug = $create;
+        $i = 1;
+
+        while(self::where('slug', $slug)->when($id, fn($item) => $item->where('id', '!=', $id))->exists()){
+            $slug = $create . '-' . $i;
+            $i++;
+        }
+
+        return $slug;
     }
 
     public function posts(){
